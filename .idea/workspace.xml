@@ -15,113 +15,9 @@
     <option name="TOOL_WINDOW_LOG_LEVEL" value="ERROR" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="60e8baee-b828-482e-ad88-4efe6d059579" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/bin/akita-1.0.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/bin/classes/classes.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/bin/classes/com/alibaba/akita/Akita.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/bin/classes/com/alibaba/akita/R$attr.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/bin/classes/com/alibaba/akita/R$color.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/bin/classes/com/alibaba/akita/R$drawable.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/bin/classes/com/alibaba/akita/R$layout.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/bin/classes/com/alibaba/akita/R$string.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/bin/classes/com/alibaba/akita/R.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/bin/classes/com/alibaba/akita/cache/AkCacheManager$1.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/bin/classes/com/alibaba/akita/cache/AkCacheManager.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/bin/classes/com/alibaba/akita/cache/FilesCache.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/bin/classes/com/alibaba/akita/cache/MemCache.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/bin/classes/com/alibaba/akita/cache/SimpleCache.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/bin/classes/com/alibaba/akita/cache/impl/CacheObject.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/bin/classes/com/alibaba/akita/cache/impl/FilesCacheSDFoldersImpl.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/bin/classes/com/alibaba/akita/cache/impl/MemCacheLruImpl.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/bin/classes/com/alibaba/akita/cache/impl/MemCacheSoftRefImpl.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/bin/classes/com/alibaba/akita/cache/impl/SimpleCacheSqliteImpl$SQLiteHelper.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/bin/classes/com/alibaba/akita/cache/impl/SimpleCacheSqliteImpl.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/bin/classes/com/alibaba/akita/exception/AkException.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/bin/classes/com/alibaba/akita/exception/AkInvokeException.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/bin/classes/com/alibaba/akita/exception/AkServerStatusException.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/bin/classes/com/alibaba/akita/io/GzipDecompressingEntity.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/bin/classes/com/alibaba/akita/io/HttpInvoker$1.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/bin/classes/com/alibaba/akita/io/HttpInvoker$2.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/bin/classes/com/alibaba/akita/io/HttpInvoker$FlushedInputStream.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/bin/classes/com/alibaba/akita/io/HttpInvoker.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/bin/classes/com/alibaba/akita/io/_FakeSSLSocketFactory.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/bin/classes/com/alibaba/akita/io/_FakeX509TrustManager$1.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/bin/classes/com/alibaba/akita/io/_FakeX509TrustManager.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/bin/classes/com/alibaba/akita/proxy/InvokeSignature.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/bin/classes/com/alibaba/akita/proxy/ProxyFactory.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/bin/classes/com/alibaba/akita/proxy/ProxyInvocationHandler.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/bin/classes/com/alibaba/akita/proxy/annotation/AkAPI.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/bin/classes/com/alibaba/akita/proxy/annotation/AkApiParam.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/bin/classes/com/alibaba/akita/proxy/annotation/AkGET.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/bin/classes/com/alibaba/akita/proxy/annotation/AkPOST.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/bin/classes/com/alibaba/akita/proxy/annotation/AkSignature.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/bin/classes/com/alibaba/akita/util/AndroidUtil.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/bin/classes/com/alibaba/akita/util/Base64Coder.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/bin/classes/com/alibaba/akita/util/HashUtil.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/bin/classes/com/alibaba/akita/util/JsonMapper.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/bin/classes/com/alibaba/akita/util/Log.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/bin/classes/com/alibaba/akita/util/StringUtil.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/bin/classes/com/alibaba/akita/widgets/RemoteImageView$DefaultImageLoaderHandler.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/bin/classes/com/alibaba/akita/widgets/RemoteImageView.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/bin/classes/com/alibaba/akita/widgets/image/RemoteImageLoader.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/bin/classes/com/alibaba/akita/widgets/image/RemoteImageLoaderHandler.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/bin/classes/com/alibaba/akita/widgets/image/RemoteImageLoaderJob.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/bin/res/drawable-hdpi/ic_launcher.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/bin/res/drawable-ldpi/ic_launcher.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/bin/res/drawable-mdpi/ic_launcher.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/lib/jackson-core-asl-1.9.0.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/lib/jackson-mapper-asl-1.9.0.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/res/drawable-hdpi/ic_launcher.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/res/drawable-ldpi/ic_launcher.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/res/drawable-mdpi/ic_launcher.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/Akita-1.0.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/AndroidManifest.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/GitHubAkitaRepo.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/gen/com/alibaba/akita/R.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/proguard.cfg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/project.properties" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/res/layout/ac_absbottomtab.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/res/layout/griditem_tab.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/res/values/attrs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/res/values/colors.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/res/values/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/Akita.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/cache/AkCacheManager.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/cache/FilesCache.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/cache/MemCache.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/cache/SimpleCache.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/cache/impl/CacheObject.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/cache/impl/FilesCacheSDFoldersImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/cache/impl/MemCacheLruImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/cache/impl/MemCacheSoftRefImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/cache/impl/SimpleCacheSqliteImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/exception/AkException.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/exception/AkInvokeException.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/exception/AkServerStatusException.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/io/GzipDecompressingEntity.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/io/HttpInvoker.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/io/_FakeSSLSocketFactory.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/io/_FakeX509TrustManager.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/proxy/InvokeSignature.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/proxy/ProxyFactory.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/proxy/ProxyInvocationHandler.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/proxy/annotation/AkAPI.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/proxy/annotation/AkApiParam.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/proxy/annotation/AkGET.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/proxy/annotation/AkPOST.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/proxy/annotation/AkSignature.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/uitemplate/AbsBottomTabActivity.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/uitemplate/bottomtabac/BottomTabImageAdapter.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/util/AndroidUtil.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/util/Base64Coder.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/util/HashUtil.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/util/JsonMapper.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/util/Log.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/util/StringUtil.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/widget/RemoteImageView.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/widget/image/RemoteImageLoader.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/widget/image/RemoteImageLoaderHandler.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/widget/image/RemoteImageLoaderJob.java" />
+    <list default="true" id="60e8baee-b828-482e-ad88-4efe6d059579" name="Default" comment="hello">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README" afterPath="$PROJECT_DIR$/README" />
     </list>
     <ignored path="GitHubAkitaRepo.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -182,7 +78,7 @@
       <file leaf-file-name="MainActivity.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/akita-samples-1.0/src/com/alibaba/akita/samples/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="38" selection-start="461" selection-end="461" vertical-scroll-proportion="0.44270834">
+            <state line="31" column="49" selection-start="943" selection-end="943" vertical-scroll-proportion="0.019495413">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -206,6 +102,7 @@
       <list>
         <option value="$PROJECT_DIR$/akita-samples-1.0/src/com/alibaba/akita/samples/MainActivity.java" />
         <option value="$PROJECT_DIR$/akita-samples-1.0/res/layout/list_item1.xml" />
+        <option value="$PROJECT_DIR$/README" />
       </list>
     </option>
   </component>
@@ -241,23 +138,23 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="PackagesPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GitHubAkitaRepo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="GitHubAkitaRepo" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="GitHubAkitaRepo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -286,6 +183,28 @@
       <module name="" />
       <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m" />
       <option name="PROGRAM_PARAMETERS" />
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Make" enabled="true" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+      </method>
+    </configuration>
+    <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
+      <module name="" />
+      <option name="TESTING_TYPE" value="0" />
+      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="COMMAND_LINE" value="" />
+      <option name="WIPE_USER_DATA" value="false" />
+      <option name="DISABLE_BOOT_ANIMATION" value="false" />
+      <option name="NETWORK_SPEED" value="full" />
+      <option name="NETWORK_LATENCY" value="none" />
+      <option name="CLEAR_LOGCAT" value="false" />
       <method>
         <option name="AntTarget" enabled="false" />
         <option name="BuildArtifacts" enabled="false" />
@@ -465,6 +384,7 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
+      <changelist id="60e8baee-b828-482e-ad88-4efe6d059579" name="Default" comment="" />
       <created>1333803403120</created>
       <updated>1333803403120</updated>
     </task>
@@ -474,28 +394,28 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32959402" sideWeight="0.6703786" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962137" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962137" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962137" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21634616" sideWeight="0.6703786" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21592732" sideWeight="0.6703786" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962137" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32959402" sideWeight="0.6703786" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962137" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -535,7 +455,7 @@
     <option name="SHOW_VCS_ERROR_NOTIFICATIONS" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" />
+    <option name="LAST_COMMIT_MESSAGE" value="" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -559,21 +479,22 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/akita-samples-1.0/res/layout/main.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/akita-samples-1.0/res/layout/list_item1.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="29" selection-start="1223" selection-end="1223" vertical-scroll-proportion="0.60390764">
-          <folding />
-        </state>
+        <state line="29" column="29" selection-start="1223" selection-end="1223" vertical-scroll-proportion="0.60390764" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="12" selection-start="12" selection-end="12" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/akita-samples-1.0/src/com/alibaba/akita/samples/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="38" selection-start="461" selection-end="461" vertical-scroll-proportion="0.44270834">
+        <state line="31" column="49" selection-start="943" selection-end="943" vertical-scroll-proportion="0.019495413">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
