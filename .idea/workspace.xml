@@ -15,42 +15,8 @@
     <option name="TOOL_WINDOW_LOG_LEVEL" value="ERROR" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="60e8baee-b828-482e-ad88-4efe6d059579" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-samples-1.0/res/layout/ac_page1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-samples-1.0/res/layout/ac_page2.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-samples-1.0/res/layout/list_item2.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-samples-1.0/src/com/alibaba/akita/samples/Page1.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-samples-1.0/src/com/alibaba/akita/samples/Page2.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-samples-1.0/src/com/alibaba/akita/samples/api/WeiboApi.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-samples-1.0/src/com/alibaba/akita/samples/api/weibo/Statuses.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-samples-1.0/src/com/alibaba/akita/samples/api/weibo/WeiboResult.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-samples-1.0/src/com/alibaba/akita/samples/api/weibo/WeiboServerError.java" />
-      <change type="DELETED" beforePath="C:\AndroidDev\GitHubAkitaRepo\out\production\Akita-1.0\com\alibaba\akita\uitemplate\AbsBottomTabActivity$ItemClickEvent.class" afterPath="" />
-      <change type="DELETED" beforePath="C:\AndroidDev\GitHubAkitaRepo\out\production\Akita-1.0\com\alibaba\akita\uitemplate\AbsBottomTabActivity.class" afterPath="" />
-      <change type="DELETED" beforePath="C:\AndroidDev\GitHubAkitaRepo\out\production\Akita-1.0\com\alibaba\akita\uitemplate\bottomtabac\BottomTabImageAdapter$Holder.class" afterPath="" />
-      <change type="DELETED" beforePath="C:\AndroidDev\GitHubAkitaRepo\out\production\Akita-1.0\com\alibaba\akita\uitemplate\bottomtabac\BottomTabImageAdapter.class" afterPath="" />
-      <change type="DELETED" beforePath="C:\AndroidDev\GitHubAkitaRepo\out\production\Akita-samples-1.0\com\alibaba\akita\samples\MainActivity$MyCustomAdapter.class" afterPath="" />
-      <change type="DELETED" beforePath="C:\AndroidDev\GitHubAkitaRepo\out\production\Akita-samples-1.0\com\alibaba\akita\samples\MainActivity$ViewHolder.class" afterPath="" />
-      <change type="MOVED" beforePath="C:\AndroidDev\GitHubAkitaRepo\akita-1.0\src\com\alibaba\akita\uitemplate\AbsBottomTabActivity.java" afterPath="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/uitpl/AbsBottomTabActivity.java" />
-      <change type="MOVED" beforePath="C:\AndroidDev\GitHubAkitaRepo\akita-1.0\src\com\alibaba\akita\uitemplate\bottomtabac\BottomTabImageAdapter.java" afterPath="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/uitpl/bottomtabac/BottomTabImageAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Akita-1.0/classes.jar" afterPath="$PROJECT_DIR$/out/production/Akita-1.0/classes.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Akita-samples-1.0/Akita-samples-1.0.apk.res" afterPath="$PROJECT_DIR$/out/production/Akita-samples-1.0/Akita-samples-1.0.apk.res" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Akita-samples-1.0/Akita-samples-1.0.apk.unaligned" afterPath="$PROJECT_DIR$/out/production/Akita-samples-1.0/Akita-samples-1.0.apk.unaligned" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Akita-samples-1.0/Akita-samples-1.0.apk" afterPath="$PROJECT_DIR$/out/production/Akita-samples-1.0/Akita-samples-1.0.apk" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Akita-samples-1.0/classes.dex" afterPath="$PROJECT_DIR$/out/production/Akita-samples-1.0/classes.dex" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Akita-samples-1.0/com/alibaba/akita/R$id.class" afterPath="$PROJECT_DIR$/out/production/Akita-samples-1.0/com/alibaba/akita/R$id.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Akita-samples-1.0/com/alibaba/akita/R$layout.class" afterPath="$PROJECT_DIR$/out/production/Akita-samples-1.0/com/alibaba/akita/R$layout.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Akita-samples-1.0/com/alibaba/akita/R$string.class" afterPath="$PROJECT_DIR$/out/production/Akita-samples-1.0/com/alibaba/akita/R$string.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Akita-samples-1.0/com/alibaba/akita/R.class" afterPath="$PROJECT_DIR$/out/production/Akita-samples-1.0/com/alibaba/akita/R.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Akita-samples-1.0/com/alibaba/akita/samples/MainActivity.class" afterPath="$PROJECT_DIR$/out/production/Akita-samples-1.0/com/alibaba/akita/samples/MainActivity.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Akita-samples-1.0/com/alibaba/akita/samples/R$id.class" afterPath="$PROJECT_DIR$/out/production/Akita-samples-1.0/com/alibaba/akita/samples/R$id.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Akita-samples-1.0/com/alibaba/akita/samples/R$layout.class" afterPath="$PROJECT_DIR$/out/production/Akita-samples-1.0/com/alibaba/akita/samples/R$layout.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Akita-samples-1.0/com/alibaba/akita/samples/R$string.class" afterPath="$PROJECT_DIR$/out/production/Akita-samples-1.0/com/alibaba/akita/samples/R$string.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Akita-samples-1.0/com/alibaba/akita/samples/R.class" afterPath="$PROJECT_DIR$/out/production/Akita-samples-1.0/com/alibaba/akita/samples/R.class" />
+    <list default="true" id="60e8baee-b828-482e-ad88-4efe6d059579" name="Default" comment="hello akita 3">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/akita-samples-1.0/Akita-samples-1.0.iml" afterPath="$PROJECT_DIR$/akita-samples-1.0/Akita-samples-1.0.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/akita-samples-1.0/AndroidManifest.xml" afterPath="$PROJECT_DIR$/akita-samples-1.0/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/akita-samples-1.0/src/com/alibaba/akita/samples/MainActivity.java" afterPath="$PROJECT_DIR$/akita-samples-1.0/src/com/alibaba/akita/samples/MainActivity.java" />
     </list>
     <ignored path="GitHubAkitaRepo.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -112,9 +78,7 @@
         <entry file="file://$PROJECT_DIR$/akita-samples-1.0/src/com/alibaba/akita/samples/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
             <state line="10" column="18" selection-start="291" selection-end="291" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -132,9 +96,7 @@
         <entry file="file://$PROJECT_DIR$/akita-samples-1.0/src/com/alibaba/akita/samples/Page2.java">
           <provider selected="true" editor-type-id="text-editor">
             <state line="105" column="33" selection-start="3235" selection-end="3235" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -160,7 +122,7 @@
       <file leaf-file-name="list_item2.xml" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/akita-samples-1.0/res/layout/list_item2.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="35" selection-start="982" selection-end="982" vertical-scroll-proportion="0.6738739">
+            <state line="22" column="35" selection-start="982" selection-end="982" vertical-scroll-proportion="0.43948296">
               <folding />
             </state>
           </provider>
@@ -243,6 +205,16 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope">
+        <subPane subId="Project Files">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -251,9 +223,28 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="GitHubAkitaRepo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="akita-samples-1.0" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="GitHubAkitaRepo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="akita-1.0" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane">
         <subPane>
           <PATH>
@@ -281,8 +272,8 @@
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -336,24 +327,6 @@
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <method>
-        <option name="AntTarget" enabled="false" />
-        <option name="BuildArtifacts" enabled="false" />
-        <option name="Make" enabled="true" />
-        <option name="Maven.BeforeRunTask" enabled="false" />
-      </method>
-    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -379,6 +352,24 @@
       <envs />
       <properties />
       <listeners />
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Make" enabled="true" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <method>
         <option name="AntTarget" enabled="false" />
         <option name="BuildArtifacts" enabled="false" />
@@ -504,7 +495,11 @@
       <created>1333807713259</created>
       <updated>1333807713259</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="hello akita 3">
+      <created>1333810843151</created>
+      <updated>1333810843151</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -520,17 +515,17 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962137" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32962137" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962137" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.6703786" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18589744" sideWeight="0.6703786" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18536325" sideWeight="0.6703786" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962137" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962137" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -610,76 +605,54 @@
         <state line="0" column="12" selection-start="12" selection-end="12" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/akita-samples-1.0/src/com/alibaba/akita/samples/Page2.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="105" column="33" selection-start="3235" selection-end="3235" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/akita-samples-1.0/src/com/alibaba/akita/samples/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="18" selection-start="291" selection-end="291" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/akita-samples-1.0/res/layout/ac_page1.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/akita-samples-1.0/src/com/alibaba/akita/samples/api/weibo/WeiboResult.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="16" selection-start="1305" selection-end="1305" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/uitpl/AbsBottomTabActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="68" column="20" selection-start="2493" selection-end="2493" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/akita-samples-1.0/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="49" selection-start="1211" selection-end="1211" vertical-scroll-proportion="0.7083333">
-          <folding />
-        </state>
+        <state line="24" column="49" selection-start="1211" selection-end="1211" vertical-scroll-proportion="0.7083333" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/akita-samples-1.0/src/com/alibaba/akita/samples/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="18" selection-start="291" selection-end="291" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/akita-samples-1.0/src/com/alibaba/akita/samples/Page1.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="44" column="44" selection-start="1342" selection-end="1342" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="44" column="44" selection-start="1342" selection-end="1342" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/akita-samples-1.0/src/com/alibaba/akita/samples/Page2.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="105" column="33" selection-start="3235" selection-end="3235" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/akita-samples-1.0/src/com/alibaba/akita/samples/api/WeiboApi.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="52" selection-start="1634" selection-end="1634" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="41" column="52" selection-start="1634" selection-end="1634" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/akita-samples-1.0/res/layout/ac_page2.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="38" selection-start="921" selection-end="921" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="22" column="38" selection-start="921" selection-end="921" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/akita-samples-1.0/src/com/alibaba/akita/samples/api/weibo/WeiboResult.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="39" column="16" selection-start="1305" selection-end="1305" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/uitpl/AbsBottomTabActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="68" column="20" selection-start="2493" selection-end="2493" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/akita-samples-1.0/res/layout/list_item2.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="35" selection-start="982" selection-end="982" vertical-scroll-proportion="0.6738739">
+        <state line="22" column="35" selection-start="982" selection-end="982" vertical-scroll-proportion="0.43948296">
           <folding />
         </state>
       </provider>
