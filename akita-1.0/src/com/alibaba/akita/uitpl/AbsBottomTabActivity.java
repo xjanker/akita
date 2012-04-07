@@ -12,7 +12,7 @@
  * limitations under the License.
  */
 
-package com.alibaba.akita.uitemplate;
+package com.alibaba.akita.uitpl;
 
 import android.app.ActivityGroup;
 import android.content.Intent;
@@ -26,7 +26,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import com.alibaba.akita.R;
-import com.alibaba.akita.uitemplate.bottomtabac.BottomTabImageAdapter;
+import com.alibaba.akita.uitpl.bottomtabac.BottomTabImageAdapter;
 import com.alibaba.akita.util.AndroidUtil;
 import com.alibaba.akita.util.Log;
 
@@ -53,6 +53,11 @@ public abstract class AbsBottomTabActivity extends ActivityGroup
         this.tabLabels = tabLabels;
         this.tabImages = tabImages;
         this.intents = intents;
+        subPageView = new Window[intents.length];
+        for(int i = 0; i < intents.length; i++) {
+            subPageView[i] = getLocalActivityManager().startActivity(
+                    "subPageView" + i, intents[i]);
+        }
     }
 
     @Override
@@ -60,6 +65,9 @@ public abstract class AbsBottomTabActivity extends ActivityGroup
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ac_absbottomtab);
         Log.v("Sequence", "start");	//测试用
+
+        presetTab();
+
         gv_tabPage = (GridView) findViewById(R.id.gv_tabPage);
         gv_tabPage.setNumColumns(tabImages.length);// 设置列数
         gv_tabPage.setSelector(new ColorDrawable(Color.TRANSPARENT));//选中的时候为透明色
@@ -74,6 +82,8 @@ public abstract class AbsBottomTabActivity extends ActivityGroup
         pageContainer = (LinearLayout) findViewById(R.id.pageContainer);
         SwitchPage(0);//默认打开第0页
         Log.v("Sequence", "end");
+
+
     }
 
     class ItemClickEvent implements AdapterView.OnItemClickListener {

@@ -28,5 +28,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name="Page1"></activity>
+        <activity android:name="Page2"></activity>
     </application>
 </manifest>
