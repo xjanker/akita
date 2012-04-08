@@ -16,6 +16,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="60e8baee-b828-482e-ad88-4efe6d059579" name="Default" comment="">
+      <change type="DELETED" beforePath="C:\AndroidDev\GitHubAkitaRepo\akita-samples-1.0\Akita-samples-1.0.iml" afterPath="" />
       <change type="DELETED" beforePath="C:\AndroidDev\GitHubAkitaRepo\out\production\Akita-samples-1.0\com\alibaba\akita\samples\R$attr.class" afterPath="" />
       <change type="DELETED" beforePath="C:\AndroidDev\GitHubAkitaRepo\out\production\Akita-samples-1.0\com\alibaba\akita\samples\R$color.class" afterPath="" />
       <change type="DELETED" beforePath="C:\AndroidDev\GitHubAkitaRepo\out\production\Akita-samples-1.0\com\alibaba\akita\samples\R$drawable.class" afterPath="" />
@@ -23,18 +24,11 @@
       <change type="DELETED" beforePath="C:\AndroidDev\GitHubAkitaRepo\out\production\Akita-samples-1.0\com\alibaba\akita\samples\R$layout.class" afterPath="" />
       <change type="DELETED" beforePath="C:\AndroidDev\GitHubAkitaRepo\out\production\Akita-samples-1.0\com\alibaba\akita\samples\R$string.class" afterPath="" />
       <change type="DELETED" beforePath="C:\AndroidDev\GitHubAkitaRepo\out\production\Akita-samples-1.0\com\alibaba\akita\samples\R.class" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Akita-1.0/classes.jar" afterPath="$PROJECT_DIR$/out/production/Akita-1.0/classes.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
-    <list id="fb749ac2-653d-451f-bcbe-1dfbbbbd02ec" name="Failed commit: Default" comment="hello akita 4">
-      <change type="MOVED" beforePath="C:\AndroidDev\GitHubAkitaRepo\akita-samples-1.0\Akita-samples-1.0.iml" afterPath="$PROJECT_DIR$/akita-samples-1.0/akita-samples-1.0.iml" />
-    </list>
+    <list id="fb749ac2-653d-451f-bcbe-1dfbbbbd02ec" name="Failed commit: Default" comment="hello akita 4" />
     <ignored path="GitHubAkitaRepo.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="$PROJECT_DIR$/akita-samples-1.0/akita-samples-1.0.iml" changelist="60e8baee-b828-482e-ad88-4efe6d059579" time="1333855997243" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -524,7 +518,11 @@
       <created>1333811233665</created>
       <updated>1333811233665</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="hello akita 4">
+      <created>1333856004904</created>
+      <updated>1333856004904</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -540,13 +538,13 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32962137" sideWeight="0.5069444" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32962137" sideWeight="0.48931623" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32962137" sideWeight="0.48931623" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962137" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.6703786" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18429486" sideWeight="0.6703786" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18429486" sideWeight="0.6703786" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962137" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
