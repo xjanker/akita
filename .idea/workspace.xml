@@ -16,19 +16,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="60e8baee-b828-482e-ad88-4efe6d059579" name="Default" comment="">
-      <change type="DELETED" beforePath="C:\AndroidDev\GitHubAkitaRepo\out\production\Akita-samples-1.0\Akita-samples-1.0.apk" afterPath="" />
-      <change type="DELETED" beforePath="C:\AndroidDev\GitHubAkitaRepo\out\production\Akita-samples-1.0\Akita-samples-1.0.apk.res" afterPath="" />
-      <change type="DELETED" beforePath="C:\AndroidDev\GitHubAkitaRepo\out\production\Akita-samples-1.0\Akita-samples-1.0.apk.unaligned" afterPath="" />
-      <change type="DELETED" beforePath="C:\AndroidDev\GitHubAkitaRepo\out\production\Akita-samples-1.0\classes.dex" afterPath="" />
-      <change type="DELETED" beforePath="C:\AndroidDev\GitHubAkitaRepo\out\production\Akita-samples-1.0\com\alibaba\akita\R$attr.class" afterPath="" />
-      <change type="DELETED" beforePath="C:\AndroidDev\GitHubAkitaRepo\out\production\Akita-samples-1.0\com\alibaba\akita\R$color.class" afterPath="" />
-      <change type="DELETED" beforePath="C:\AndroidDev\GitHubAkitaRepo\out\production\Akita-samples-1.0\com\alibaba\akita\R$drawable.class" afterPath="" />
-      <change type="DELETED" beforePath="C:\AndroidDev\GitHubAkitaRepo\out\production\Akita-samples-1.0\com\alibaba\akita\R$id.class" afterPath="" />
-      <change type="DELETED" beforePath="C:\AndroidDev\GitHubAkitaRepo\out\production\Akita-samples-1.0\com\alibaba\akita\R$layout.class" afterPath="" />
-      <change type="DELETED" beforePath="C:\AndroidDev\GitHubAkitaRepo\out\production\Akita-samples-1.0\com\alibaba\akita\R$string.class" afterPath="" />
-      <change type="DELETED" beforePath="C:\AndroidDev\GitHubAkitaRepo\out\production\Akita-samples-1.0\com\alibaba\akita\R.class" afterPath="" />
-      <change type="DELETED" beforePath="C:\AndroidDev\GitHubAkitaRepo\out\production\Akita-samples-1.0\com\alibaba\akita\samples\MainActivity.class" afterPath="" />
-      <change type="DELETED" beforePath="C:\AndroidDev\GitHubAkitaRepo\out\production\Akita-samples-1.0\com\alibaba\akita\samples\testdata\PhotoWallItem.class" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="fb749ac2-653d-451f-bcbe-1dfbbbbd02ec" name="Failed commit: Default" comment="hello akita 4" />
@@ -120,7 +107,7 @@
       <file leaf-file-name="Page5.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://C:/androidwstemp/PicSNS/src/com/picsns/Page5.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="86" column="51" selection-start="2929" selection-end="2929" vertical-scroll-proportion="0.5329861">
+            <state line="86" column="51" selection-start="2929" selection-end="2929" vertical-scroll-proportion="0.35206422">
               <folding />
             </state>
           </provider>
@@ -697,7 +684,11 @@
       <created>1333872167928</created>
       <updated>1333872167928</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="4.8 end">
+      <created>1333898037070</created>
+      <updated>1333898037070</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -713,7 +704,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962137" sideWeight="0.24946581" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962137" sideWeight="0.49786323" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32962137" sideWeight="0.47863248" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962137" sideWeight="0.47863248" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962137" sideWeight="0.7467949" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.6703786" order="1" side_tool="false" content_ui="tabs" />
@@ -904,7 +895,7 @@
     </entry>
     <entry file="file://C:/androidwstemp/PicSNS/src/com/picsns/Page5.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="86" column="51" selection-start="2929" selection-end="2929" vertical-scroll-proportion="0.5329861">
+        <state line="86" column="51" selection-start="2929" selection-end="2929" vertical-scroll-proportion="0.35206422">
           <folding />
         </state>
       </provider>
