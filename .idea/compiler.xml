@@ -5,6 +5,7 @@
     <excludeFromCompile>
       <directory url="file://$PROJECT_DIR$/akita-1.0/gen" includeSubdirectories="true" />
       <directory url="file://$PROJECT_DIR$/akita-samples-1.0/gen" includeSubdirectories="true" />
+      <directory url="file://C:/androidwstemp/PicSNS/gen" includeSubdirectories="true" />
     </excludeFromCompile>
     <resourceExtensions />
     <wildcardResourcePatterns>
