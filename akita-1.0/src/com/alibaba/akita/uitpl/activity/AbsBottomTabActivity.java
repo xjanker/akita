@@ -55,8 +55,7 @@ public abstract class AbsBottomTabActivity extends ActivityGroup
         this.intents = intents;
         subPageView = new Window[intents.length];
         for(int i = 0; i < intents.length; i++) {
-            subPageView[i] = getLocalActivityManager().startActivity(
-                    "subPageView" + i, intents[i]);
+            subPageView[i] = null;
         }
     }
 
@@ -110,6 +109,10 @@ public abstract class AbsBottomTabActivity extends ActivityGroup
             }
             Log.v("New", "new");
         }*/
+        if (subPageView[pageID] == null) {
+            subPageView[pageID] = getLocalActivityManager().startActivity(
+                    "subPageView" + pageID, intents[pageID]);
+        }
 
         return subPageView[pageID];
     }

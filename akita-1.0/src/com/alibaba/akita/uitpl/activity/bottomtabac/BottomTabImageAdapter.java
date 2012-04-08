@@ -51,17 +51,14 @@ public class BottomTabImageAdapter extends BaseAdapter {
     }
 
     public int getCount() {
-        // TODO Auto-generated method stub
         return imgeIDs.length;
     }
 
     public Object getItem(int position) {
-        // TODO Auto-generated method stub
         return position;
     }
 
     public long getItemId(int position) {
-        // TODO Auto-generated method stub
         return position;
     }
 
@@ -70,7 +67,6 @@ public class BottomTabImageAdapter extends BaseAdapter {
      * @param selectedID
      */
     public void setFocus(int selectedID) {
-        Log.e("Seqence", "setFocus");
         mSelected = selectedID;
         this.notifyDataSetInvalidated();
     }
@@ -79,7 +75,6 @@ public class BottomTabImageAdapter extends BaseAdapter {
      * 图片设置
      */
     public View getView(int position, View convertView, ViewGroup parent) {
-        Log.e("Seqence", "getView");
         Holder holder;
         if (convertView == null) {
             convertView = mInflater.inflate(R.layout.griditem_tab, null);
@@ -97,7 +92,11 @@ public class BottomTabImageAdapter extends BaseAdapter {
         } else {
             holder.v_indicator.setBackgroundColor(Color.BLACK);
         }
-        holder.iv_tab.setImageResource(imgeIDs[position]);
+        if (imgeIDs[position] == null) {
+            holder.iv_tab.setVisibility(View.GONE);
+        } else {
+            holder.iv_tab.setImageResource(imgeIDs[position]);
+        }
         holder.iv_tab.setBackgroundColor(android.R.drawable.picture_frame);
         holder.tv_tab.setText(tabLables[position]);
         holder.rl_griditem.setLayoutParams(new GridView.LayoutParams(width, height));
