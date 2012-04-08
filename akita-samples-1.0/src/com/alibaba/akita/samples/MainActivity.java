@@ -2,7 +2,7 @@ package com.alibaba.akita.samples;
 
 import android.content.Intent;
 import android.os.Bundle;
-import com.alibaba.akita.uitpl.AbsBottomTabActivity;
+import com.alibaba.akita.uitpl.activity.AbsBottomTabActivity;
 
 public class MainActivity extends AbsBottomTabActivity {
 

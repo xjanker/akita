@@ -12,7 +12,7 @@
  * limitations under the License.
  */
 
-package com.alibaba.akita.uitpl.bottomtabac;
+package com.alibaba.akita.uitpl.activity.bottomtabac;
 
 import android.content.Context;
 import android.graphics.Color;

@@ -12,7 +12,7 @@
  * limitations under the License.
  */
 
-package com.alibaba.akita.uitpl;
+package com.alibaba.akita.uitpl.activity;
 
 import android.app.ActivityGroup;
 import android.content.Intent;
@@ -26,7 +26,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import com.alibaba.akita.R;
-import com.alibaba.akita.uitpl.bottomtabac.BottomTabImageAdapter;
+import com.alibaba.akita.uitpl.activity.bottomtabac.BottomTabImageAdapter;
 import com.alibaba.akita.util.AndroidUtil;
 import com.alibaba.akita.util.Log;
 
@@ -64,7 +64,6 @@ public abstract class AbsBottomTabActivity extends ActivityGroup
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ac_absbottomtab);
-        Log.v("Sequence", "start");	//测试用
 
         presetTab();
 
@@ -81,8 +80,6 @@ public abstract class AbsBottomTabActivity extends ActivityGroup
         gv_tabPage.setOnItemClickListener(new ItemClickEvent()); //注册点击事件
         pageContainer = (LinearLayout) findViewById(R.id.pageContainer);
         SwitchPage(0);//默认打开第0页
-        Log.v("Sequence", "end");
-
 
     }
 
@@ -124,18 +121,16 @@ public abstract class AbsBottomTabActivity extends ActivityGroup
     private void SwitchPage(int id)
     {
         pageContainer.removeAllViews();//必须先清除容器中所有的View
-        imageAdapter.setFocus(id);
         Window pageView = null;
-        switch(id){	//获取子页面View
-            case 0:
-                pageView = getPageView(0);
-                break;
-            case 1:
-                pageView = getPageView(1);
-                break;
-            default:
-                break;
+
+        if (id <= subPageView.length-1) {
+            imageAdapter.setFocus(id);
+            pageView = getPageView(id);
+        } else {
+            imageAdapter.setFocus(0);
+            pageView = getPageView(0);
         }
+
         //装载子页面View到LinearLayout容器里面
         pageContainer.addView(pageView.getDecorView(),
                 LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.FILL_PARENT);
