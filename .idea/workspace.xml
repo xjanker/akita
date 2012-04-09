@@ -15,34 +15,17 @@
     <option name="TOOL_WINDOW_CUSTOM_FILTER" value="dalvik" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" readonly="true" id="60e8baee-b828-482e-ad88-4efe6d059579" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/copyright/alibaba_apache2.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/dictionaries/zhe_yangz.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/util/ImageUtil.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Akita-1.0/classes.jar" afterPath="$PROJECT_DIR$/out/production/Akita-1.0/classes.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Akita-1.0/com/alibaba/akita/io/HttpInvoker$1.class" afterPath="$PROJECT_DIR$/out/production/Akita-1.0/com/alibaba/akita/io/HttpInvoker$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Akita-1.0/com/alibaba/akita/io/HttpInvoker$2.class" afterPath="$PROJECT_DIR$/out/production/Akita-1.0/com/alibaba/akita/io/HttpInvoker$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Akita-1.0/com/alibaba/akita/io/HttpInvoker$FlushedInputStream.class" afterPath="$PROJECT_DIR$/out/production/Akita-1.0/com/alibaba/akita/io/HttpInvoker$FlushedInputStream.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Akita-1.0/com/alibaba/akita/io/HttpInvoker.class" afterPath="$PROJECT_DIR$/out/production/Akita-1.0/com/alibaba/akita/io/HttpInvoker.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Akita-1.0/com/alibaba/akita/widget/RemoteImageView$DefaultImageLoaderHandler.class" afterPath="$PROJECT_DIR$/out/production/Akita-1.0/com/alibaba/akita/widget/RemoteImageView$DefaultImageLoaderHandler.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Akita-1.0/com/alibaba/akita/widget/RemoteImageView.class" afterPath="$PROJECT_DIR$/out/production/Akita-1.0/com/alibaba/akita/widget/RemoteImageView.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Akita-1.0/com/alibaba/akita/widget/image/RemoteImageLoader.class" afterPath="$PROJECT_DIR$/out/production/Akita-1.0/com/alibaba/akita/widget/image/RemoteImageLoader.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Akita-1.0/com/alibaba/akita/widget/image/RemoteImageLoaderHandler.class" afterPath="$PROJECT_DIR$/out/production/Akita-1.0/com/alibaba/akita/widget/image/RemoteImageLoaderHandler.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Akita-1.0/com/alibaba/akita/widget/image/RemoteImageLoaderJob.class" afterPath="$PROJECT_DIR$/out/production/Akita-1.0/com/alibaba/akita/widget/image/RemoteImageLoaderJob.class" />
+    <list default="true" readonly="true" id="60e8baee-b828-482e-ad88-4efe6d059579" name="Default" comment="RemoterImageLoader improved">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" afterPath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/io/HttpInvoker.java" afterPath="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/io/HttpInvoker.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/widget/RemoteImageView.java" afterPath="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/widget/RemoteImageView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/widget/image/RemoteImageLoader.java" afterPath="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/widget/image/RemoteImageLoader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/widget/image/RemoteImageLoaderHandler.java" afterPath="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/widget/image/RemoteImageLoaderHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/widget/image/RemoteImageLoaderJob.java" afterPath="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/widget/image/RemoteImageLoaderJob.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/akita-samples-1.0/akita-samples-1.0.iml" afterPath="$PROJECT_DIR$/akita-samples-1.0/akita-samples-1.0.iml" />
     </list>
     <list id="fb749ac2-653d-451f-bcbe-1dfbbbbd02ec" name="Failed commit: Default" comment="hello akita 4" />
+    <list id="d0051202-c667-4893-aab8-c4728f2d4c50" name="Failed commit: Default (2)" comment="RemoterImageLoader improved">
+      <change type="DELETED" beforePath="C:\AndroidDev\GitHubAkitaRepo\out\production\Akita-1.0\com\alibaba\akita\widget\image\RemoteImageLoader.class" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/widget/image/RemoteImageLoader.java" afterPath="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/widget/image/RemoteImageLoader.java" />
+    </list>
     <ignored path="GitHubAkitaRepo.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -99,46 +82,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="RemoteImageLoader.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/widget/image/RemoteImageLoader.java">
+      <file leaf-file-name="Page2.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://C:/androidwstemp/PicSNS/src/com/picsns/Page2.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="231" column="18" selection-start="9600" selection-end="9602" vertical-scroll-proportion="0.0">
+            <state line="122" column="46" selection-start="4310" selection-end="4310" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RemoteImageView.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="RemoteImageView.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/widget/RemoteImageView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="141" column="46" selection-start="5849" selection-end="5849" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FilesCacheSDFoldersImpl.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/cache/impl/FilesCacheSDFoldersImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="36" column="38" selection-start="1130" selection-end="1130" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RemoteImageLoaderJob.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/widget/image/RemoteImageLoaderJob.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="59" column="44" selection-start="1821" selection-end="1821" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RemoteImageLoaderHandler.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/widget/image/RemoteImageLoaderHandler.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="65" column="36" selection-start="2490" selection-end="2490" vertical-scroll-proportion="0.0">
+            <state line="39" column="47" selection-start="1675" selection-end="1675" vertical-scroll-proportion="0.41767764">
               <folding />
             </state>
           </provider>
@@ -148,26 +104,6 @@
         <entry file="file://$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/util/ImageUtil.java">
           <provider selected="true" editor-type-id="text-editor">
             <state line="48" column="47" selection-start="1585" selection-end="1591" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="e#0#1629#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Page1.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../../androidwsforideaeclipse/PicSNS/src/com/picsns/Page1.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="100" column="71" selection-start="3150" selection-end="3150" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="list_item1.xml" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/../../androidwsforideaeclipse/PicSNS/res/layout/list_item1.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="29" column="34" selection-start="1209" selection-end="1209" vertical-scroll-proportion="0.24927536">
               <folding />
             </state>
           </provider>
@@ -176,7 +112,25 @@
       <file leaf-file-name="HttpInvoker.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/io/HttpInvoker.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="286" column="43" selection-start="11499" selection-end="11510" vertical-scroll-proportion="0.0">
+            <state line="299" column="63" selection-start="12086" selection-end="12086" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AndroidManifest.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://C:/androidwstemp/PicSNS/AndroidManifest.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="23" column="43" selection-start="1143" selection-end="1143" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="list_item2.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://C:/androidwstemp/PicSNS/res/layout/list_item2.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="38" column="30" selection-start="1607" selection-end="1610" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -196,30 +150,30 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/../../20120319_122181_zhe.yangz_1/source/AliExpress/src/com/alibaba/android/aliexpress/util/ClipboardUtil.java" />
-        <option value="$PROJECT_DIR$/../../androidwsforideaeclipse/AESDK_Monitor/src/com/alibaba/aesdk/monitor/Directory.java" />
-        <option value="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/uitpl/async/AkSimpleAsyncTask.java" />
-        <option value="$PROJECT_DIR$/../../androidwsforideaeclipse/AESDK_Monitor/src/com/alibaba/aesdk/monitor/ContentFragment.java" />
+        <option value="C:/androidwsforideaeclipse/AESDK_Monitor/src/com/alibaba/aesdk/monitor/ContentFragment.java" />
         <option value="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/io/HttpInvoker.java" />
-        <option value="$PROJECT_DIR$/../../androidwsforideaeclipse/PicSNS/res/layout/list_item2.xml" />
+        <option value="C:/androidwsforideaeclipse/PicSNS/res/layout/list_item2.xml" />
         <option value="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/widget/image/RemoteImageLoaderJob.java" />
         <option value="D:/Program Files/Android/android-sdk-windows/sources/android-15/android/graphics/Bitmap.java" />
-        <option value="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/widget/image/RemoteImageLoader.java" />
-        <option value="$PROJECT_DIR$/../../androidwsforideaeclipse/PicSNS/src/com/picsns/Page2.java" />
+        <option value="C:/androidwsforideaeclipse/PicSNS/src/com/picsns/Page2.java" />
         <option value="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/util/ImageUtil.java" />
         <option value="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/cache/impl/MemCacheSoftRefImpl.java" />
-        <option value="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/widget/image/RemoteImageLoaderHandler.java" />
-        <option value="$PROJECT_DIR$/../../androidwsforideaeclipse/PicSNS/src/com/picsns/Page1.java" />
+        <option value="C:/androidwsforideaeclipse/PicSNS/src/com/picsns/Page1.java" />
+        <option value="C:/androidwsforideaeclipse/PicSNS/res/layout/list_item1.xml" />
+        <option value="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/cache/FilesCache.java" />
         <option value="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/widget/RemoteImageView.java" />
-        <option value="$PROJECT_DIR$/../../androidwsforideaeclipse/PicSNS/res/layout/list_item1.xml" />
+        <option value="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/widget/image/RemoteImageLoaderHandler.java" />
+        <option value="C:/androidwstemp/PicSNS/res/layout/list_item2.xml" />
+        <option value="C:/androidwstemp/PicSNS/src/com/picsns/Page2.java" />
+        <option value="$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/widget/image/RemoteImageLoader.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-4" />
-    <option name="y" value="-4" />
-    <option name="width" value="1374" />
-    <option name="height" value="746" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -247,16 +201,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope">
-        <subPane subId="Project Files">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -264,137 +208,15 @@
               <option name="myItemId" value="GitHubAkitaRepo" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="&lt; Android 4.0.3 Platform &gt;" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
           </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope">
+        <subPane subId="Project Files">
           <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GitHubAkitaRepo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GitHubAkitaRepo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="PicSNS" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GitHubAkitaRepo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="PicSNS" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="picsns" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GitHubAkitaRepo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="PicSNS" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GitHubAkitaRepo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="akita-1.0" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GitHubAkitaRepo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="akita-1.0" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="akita" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GitHubAkitaRepo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="akita-1.0" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="akita" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="widget" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GitHubAkitaRepo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="akita-1.0" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="akita" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="widget" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="image" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -426,8 +248,8 @@
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -488,6 +310,24 @@
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Make" enabled="true" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+      </method>
+    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -513,24 +353,6 @@
       <envs />
       <properties />
       <listeners />
-      <method>
-        <option name="AntTarget" enabled="false" />
-        <option name="BuildArtifacts" enabled="false" />
-        <option name="Make" enabled="true" />
-        <option name="Maven.BeforeRunTask" enabled="false" />
-      </method>
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <method>
         <option name="AntTarget" enabled="false" />
         <option name="BuildArtifacts" enabled="false" />
@@ -701,32 +523,15 @@
     <option name="IGNORE_SPACES_IN_ANNOTATE" value="true" />
     <option name="SHOW_MERGE_SOURCES_IN_ANNOTATE" value="true" />
     <option name="FORCE_UPDATE" value="false" />
-    <configuration useDefault="true">C:\Documents and Settings\zhe.yangz\Application Data\Subversion</configuration>
+    <configuration useDefault="true">C:\Users\justin\AppData\Roaming\Subversion</configuration>
     <myIsUseDefaultProxy>false</myIsUseDefaultProxy>
     <supportedVersion>125</supportedVersion>
-  </component>
-  <component name="SvnFileUrlMappingImpl">
-    <option name="myMappingRoots">
-      <list>
-        <SvnCopyRootSimple>
-          <option name="myVcsRoot" value="D:\project\20120319_122181_zhe.yangz_1\source\AliExpress" />
-          <option name="myCopyRoot" value="D:\project\20120319_122181_zhe.yangz_1\source\AliExpress" />
-        </SvnCopyRootSimple>
-      </list>
-    </option>
-    <option name="myMoreRealMappingRoots">
-      <list>
-        <SvnCopyRootSimple>
-          <option name="myVcsRoot" value="D:\project\20120319_122181_zhe.yangz_1\source\AliExpress" />
-          <option name="myCopyRoot" value="D:\project\20120319_122181_zhe.yangz_1\source\AliExpress" />
-        </SvnCopyRootSimple>
-      </list>
-    </option>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="60e8baee-b828-482e-ad88-4efe6d059579" name="Default" comment="" />
       <changelist id="fb749ac2-653d-451f-bcbe-1dfbbbbd02ec" name="Failed commit: Default" comment="hello akita 4" />
+      <changelist id="d0051202-c667-4893-aab8-c4728f2d4c50" name="Failed commit: Default (2)" comment="RemoterImageLoader improved" />
       <created>1333803403120</created>
       <updated>1333803403120</updated>
     </task>
@@ -782,31 +587,35 @@
       <created>1333949749145</created>
       <updated>1333949749145</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="akSimpleAsyncTask add">
+      <created>1333975169127</created>
+      <updated>1333975169127</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-4" y="-4" width="1374" height="746" extended-state="6" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962137" sideWeight="0.49786323" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32959402" sideWeight="0.6703786" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32852808" sideWeight="0.7195946" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32816675" sideWeight="0.72049" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3293919" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39864865" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2804054" sideWeight="0.5189681" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32850778" sideWeight="0.5216462" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962137" sideWeight="0.49786323" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3293919" sideWeight="0.47863248" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32850778" sideWeight="0.4746125" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3885135" sideWeight="0.7427921" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24962063" sideWeight="0.7195946" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24959914" sideWeight="0.6714922" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19575115" sideWeight="0.7195946" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2804054" sideWeight="0.4757208" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19561732" sideWeight="0.6714922" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27951002" sideWeight="0.47354355" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32928678" sideWeight="0.7195946" order="0" side_tool="false" content_ui="tabs" x="62" y="161" width="1174" height="546" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -851,7 +660,7 @@
     <option name="SHOW_VCS_ERROR_NOTIFICATIONS" value="false" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="akSimpleAsyncTask add" />
+    <option name="LAST_COMMIT_MESSAGE" value="RemoterImageLoader improved" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -869,6 +678,7 @@
     <MESSAGE value="add an ads adapter" />
     <MESSAGE value="4.8 end" />
     <MESSAGE value="akSimpleAsyncTask add" />
+    <MESSAGE value="RemoterImageLoader improved" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -878,102 +688,60 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../../androidwsforideaeclipse/PicSNS/res/layout/ac_page2.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="50" selection-start="651" selection-end="651" vertical-scroll-proportion="-0.34699455">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../androidwsforideaeclipse/PicSNS/res/layout/ac_page1.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="47" selection-start="651" selection-end="651" vertical-scroll-proportion="-0.068306014">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/io/HttpInvoker.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="286" column="43" selection-start="11499" selection-end="11510" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Program Files/Android/android-sdk-windows/sources/android-15/android/widget/BaseAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="22" selection-start="1089" selection-end="1089" vertical-scroll-proportion="0.33245382">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../androidwsforideaeclipse/PicSNS/src/com/picsns/Page2.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="113" column="86" selection-start="3801" selection-end="3801" vertical-scroll-proportion="0.49838188">
-          <folding>
-            <element signature="e#0#4032#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Program Files/Android/android-sdk-windows/sources/android-15/android/graphics/Bitmap.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="348" column="0" selection-start="11680" selection-end="11680" vertical-scroll-proportion="0.33333334">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/widget/image/RemoteImageLoaderJob.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="59" column="44" selection-start="1821" selection-end="1821" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/cache/FilesCache.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="13" selection-start="526" selection-end="526" vertical-scroll-proportion="0.33152175">
+        <state line="25" column="26" selection-start="719" selection-end="719" vertical-scroll-proportion="0.52012885">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/cache/impl/MemCacheSoftRefImpl.java">
+    <entry file="file://C:/androidwstemp/PicSNS/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="44" column="22" selection-start="1536" selection-end="1542" vertical-scroll-proportion="0.5625">
+        <state line="23" column="43" selection-start="1143" selection-end="1143" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/cache/impl/FilesCacheSDFoldersImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="38" selection-start="1130" selection-end="1130" vertical-scroll-proportion="0.0">
+        <state line="36" column="38" selection-start="1130" selection-end="1130" vertical-scroll-proportion="0.0273752">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/cache/impl/MemCacheSoftRefImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="40" column="28" selection-start="1346" selection-end="1346" vertical-scroll-proportion="-0.136876">
+          <folding>
+            <element signature="e#1130#1151#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../android-sdk-windows/sources/android-15/android/widget/ImageView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="361" column="29" selection-start="12584" selection-end="12597" vertical-scroll-proportion="0.64597315">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/widget/image/RemoteImageLoaderHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="65" column="36" selection-start="2490" selection-end="2490" vertical-scroll-proportion="0.0">
+        <state line="68" column="17" selection-start="2662" selection-end="2662" vertical-scroll-proportion="0.46537843">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../androidwsforideaeclipse/PicSNS/src/com/picsns/Page1.java">
+    <entry file="file://C:/androidwstemp/PicSNS/res/layout/list_item2.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="100" column="71" selection-start="3150" selection-end="3150" vertical-scroll-proportion="0.0">
+        <state line="38" column="30" selection-start="1607" selection-end="1610" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/widget/image/RemoteImageLoader.java">
+    <entry file="file://$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/io/HttpInvoker.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="231" column="18" selection-start="9600" selection-end="9602" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/widget/RemoteImageView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="141" column="46" selection-start="5849" selection-end="5849" vertical-scroll-proportion="0.0">
+        <state line="299" column="63" selection-start="12086" selection-end="12086" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -981,15 +749,34 @@
     <entry file="file://$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/util/ImageUtil.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="48" column="47" selection-start="1585" selection-end="1591" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#0#1629#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../androidwsforideaeclipse/PicSNS/res/layout/list_item1.xml">
+    <entry file="file://$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/widget/image/RemoteImageLoaderJob.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="34" selection-start="1209" selection-end="1209" vertical-scroll-proportion="0.24927536">
+        <state line="44" column="25" selection-start="1414" selection-end="1431" vertical-scroll-proportion="0.069243155">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/androidwstemp/PicSNS/src/com/picsns/Page2.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="122" column="46" selection-start="4310" selection-end="4310" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/widget/image/RemoteImageLoader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="76" column="99" selection-start="3378" selection-end="3378" vertical-scroll-proportion="0.47504026">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/akita-1.0/src/com/alibaba/akita/widget/RemoteImageView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="39" column="47" selection-start="1675" selection-end="1675" vertical-scroll-proportion="0.41767764">
           <folding />
         </state>
       </provider>
