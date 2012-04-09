@@ -1,18 +1,3 @@
-/* Copyright (c) 2009-2011 Matthias Kaeppler
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.alibaba.akita.widget.image;
 
 import android.graphics.Bitmap;
@@ -21,21 +6,27 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.widget.ImageView;
+import com.alibaba.akita.util.ImageUtil;
 
 public class RemoteImageLoaderHandler extends Handler {
 
     public static final int HANDLER_MESSAGE_ID = 0;
-    public static final String BITMAP_EXTRA = "ign:extra_bitmap";
-    public static final String IMAGE_URL_EXTRA = "ign:extra_image_url";
+    public static final String BITMAP_EXTRA = "akita:extra_bitmap";
+    public static final String IMAGE_URL_EXTRA = "akita:extra_image_url";
 
     private ImageView imageView;
     private String imageUrl;
     private Drawable errorDrawable;
+    private int imgMaxWidth;
+    private int imgMaxHeight;
 
-    public RemoteImageLoaderHandler(ImageView imageView, String imageUrl, Drawable errorDrawable) {
+    public RemoteImageLoaderHandler(ImageView imageView, String imageUrl, Drawable errorDrawable,
+                                        int imgMaxWidth, int imgMaxHeigtht) {
         this.imageView = imageView;
         this.imageUrl = imageUrl;
         this.errorDrawable = errorDrawable;
+        this.imgMaxWidth = imgMaxWidth;
+        this.imgMaxHeight = imgMaxHeigtht;
     }
 
     @Override
@@ -69,8 +60,14 @@ public class RemoteImageLoaderHandler extends Handler {
         if (imageUrl.equals(forUrl)) {
             if (bitmap == null)
                 imageView.setImageDrawable(errorDrawable);
-            else
-                imageView.setImageBitmap(bitmap);
+            else {
+                if (imgMaxWidth <= 0 && imgMaxHeight <= 0) {
+                    imageView.setImageBitmap(bitmap);
+                } else {
+                    Bitmap scaledBitmap = ImageUtil.xform(bitmap, imgMaxWidth, imgMaxHeight);
+                    imageView.setImageBitmap(scaledBitmap);
+                }
+            }
 
             // remove the image URL from the view's tag
             imageView.setTag(null);

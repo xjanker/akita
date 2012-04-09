@@ -149,7 +149,7 @@ public class RemoteImageLoader {
      */
     public void loadImage(String imageUrl, ImageView imageView) {
         loadImage(imageUrl, imageView, defaultDummyDrawable, new RemoteImageLoaderHandler(
-                imageView, imageUrl, errorDrawable));
+                imageView, imageUrl, errorDrawable, 0, 0));
     }
 
     /**
@@ -167,7 +167,7 @@ public class RemoteImageLoader {
      */
     public void loadImage(String imageUrl, ImageView imageView, Drawable dummyDrawable) {
         loadImage(imageUrl, imageView, dummyDrawable, new RemoteImageLoaderHandler(
-                imageView, imageUrl, errorDrawable));
+                imageView, imageUrl, errorDrawable, 0 , 0));
     }
 
     /**

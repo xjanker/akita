@@ -2,7 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://C:/androidwstemp/PicSNS/PicSNS.iml" filepath="C:/androidwstemp/PicSNS/PicSNS.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../androidwsforideaeclipse/AESDK_Monitor/AESDK_Monitor.iml" filepath="$PROJECT_DIR$/../../androidwsforideaeclipse/AESDK_Monitor/AESDK_Monitor.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../androidwsforideaeclipse/AE_Android_SDK/AE_Android_SDK.iml" filepath="$PROJECT_DIR$/../../androidwsforideaeclipse/AE_Android_SDK/AE_Android_SDK.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../androidwsforideaeclipse/AE_Android_SDKTest/AE_Android_SDKTest.iml" filepath="$PROJECT_DIR$/../../androidwsforideaeclipse/AE_Android_SDKTest/AE_Android_SDKTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../androidwsforideaeclipse/ActionBarCompat/ActionBarCompat.iml" filepath="$PROJECT_DIR$/../../androidwsforideaeclipse/ActionBarCompat/ActionBarCompat.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../20120319_122181_zhe.yangz_1/source/AliExpress/AliExpress.iml" filepath="$PROJECT_DIR$/../../20120319_122181_zhe.yangz_1/source/AliExpress/AliExpress.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../androidwsforideaeclipse/PicSNS/PicSNS.iml" filepath="$PROJECT_DIR$/../../androidwsforideaeclipse/PicSNS/PicSNS.iml" />
       <module fileurl="file://$PROJECT_DIR$/akita-1.0/akita-1.0.iml" filepath="$PROJECT_DIR$/akita-1.0/akita-1.0.iml" />
       <module fileurl="file://$PROJECT_DIR$/akita-samples-1.0/akita-samples-1.0.iml" filepath="$PROJECT_DIR$/akita-samples-1.0/akita-samples-1.0.iml" />
     </modules>

@@ -6,6 +6,12 @@
       <directory url="file://$PROJECT_DIR$/akita-1.0/gen" includeSubdirectories="true" />
       <directory url="file://$PROJECT_DIR$/akita-samples-1.0/gen" includeSubdirectories="true" />
       <directory url="file://C:/androidwstemp/PicSNS/gen" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/../../androidwsforideaeclipse/AE_Android_SDK/gen" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/../../androidwsforideaeclipse/AE_Android_SDKTest/gen" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/../../androidwsforideaeclipse/ActionBarCompat/gen" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/../../androidwsforideaeclipse/AESDK_Monitor/gen" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/../../20120319_122181_zhe.yangz_1/source/AliExpress/gen" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/../../androidwsforideaeclipse/PicSNS/gen" includeSubdirectories="true" />
     </excludeFromCompile>
     <resourceExtensions />
     <wildcardResourcePatterns>

@@ -1,17 +1,3 @@
-/*
- * Copyright 1999-2101 Alibaba Group.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *      http://www.apache.org/licenses/LICENSE-2.0
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.alibaba.akita.widget;
 
 import android.content.Context;
@@ -26,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.ViewSwitcher;
 import com.alibaba.akita.Akita;
+import com.alibaba.akita.util.AndroidUtil;
 import com.alibaba.akita.widget.image.RemoteImageLoader;
 import com.alibaba.akita.widget.image.RemoteImageLoaderHandler;
 
@@ -44,7 +31,8 @@ import com.alibaba.akita.widget.image.RemoteImageLoaderHandler;
  * <li>ignition:errorDrawable (Drawable) -- The drawable to display if the image download fails</li>
  * </ul>
  * 
- * @author Matthias Kaeppler
+ * @author Matthias Kaeppler original.
+ * @author Justin Yang modified.
  *
  */
 public class RemoteImageView extends ViewSwitcher {
@@ -54,11 +42,23 @@ public class RemoteImageView extends ViewSwitcher {
     private static final String ATTR_AUTO_LOAD = "autoLoad";
     private static final String ATTR_IMAGE_URL = "imageUrl";
     private static final String ATTR_ERROR_DRAWABLE = "errorDrawable";
+    private static final String ATTR_IMGBOX_WIDTH = "imgBoxWidth";
+    private static final String ATTR_IMGBOX_HEIGHT = "imgBoxHeight";
 
     private static final int[] ANDROID_VIEW_ATTRS = { android.R.attr.indeterminateDrawable };
     private static final int ATTR_INDET_DRAWABLE = 0;
 
     private String imageUrl;
+    /**
+     * image real Width in px
+     * wrap_content (<=0)
+     */
+    private int imgBoxWidth = 0;
+    /**
+     * image real Height in px
+     * wrap_content (<=0)
+     */
+    private int imgBoxHeight = 0;
 
     private boolean autoLoad, isLoaded;
 
@@ -140,6 +140,11 @@ public class RemoteImageView extends ViewSwitcher {
         boolean autoLoad = attributes
                 .getAttributeBooleanValue(Akita.XMLNS, ATTR_AUTO_LOAD, true);
 
+        imgBoxWidth = AndroidUtil.dp2px(context,
+                attributes.getAttributeIntValue(Akita.XMLNS, ATTR_IMGBOX_WIDTH, 0) );
+        imgBoxHeight = AndroidUtil.dp2px(context,
+                attributes.getAttributeIntValue(Akita.XMLNS, ATTR_IMGBOX_HEIGHT, 0) );
+
         initialize(context, imageUrl, progressDrawable, errorDrawable, autoLoad, attributes);
     }
 
@@ -214,7 +219,7 @@ public class RemoteImageView extends ViewSwitcher {
                     "image URL is null; did you forget to set it for this view?");
         }
         setDisplayedChild(0);
-        imageLoader.loadImage(imageUrl, imageView, new DefaultImageLoaderHandler());
+        imageLoader.loadImage(imageUrl, imageView, new DefaultImageLoaderHandler(imgBoxWidth, imgBoxHeight));
     }
 
     public boolean isLoaded() {
@@ -223,6 +228,18 @@ public class RemoteImageView extends ViewSwitcher {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    /**
+     * Box size in px.
+     * wrap_contant: <=0
+     * Set it to scale the image using this box
+     * @param imgMaxWidth
+     * @param imgMaxHeight
+     */
+    public void setImageBoxSize(int imgMaxWidth, int imgMaxHeight) {
+        this.imgBoxWidth = imgMaxWidth;
+        this.imgBoxHeight = imgMaxHeight;
     }
 
     /**
@@ -246,8 +263,8 @@ public class RemoteImageView extends ViewSwitcher {
 
     private class DefaultImageLoaderHandler extends RemoteImageLoaderHandler {
 
-        public DefaultImageLoaderHandler() {
-            super(imageView, imageUrl, errorDrawable);
+        public DefaultImageLoaderHandler(int imgMaxWidth, int imgMaxHeight) {
+            super(imageView, imageUrl, errorDrawable, imgMaxWidth, imgMaxHeight);
         }
 
         @Override

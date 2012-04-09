@@ -9,6 +9,7 @@ package com.alibaba.akita.io;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.SystemClock;
 import com.alibaba.akita.exception.AkInvokeException;
 import com.alibaba.akita.exception.AkServerStatusException;
 import com.alibaba.akita.util.Log;
@@ -30,10 +31,7 @@ import org.apache.http.protocol.HTTP;
 import org.apache.http.protocol.HttpContext;
 import org.apache.http.util.EntityUtils;
 
-import java.io.FilterInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -145,8 +143,8 @@ public class HttpInvoker {
         return retString;
     }
 
-    public static String post(String url, ArrayList<NameValuePair> params) 
-    throws AkInvokeException, AkServerStatusException {
+    public static String post(String url, ArrayList<NameValuePair> params)
+            throws AkInvokeException, AkServerStatusException {
         //==log start
         Log.v(TAG, "post:" + url);
         if (params != null) {
@@ -208,7 +206,129 @@ public class HttpInvoker {
     public static String delete(String url) {
         return "";
     }
-    
+
+    private static final int DEFAULT_BUFFER_SIZE = 65536;
+    private static byte[] retrieveImageData(InputStream inputStream, String imgUrl, int fileSize)
+            throws IOException {
+
+        // determine the image size and allocate a buffer
+        Log.d(TAG, "fetching image " + imgUrl + " (" +
+                (fileSize <= 0 ? "size unknown" : Long.toString(fileSize)) + ")");
+        BufferedInputStream istream = new BufferedInputStream(inputStream);
+
+        try {
+            if (fileSize <= 0) {
+                android.util.Log.w(TAG,
+                        "Server did not set a Content-Length header, will default to buffer size of "
+                                + DEFAULT_BUFFER_SIZE + " bytes");
+                ByteArrayOutputStream buf = new ByteArrayOutputStream(DEFAULT_BUFFER_SIZE);
+                byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
+                int bytesRead = 0;
+                while (bytesRead != -1) {
+                    bytesRead = istream.read(buffer, 0, DEFAULT_BUFFER_SIZE);
+                    if (bytesRead > 0)
+                        buf.write(buffer, 0, bytesRead);
+                }
+                return buf.toByteArray();
+            } else {
+                byte[] imageData = new byte[fileSize];
+
+                int bytesRead = 0;
+                int offset = 0;
+                while (bytesRead != -1 && offset < fileSize) {
+                    bytesRead = istream.read(imageData, offset, fileSize - offset);
+                    offset += bytesRead;
+                }
+                return imageData;
+            }
+        } finally {
+            // clean up
+            try {
+                istream.close();
+                inputStream.close();
+            } catch (Exception ignore) { }
+        }
+    }
+
+    private static final int NUM_RETRIES = 3;
+    private static final int DEFAULT_RETRY_SLEEP_TIME = 1000;
+
+    /**
+     * version 2 image download impl, use byte[] to decode.
+     * NUM_RETRIES retry.
+     * @param imgUrl
+     * @param inSampleSize
+     * @return
+     * @throws AkServerStatusException
+     * @throws AkInvokeException
+     */
+    public static Bitmap getBitmapFromUrl(String imgUrl, int inSampleSize)
+    throws AkServerStatusException, AkInvokeException {
+        Log.v(TAG, "getBitmapFromUrl:" + imgUrl);
+
+        int timesTried = 1;
+
+        while (timesTried <= NUM_RETRIES) {
+            try {
+                HttpGet request = new HttpGet(imgUrl);
+                HttpResponse response = client.execute(request);
+                int statusCode = response.getStatusLine().getStatusCode();
+                if (statusCode == HttpStatus.SC_OK
+                        || statusCode == HttpStatus.SC_CREATED
+                        || statusCode == HttpStatus.SC_ACCEPTED) {
+                    HttpEntity resEntity = response.getEntity();
+
+                    BitmapFactory.Options options = new BitmapFactory.Options();
+                    if (inSampleSize > 0 && inSampleSize < 10) {
+                        options.inSampleSize = inSampleSize;
+                    } else {
+                        options.inSampleSize = 0;
+                    }
+                    InputStream inputStream = resEntity.getContent();
+
+                    byte[] imgBytes = retrieveImageData(
+                            inputStream, imgUrl, (int)(resEntity.getContentLength()));
+
+                    if (imgBytes == null) {
+                        SystemClock.sleep(DEFAULT_RETRY_SLEEP_TIME);
+                        continue;
+                    }
+
+                    Bitmap bm = BitmapFactory.decodeByteArray(imgBytes, 0, imgBytes.length);
+                    if (bm == null) {
+                        SystemClock.sleep(DEFAULT_RETRY_SLEEP_TIME);
+                        continue;
+                    }
+                    return bm;
+                } else {
+                    HttpEntity resEntity = response.getEntity();
+                    throw new AkServerStatusException(
+                            response.getStatusLine().getStatusCode(),
+                            EntityUtils.toString(resEntity, CHARSET));
+                }
+            } catch (ClientProtocolException cpe) {
+                Log.e(TAG, cpe.toString(), cpe);
+                throw new AkInvokeException(AkInvokeException.CODE_HTTP_PROTOCOL_ERROR,
+                        cpe.toString(), cpe);
+            } catch (IOException ioe) {
+                Log.e(TAG, ioe.toString(), ioe);
+                throw new AkInvokeException(AkInvokeException.CODE_CONNECTION_ERROR,
+                        ioe.toString(), ioe);
+            }
+
+        }
+
+        return null;
+    }
+
+    /**
+     * version 1 image download impl, use InputStream to decode.
+     * @param imgUrl
+     * @param inSampleSize
+     * @return
+     * @throws AkServerStatusException
+     * @throws AkInvokeException
+     */
     public static Bitmap getImageFromUrl(String imgUrl, int inSampleSize) 
     throws AkServerStatusException, AkInvokeException {
         Log.v(TAG, "getImageFromUrl:" + imgUrl);
@@ -224,7 +344,7 @@ public class HttpInvoker {
                     HttpEntity resEntity = response.getEntity();
                     try {
                         BitmapFactory.Options options = new BitmapFactory.Options();
-                        if (inSampleSize > 0 && inSampleSize < 5) {
+                        if (inSampleSize > 0 && inSampleSize < 10) {
                             options.inSampleSize = inSampleSize;
                         } else {
                             options.inSampleSize = 0;
@@ -263,7 +383,7 @@ public class HttpInvoker {
      * An InputStream that skips the exact number of bytes provided, unless it
      * reaches EOF.
      */
-    static class FlushedInputStream extends FilterInputStream {
+    private static class FlushedInputStream extends FilterInputStream {
         public FlushedInputStream(InputStream inputStream) {
             super(inputStream);
         }
