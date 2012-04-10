@@ -35,8 +35,7 @@ public class AkServerStatusException extends AkException{
      * @param clazz
      * @return null if exception, otherwise errorMsg T
      * @throws IOException 
-     * @throws JsonParseException 
-     * @throws JsonMappingException 
+     * @throws JsonParseException
      */
     public <T> T getServerError(Class<T> clazz) {
         try {
