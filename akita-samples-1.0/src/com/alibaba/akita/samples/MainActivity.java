@@ -15,11 +15,13 @@ public class MainActivity extends AbsBottomTabActivity {
 
     @Override
     protected void presetTab() {
-        Integer[] tabImages = { R.drawable.ic_launcher, R.drawable.ic_launcher };
-        String[] tabLabels = { "朋友动态", "拍照" };
-        Intent[] intents = new Intent[2];
+        Integer[] tabImages = { R.drawable.ic_launcher,
+                R.drawable.ic_launcher, R.drawable.ic_launcher };
+        String[] tabLabels = { "Page1", "Page2", "Page3" };
+        Intent[] intents = new Intent[3];
         intents[0] = new Intent(MainActivity.this, Page1.class);
         intents[1] = new Intent(MainActivity.this, Page2.class);
+        intents[2] = new Intent(MainActivity.this, Page3.class);
         doSetTab(tabLabels, tabImages, intents);
     }
 

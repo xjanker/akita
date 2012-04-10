@@ -277,13 +277,6 @@ public class HttpInvoker {
                         || statusCode == HttpStatus.SC_CREATED
                         || statusCode == HttpStatus.SC_ACCEPTED) {
                     HttpEntity resEntity = response.getEntity();
-
-                    BitmapFactory.Options options = new BitmapFactory.Options();
-                    if (inSampleSize > 0 && inSampleSize < 10) {
-                        options.inSampleSize = inSampleSize;
-                    } else {
-                        options.inSampleSize = 0;
-                    }
                     InputStream inputStream = resEntity.getContent();
 
                     byte[] imgBytes = retrieveImageData(
@@ -294,7 +287,20 @@ public class HttpInvoker {
                         continue;
                     }
 
-                    Bitmap bm = BitmapFactory.decodeByteArray(imgBytes, 0, imgBytes.length);
+                    BitmapFactory.Options options = new BitmapFactory.Options();
+                    if (inSampleSize > 0 && inSampleSize < 10) {
+                        options.inSampleSize = inSampleSize;
+                    } else {
+                        if (imgBytes.length > 2000000) { // can be improved
+                            options.inSampleSize = 4;
+                        } else if (imgBytes.length > 500000) {
+                            options.inSampleSize = 2;
+                        } else {
+                            options.inSampleSize = 0;
+                        }
+                    }
+
+                    Bitmap bm = BitmapFactory.decodeByteArray(imgBytes, 0, imgBytes.length, options);
                     if (bm == null) {
                         SystemClock.sleep(DEFAULT_RETRY_SLEEP_TIME);
                         continue;
