@@ -281,7 +281,6 @@ public class HttpInvoker {
 
                     byte[] imgBytes = retrieveImageData(
                             inputStream, imgUrl, (int)(resEntity.getContentLength()));
-
                     if (imgBytes == null) {
                         SystemClock.sleep(DEFAULT_RETRY_SLEEP_TIME);
                         continue;
