@@ -12,9 +12,13 @@ import com.alibaba.akita.util.Log;
  * @author zhe.yangz
  */
 public abstract class SimpleAsyncTask<T> extends AsyncTask<Void, Void, T> {
-
     private static final String TAG = "SimpleAsyncTask<T>";
     protected AkException mAkException = null;
+
+    /**
+     * guarantees the method be invoked on ui thread once time when task start.
+     */
+    protected void onUITaskStart() {};
 
     @Override
     protected void onPreExecute() {
@@ -72,13 +76,8 @@ public abstract class SimpleAsyncTask<T> extends AsyncTask<Void, Void, T> {
     }
 
     /**
-     * guarantees the method be invoked on ui thread once time when task start.
-     */
-    protected abstract void onUITaskStart();
-
-    /**
      * guarantees the method be invoked on ui thread once time when task quit.
      */
-    protected abstract void onUITaskEnd();
+    protected void onUITaskEnd() {};
 
 }

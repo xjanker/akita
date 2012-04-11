@@ -212,8 +212,8 @@ public class HttpInvoker {
             throws IOException {
 
         // determine the image size and allocate a buffer
-        Log.d(TAG, "fetching image " + imgUrl + " (" +
-                (fileSize <= 0 ? "size unknown" : Long.toString(fileSize)) + ")");
+        //Log.d(TAG, "fetching image " + imgUrl + " (" +
+        //        (fileSize <= 0 ? "size unknown" : Long.toString(fileSize)) + ")");
         BufferedInputStream istream = new BufferedInputStream(inputStream);
 
         try {
