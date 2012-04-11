@@ -22,7 +22,7 @@ import android.view.ViewGroup;
 import android.widget.Gallery;
 import android.widget.TextView;
 import com.alibaba.akita.samples.testdata.PhotoWallItem;
-import com.alibaba.akita.uitpl.adapter.AkBaseAdapter;
+import com.alibaba.akita.ui.adapter.AkBaseAdapter;
 import com.alibaba.akita.widget.RemoteImageView;
 
 import java.util.ArrayList;
