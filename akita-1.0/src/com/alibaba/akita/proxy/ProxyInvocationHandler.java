@@ -17,6 +17,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.codehaus.jackson.JsonProcessingException;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -99,7 +100,7 @@ public class ProxyInvocationHandler implements InvocationHandler {
             for (NameValuePair nvp : params) {
                 sbUrl.append(nvp.getName());
                 sbUrl.append("=");
-                sbUrl.append(URLEncoder.encode(nvp.getValue(),"UTF-8"));
+                sbUrl.append(nvp.getValue());
                 sbUrl.append("&");
             } // now default using UTF-8, maybe improved later
             retString = HttpInvoker.get(sbUrl.toString());
@@ -114,7 +115,11 @@ public class ProxyInvocationHandler implements InvocationHandler {
         // parse the return-string
         Class<?> returnType = method.getReturnType();
         try {
-            return JsonMapper.json2pojo(retString, returnType);
+            if (String.class.equals(returnType)) { // the result return raw string
+                return retString;
+            } else {                               // return object using json decode
+                return JsonMapper.json2pojo(retString, returnType);
+            }
         } catch (JsonProcessingException e) {
             Log.e(TAG, retString, e);  // log can print the error return-string
             throw new AkInvokeException(AkInvokeException.CODE_JSONPROCESS_EXCEPTION,
@@ -163,15 +168,28 @@ public class ProxyInvocationHandler implements InvocationHandler {
         HashMap<String, String> paramsMap = new HashMap<String, String>();
         for (int idx = 0; idx < args.length; idx++) {
             String paramName = null;
+            String encode = "none";
             for (Annotation a : annosArr[idx]) {
-                if(AkApiParam.class.equals(a.annotationType())){
-                    paramName = ((AkApiParam)a).value();
+                if(AkParam.class.equals(a.annotationType())){
+                    AkParam ap =  (AkParam)a;
+                    paramName = ap.value();
+                    encode = ap.encode();
                 }
             }
             if (paramName != null) {
                 Object arg = args[idx];
-                if (arg != null)        // filter out of null-value param
-                    paramsMap.put(paramName, arg.toString());
+                if (arg != null) {       // filter out of null-value param
+                    if (encode != null && !"none".equals(encode)) {
+                        try {
+                            paramsMap.put(paramName, URLEncoder.encode(arg.toString(), encode));
+                        } catch (UnsupportedEncodingException e) {
+                            Log.w(TAG, "UnsupportedEncodingException:" + encode);
+                            paramsMap.put(paramName, arg.toString());
+                        }
+                    } else {
+                        paramsMap.put(paramName, arg.toString());
+                    }
+                }
             }
         }
         return paramsMap;

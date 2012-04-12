@@ -17,7 +17,7 @@ package com.alibaba.akita.samples.api;
 import com.alibaba.akita.exception.AkInvokeException;
 import com.alibaba.akita.exception.AkServerStatusException;
 import com.alibaba.akita.proxy.annotation.AkAPI;
-import com.alibaba.akita.proxy.annotation.AkApiParam;
+import com.alibaba.akita.proxy.annotation.AkParam;
 import com.alibaba.akita.proxy.annotation.AkGET;
 import com.alibaba.akita.samples.api.weibo.Statuses;
 
@@ -33,9 +33,9 @@ public interface WeiboApi {
     @AkGET
     @AkAPI(url="https://api.weibo.com/2/suggestions/statuses/hot.json?access_token=2.00XjaxYB7hhCID89eea9a39bhZnoTC&")
     Statuses suggestions_statuses_hot(
-            @AkApiParam("type") int type,       //微博精选分类，1：娱乐、2：搞笑、3：美女、4：视频、5：星座、6：各种萌、7：时尚、8：名车、9：美食、10：音乐。
-            @AkApiParam("is_pic") int is_pic,   //0：全部、1：图片微博。
-            @AkApiParam("count") int count,     //count default 20
-            @AkApiParam("page") int page        //page default 1
+            @AkParam("type") int type,       //微博精选分类，1：娱乐、2：搞笑、3：美女、4：视频、5：星座、6：各种萌、7：时尚、8：名车、9：美食、10：音乐。
+            @AkParam("is_pic") int is_pic,   //0：全部、1：图片微博。
+            @AkParam("count") int count,     //count default 20
+            @AkParam("page") int page        //page default 1
     ) throws AkInvokeException, AkServerStatusException;
 }
