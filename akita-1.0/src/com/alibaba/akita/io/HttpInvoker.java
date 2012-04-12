@@ -70,7 +70,7 @@ public class HttpInvoker {
         HttpProtocolParams.setVersion(params, HttpVersion.HTTP_1_1);
         HttpProtocolParams.setContentCharset(params, "utf-8");
         HttpConnectionParams.setConnectionTimeout(params, 5000);
-        HttpConnectionParams.setSoTimeout(params, 10000);
+        HttpConnectionParams.setSoTimeout(params, 15000);
         params.setBooleanParameter("http.protocol.expect-continue", false);
 
         connectionManager = new ThreadSafeClientConnManager(params, schemeRegistry);
