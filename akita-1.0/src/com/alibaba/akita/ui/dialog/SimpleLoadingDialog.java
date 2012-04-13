@@ -16,6 +16,8 @@ package com.alibaba.akita.ui.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.view.View;
+import android.widget.TextView;
 import com.alibaba.akita.R;
 
 /**
@@ -28,9 +30,15 @@ import com.alibaba.akita.R;
  * @author zhe.yangz
  */
 public class SimpleLoadingDialog extends Dialog {
-    public SimpleLoadingDialog(Context context) {
+    public SimpleLoadingDialog(Context context, String loadingHint) {
         super(context, R.style.LoadingDialog1);
         setContentView(R.layout.dlg_loading1);
         setCancelable(false);
+
+        if (loadingHint != null && !loadingHint.isEmpty()) {
+            TextView tv_loadingHint = (TextView) findViewById(R.id.tv_loadingHint);
+            tv_loadingHint.setText(loadingHint);
+            tv_loadingHint.setVisibility(View.VISIBLE);
+        }
     }
 }
