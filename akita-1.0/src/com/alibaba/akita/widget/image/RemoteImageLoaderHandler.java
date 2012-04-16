@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.widget.ImageView;
+import com.alibaba.akita.R;
 import com.alibaba.akita.util.ImageUtil;
 
 public class RemoteImageLoaderHandler extends Handler {
@@ -61,11 +62,17 @@ public class RemoteImageLoaderHandler extends Handler {
             if (bitmap == null)
                 imageView.setImageDrawable(errorDrawable);
             else {
+                Bitmap scaledBM = (Bitmap) imageView.getTag(R.id.ll_loading1);
+                if (scaledBM != null) {
+                    scaledBM.recycle();
+                    imageView.setTag(R.id.ll_loading1, null);
+                }
                 if (imgMaxWidth <= 0 && imgMaxHeight <= 0) {
                     imageView.setImageBitmap(bitmap);
                 } else {
                     Bitmap scaledBitmap = ImageUtil.xform(bitmap, imgMaxWidth, imgMaxHeight);
                     imageView.setImageBitmap(scaledBitmap);
+                    imageView.setTag(R.id.ll_loading1, scaledBitmap);
                 }
             }
 

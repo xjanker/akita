@@ -298,8 +298,12 @@ public class HttpInvoker {
                             options.inSampleSize = 0;
                         }
                     }
-
-                    Bitmap bm = BitmapFactory.decodeByteArray(imgBytes, 0, imgBytes.length, options);
+                    Bitmap bm = null;
+                    try {
+                        bm = BitmapFactory.decodeByteArray(imgBytes, 0, imgBytes.length, options);
+                    } catch (OutOfMemoryError ooe) {
+                        Log.e(TAG, ooe.toString(), ooe);
+                    }
                     if (bm == null) {
                         SystemClock.sleep(DEFAULT_RETRY_SLEEP_TIME);
                         continue;

@@ -17,15 +17,17 @@
 
 package com.alibaba.akita.cache;
 
-import java.io.File;
-import java.io.FileOutputStream;
-
-import com.alibaba.akita.cache.impl.*;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import com.alibaba.akita.cache.impl.FilesCacheSDFoldersImpl;
+import com.alibaba.akita.cache.impl.MemCacheLruImpl;
+import com.alibaba.akita.cache.impl.MemCacheSoftRefImpl;
 import com.alibaba.akita.cache.impl.SimpleCacheSqliteImpl;
+import com.alibaba.akita.util.Log;
+
+import java.io.File;
+import java.io.FileOutputStream;
 
 /**
  * 客户端Cache统一解决方案 
@@ -50,7 +52,13 @@ public class AkCacheManager {
 
             @Override
             protected Bitmap xform(String fileAbsoPath) {
-                return BitmapFactory.decodeFile(fileAbsoPath);
+                try {
+                    return BitmapFactory.decodeFile(fileAbsoPath);
+                }
+                catch (OutOfMemoryError ooe) {
+                    Log.e(TAG, ooe.toString(), ooe);
+                }
+                return null;
             }
 
             @Override

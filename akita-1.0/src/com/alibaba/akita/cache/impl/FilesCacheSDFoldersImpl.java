@@ -23,7 +23,7 @@ import java.io.File;
  * @author zhe.yangz 2012-3-31 上午09:51:01
  */
 public abstract class FilesCacheSDFoldersImpl<V> implements FilesCache<V> {
-    private static final String TAG = "FilesCacheSDFoldersImpl";
+    protected static final String TAG = "FilesCacheSDFoldersImpl";
 
     private static final String CACHE_SIZE_KEY = "cacheSizeInMB";
     private static final String PREF_PREFIX = "filescachesd_";
