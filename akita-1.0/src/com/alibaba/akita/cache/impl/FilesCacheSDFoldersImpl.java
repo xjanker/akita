@@ -7,16 +7,15 @@
  */
 package com.alibaba.akita.cache.impl;
 
-import java.io.File;
-import java.lang.ref.SoftReference;
-
-import android.graphics.Bitmap;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Environment;
 import com.alibaba.akita.cache.FilesCache;
 import com.alibaba.akita.cache.MemCache;
+import com.alibaba.akita.util.FileUtil;
 import com.alibaba.akita.util.HashUtil;
 
-import android.content.Context;
+import java.io.File;
 
 /**
  * 在SD卡中存储文件夹的实现 
@@ -24,10 +23,24 @@ import android.content.Context;
  * @author zhe.yangz 2012-3-31 上午09:51:01
  */
 public abstract class FilesCacheSDFoldersImpl<V> implements FilesCache<V> {
-    private String mCacheTag;
+    private static final String TAG = "FilesCacheSDFoldersImpl";
+
+    private static final String CACHE_SIZE_KEY = "cacheSizeInMB";
+    private static final String PREF_PREFIX = "filescachesd_";
+    /**
+     * 当evict时，判断多少小时前的文件夹会被删除
+     */
+    private static final int CACHE_EVICT_HOURS = 48;
+    /**
+     * 默认Cache Size MB
+     */
+    private static final int DEFAULT_CACHE_SIZE_MB = 150;
+
+    protected String mCacheTag;
     private MemCache<String, V> mSoftBitmapCache;
     protected Context mContext;
-    
+    protected int mCacheSizeInMB;
+
     /**
      * 
      */
@@ -35,6 +48,10 @@ public abstract class FilesCacheSDFoldersImpl<V> implements FilesCache<V> {
         mContext = context;
         mCacheTag = cacheTag;
         mSoftBitmapCache = new MemCacheSoftRefImpl<String, V>();
+
+        // in Config
+        SharedPreferences sp = context.getSharedPreferences(PREF_PREFIX + cacheTag, 0);
+        mCacheSizeInMB = sp.getInt(CACHE_SIZE_KEY, DEFAULT_CACHE_SIZE_MB);
     }
 
     protected abstract V xform(String fileAbsoPathAndName);
@@ -48,10 +65,13 @@ public abstract class FilesCacheSDFoldersImpl<V> implements FilesCache<V> {
         return hashedKey + ".cache";
     }
 
+    private String getSepcifiedCacheDir() {
+        return Environment.getExternalStorageDirectory().getAbsolutePath()
+                + "/Android/data/" + mContext.getPackageName() + "/cache/" + mCacheTag + "/";
+    }
+
     private String getSpecifiedCacheFilePath(String hashedKey) {
-        String path = Environment.getExternalStorageDirectory().getAbsolutePath()
-                + "/Android/data/" + mContext.getPackageName() + "/cache";
-        path += "/" + mCacheTag + "/" + hashedKey.substring(0, 2)
+        String path = getSepcifiedCacheDir() + hashedKey.substring(0, 2)
                 + "/" + hashedKey.substring(2, 4) + "/";
         return path;
     }
@@ -135,5 +155,43 @@ public abstract class FilesCacheSDFoldersImpl<V> implements FilesCache<V> {
             f.delete();
         }
         return oldV;
+    }
+
+    /**
+     * 根据容量来清除一批过期数据
+     * note: 可能很耗时
+     */
+    @Override
+    public void evict() {
+        double size = FileUtil.getFileSizeMB(new File(getSepcifiedCacheDir()));
+        if (size > mCacheSizeInMB) {
+            // 扔掉
+            File cacheDir = new File(getSepcifiedCacheDir());
+            File[] dirs = cacheDir.listFiles();
+            for (File dir : dirs) {
+                if (dir.isDirectory()) {
+                    File[] dirs2 = dir.listFiles();
+                    for (File dir2 : dirs2) {
+                        if (dir2.isDirectory()) {
+                            long diff = System.currentTimeMillis() - dir2.lastModified();
+                            if (diff > CACHE_EVICT_HOURS * 60 * 60 * 1000) {
+                                FileUtil.deleteFileOrDir(dir2);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+
+    @Override
+    public void setCacheSize(int cacheSizeInMB) {
+        mCacheSizeInMB = cacheSizeInMB;
+        SharedPreferences sp = mContext.getSharedPreferences(PREF_PREFIX + mCacheTag, 0);
+        if (mCacheSizeInMB != sp.getInt(CACHE_SIZE_KEY, DEFAULT_CACHE_SIZE_MB)) {
+            sp.edit().putInt(CACHE_SIZE_KEY, mCacheSizeInMB).apply();
+        }
     }
 }

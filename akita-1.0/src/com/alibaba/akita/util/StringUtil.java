@@ -7,7 +7,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * 对API调用的请求请求进行签名的String util类，详情参考http://10.249.200.45:1880/test/requestSignature.html
+ * 对API调用的请求请求进行签名的String util类，
+ * 详情参考http://10.249.200.45:1880/test/requestSignature.html
  * 
  * @author frank.yef 
  * 

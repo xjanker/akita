@@ -25,5 +25,13 @@ public interface FilesCache<V> {
      */
     public V put(String key, V value);
     public V remove(String key);
+
+    /**
+     * 根据建立Impl对象时所定义的容量受控大小来逐出一批过期内容。
+     * @return
+     */
+    public void evict();
+
+    public void setCacheSize(int cacheSizeInMB);
     
 }
