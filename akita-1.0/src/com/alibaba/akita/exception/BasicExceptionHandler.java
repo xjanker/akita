@@ -20,7 +20,7 @@ import com.alibaba.akita.util.Log;
  * Basic ExceptionHandler, toast the exception
  * @author zhe.yangz 2012-2-17 上午11:39:58
  */
-public class BasicExceptionHandler {
+public class BasicExceptionHandler implements ExceptionHandler {
     private static final String TAG = "BasicExceptionHandler";
 
     protected Context mContext = null;

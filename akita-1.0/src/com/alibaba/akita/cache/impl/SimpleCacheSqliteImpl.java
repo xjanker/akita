@@ -7,8 +7,6 @@
  */
 package com.alibaba.akita.cache.impl;
 
-import com.alibaba.akita.cache.SimpleCache;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -141,8 +139,10 @@ public class SimpleCacheSqliteImpl implements SimpleCache {
          */
         public CacheObject getCOByKey(String key) {
             Cursor c = null;
+            SQLiteDatabase db = null;
             try {
-                c = getReadableDatabase().query(
+                db = getReadableDatabase();
+                c = db.query(
                         mTableName, new String[]{"value","cacheTime"}, "key=?", new String[]{key}, null, null, null);
                 if (c.moveToFirst()) {
                     String value = c.getString(0);
@@ -155,7 +155,8 @@ public class SimpleCacheSqliteImpl implements SimpleCache {
                     return null;
                 }
             } finally {
-                if  (c != null) c.close();
+                if (c != null) c.close();
+                if (db != null) db.close();
             }
         }
 
