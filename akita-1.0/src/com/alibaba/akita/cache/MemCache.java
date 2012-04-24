@@ -8,6 +8,8 @@
 package com.alibaba.akita.cache;
 
 
+import java.util.Map;
+
 /**
  * Mem level Cache
  * @author zhe.yangz 2012-3-30 下午03:23:19
@@ -22,5 +24,10 @@ public interface MemCache<K, V> {
      * Clear all kvs of this MemCache
      */
     public void clear();
+
+    /**
+     * Get a snapshot of cache
+     */
+    public Map<K, V> snapshot();
     
 }

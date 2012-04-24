@@ -7,10 +7,10 @@
  */
 package com.alibaba.akita.cache.impl;
 
-import com.alibaba.akita.cache.MemCache;
-
 import android.util.LruCache;
 import com.alibaba.akita.cache.MemCache;
+
+import java.util.Map;
 
 
 /**
@@ -26,6 +26,7 @@ public class MemCacheLruImpl<K, V> implements MemCache<K, V> {
      */
     public MemCacheLruImpl(int maxSize){
         mCache = new LruCache<K, V>(maxSize);
+
     }
     
     public V get(K key){
@@ -43,5 +44,9 @@ public class MemCacheLruImpl<K, V> implements MemCache<K, V> {
     @Override
     public void clear() {
         mCache.evictAll();
+    }
+
+    public Map<K, V> snapshot() {
+        return mCache.snapshot();
     }
 }

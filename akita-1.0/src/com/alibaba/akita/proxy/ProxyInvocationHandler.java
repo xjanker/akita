@@ -9,7 +9,7 @@ package com.alibaba.akita.proxy;
 
 import com.alibaba.akita.exception.AkInvokeException;
 import com.alibaba.akita.io.HttpInvoker;
-import com.alibaba.akita.proxy.annotation.*;
+import com.alibaba.akita.annotation.*;
 import com.alibaba.akita.util.JsonMapper;
 import com.alibaba.akita.util.Log;
 import org.apache.http.NameValuePair;
@@ -60,9 +60,14 @@ public class ProxyInvocationHandler implements InvocationHandler {
         Annotation[][] annosArr = method.getParameterAnnotations();
         String invokeUrl = akApi.url();
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-        
+
         // AkApiParams to hashmap, filter out of null-value
         HashMap<String, String> paramsMap = getRawApiParams2HashMap(annosArr, args);
+        // Record this invocation
+        ApiInvokeInfo apiInvokeInfo = new ApiInvokeInfo();
+        apiInvokeInfo.apiName = method.getName();
+        apiInvokeInfo.paramsMap.putAll(paramsMap);
+        apiInvokeInfo.url = invokeUrl;
         // parse '{}'s in url
         invokeUrl = parseUrlbyParams(invokeUrl, paramsMap);
         // cleared hashmap to params, and filter out of the null value
@@ -109,6 +114,9 @@ public class ProxyInvocationHandler implements InvocationHandler {
         } else { // use POST for default
             retString = HttpInvoker.post(invokeUrl, params);
         }
+
+        // invoked, then add to history
+        ApiStats.addApiInvocation(apiInvokeInfo);
         
         Log.d(TAG, retString);
         

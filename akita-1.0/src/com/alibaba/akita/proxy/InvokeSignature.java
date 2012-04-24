@@ -9,8 +9,7 @@ package com.alibaba.akita.proxy;
 
 import java.util.ArrayList;
 
-import com.alibaba.akita.proxy.annotation.AkSignature;
-import com.alibaba.akita.proxy.annotation.AkSignature;
+import com.alibaba.akita.annotation.AkSignature;
 import org.apache.http.NameValuePair;
 
 

@@ -16,9 +16,9 @@ package com.alibaba.akita.samples.api;
 
 import com.alibaba.akita.exception.AkInvokeException;
 import com.alibaba.akita.exception.AkServerStatusException;
-import com.alibaba.akita.proxy.annotation.AkAPI;
-import com.alibaba.akita.proxy.annotation.AkParam;
-import com.alibaba.akita.proxy.annotation.AkGET;
+import com.alibaba.akita.annotation.AkAPI;
+import com.alibaba.akita.annotation.AkParam;
+import com.alibaba.akita.annotation.AkGET;
 import com.alibaba.akita.samples.api.weibo.Statuses;
 
 /**

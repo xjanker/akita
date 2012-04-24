@@ -32,6 +32,11 @@ public abstract class AkBaseAdapter<T> extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    public void clearItems() {
+        mData.clear();
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getCount() {
         return mData.size();

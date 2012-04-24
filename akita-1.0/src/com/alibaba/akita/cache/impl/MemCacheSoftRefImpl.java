@@ -16,6 +16,8 @@ package com.alibaba.akita.cache.impl;
 import com.alibaba.akita.cache.MemCache;
 
 import java.lang.ref.SoftReference;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 
@@ -90,5 +92,14 @@ public class MemCacheSoftRefImpl<K, V> implements MemCache<K, V> {
     @Override
     public void clear() {
         mSoftVauleCache.clear();
+    }
+
+    /**
+     * no need to implement, so return new map now.
+     * @return
+     */
+    @Override
+    public Map<K, V> snapshot() {
+        return new LinkedHashMap<K, V>();
     }
 }
