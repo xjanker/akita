@@ -1,4 +1,4 @@
-package com.alibaba.akita.cache.impl;
+package com.alibaba.akita.cache;
 
 
 /**
@@ -22,7 +22,7 @@ public class CacheObject implements Comparable<CacheObject> {
      */
     public String              value;
 
-    public CacheObject(String key, String value){
+    protected CacheObject(String key, String value){
         this.key = key;
         this.value = value;
         this.cacheTime = System.currentTimeMillis();

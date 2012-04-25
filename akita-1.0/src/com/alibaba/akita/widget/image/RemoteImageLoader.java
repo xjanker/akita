@@ -74,7 +74,7 @@ public class RemoteImageLoader {
                     ImageCache.DISK_CACHE_SDCARD);*/
         }
         errorDrawable = context.getResources().getDrawable(android.R.drawable.ic_dialog_alert);
-        defaultDummyDrawable = context.getResources().getDrawable(android.R.drawable.ic_dialog_info);
+        defaultDummyDrawable = context.getResources().getDrawable(android.R.drawable.ic_menu_gallery);
     }
 
     /**

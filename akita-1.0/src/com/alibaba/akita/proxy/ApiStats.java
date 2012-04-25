@@ -14,8 +14,8 @@
 
 package com.alibaba.akita.proxy;
 
+import com.alibaba.akita.cache.AkCacheManager;
 import com.alibaba.akita.cache.MemCache;
-import com.alibaba.akita.cache.impl.MemCacheLruImpl;
 import com.alibaba.akita.util.DateUtil;
 
 import java.util.Map;
@@ -30,9 +30,13 @@ import java.util.Map;
  */
 public class ApiStats {
 
-    private static MemCache<Long, ApiInvokeInfo> sRecentInvocations
-            = new MemCacheLruImpl<Long, ApiInvokeInfo>(100);
+    private static MemCache<Long, ApiInvokeInfo> sRecentInvocations =
+            AkCacheManager.newMemLruCache(100);
 
+    /**
+     * Only effect on API level 12+, because of android.util.LruCache
+     * @param aii
+     */
     public static void addApiInvocation(ApiInvokeInfo aii) {
         long now = System.currentTimeMillis();
         aii.invokeTime = DateUtil.getSimpleDatetime(now);

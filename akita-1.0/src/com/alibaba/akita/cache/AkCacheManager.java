@@ -20,10 +20,7 @@ package com.alibaba.akita.cache;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import com.alibaba.akita.cache.impl.FilesCacheSDFoldersImpl;
-import com.alibaba.akita.cache.impl.MemCacheLruImpl;
-import com.alibaba.akita.cache.impl.MemCacheSoftRefImpl;
-import com.alibaba.akita.cache.impl.SimpleCacheSqliteImpl;
+import android.os.Build;
 import com.alibaba.akita.util.Log;
 
 import java.io.File;
@@ -36,7 +33,11 @@ import java.io.FileOutputStream;
 public class AkCacheManager {
 
     public static <K, V> MemCache<K, V> newMemLruCache(int maxSize) {
-        return new MemCacheLruImpl<K, V>(maxSize);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {
+            return new MemCacheLruImpl<K, V>(maxSize);
+        } else {
+            return new MemCacheDummyImpl<K, V>(maxSize);
+        }
     }
 
     public static <K, V> MemCache<K, V> newMemSoftRefCache() {
@@ -44,7 +45,11 @@ public class AkCacheManager {
     }
     
     public static SimpleCache getSimpleCache(Context context) {
-        return new SimpleCacheSqliteImpl(context, "test.db", "test", 1, 0);
+        return new SimpleCacheSqliteImpl(context, "simplecache.db", "default", 1, 0);
+    }
+
+    public static SimpleCache getSimpleCache(Context context, String tagName) {
+        return new SimpleCacheSqliteImpl(context, "simplecache.db", tagName, 1, 0);
     }
     
     public static FilesCache<Bitmap> getImageFilesCache(Context context) {

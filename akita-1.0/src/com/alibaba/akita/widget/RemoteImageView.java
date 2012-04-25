@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.ViewSwitcher;
 import com.alibaba.akita.Akita;
+import com.alibaba.akita.R;
 import com.alibaba.akita.util.AndroidUtil;
 import com.alibaba.akita.widget.image.RemoteImageLoader;
 import com.alibaba.akita.widget.image.RemoteImageLoaderHandler;
@@ -221,6 +222,11 @@ public class RemoteImageView extends ViewSwitcher {
         setDisplayedChild(0);
         imageLoader.loadImage(imageUrl, imageView, new DefaultImageLoaderHandler(imgBoxWidth, imgBoxHeight));
     }
+
+    public void resetDummyImage() {
+        imageView.setImageResource(android.R.drawable.ic_menu_gallery);
+    }
+
 
     public boolean isLoaded() {
         return isLoaded;
