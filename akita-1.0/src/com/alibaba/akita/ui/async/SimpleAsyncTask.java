@@ -11,7 +11,7 @@ import com.alibaba.akita.util.Log;
  *
  * @author zhe.yangz
  */
-public abstract class SimpleAsyncTask<T> extends AsyncTask<Void, Void, T> {
+public abstract class SimpleAsyncTask<T> extends AsyncTask<Integer, Integer, T> {
     private static final String TAG = "SimpleAsyncTask<T>";
     protected AkException mAkException = null;
 
@@ -32,8 +32,12 @@ public abstract class SimpleAsyncTask<T> extends AsyncTask<Void, Void, T> {
         }
     }
 
+    public AsyncTask<Integer, Integer, T> fire() {
+        return execute(new Integer[] {0});
+    }
+
     @Override
-    protected T doInBackground(Void... voids) {
+    protected T doInBackground(Integer... integers) {
         try {
             if (mAkException == null) {
                 return onDoAsync();

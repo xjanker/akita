@@ -22,7 +22,8 @@ public class AkInvokeException extends AkException {
     public static final int CODE_JSONPROCESS_EXCEPTION = 1004;
     public static final int CODE_IO_EXCEPTION = 1005;
     public static final int CODE_FULFILL_INVOKE_EXCEPTION = 1006;
-    
+    public static final int CODE_PARAM_IN_URL_NOT_FOUND = 1007;
+
     /**
      * exception code
      */
@@ -48,7 +49,9 @@ public class AkInvokeException extends AkException {
         
         this.code = code;
     }
-    
 
-
+    @Override
+    public String toString() {
+        return "["+code+"] "+super.toString();    //defaults
+    }
 }

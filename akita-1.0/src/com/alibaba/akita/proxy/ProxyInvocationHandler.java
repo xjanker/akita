@@ -81,7 +81,7 @@ public class ProxyInvocationHandler implements InvocationHandler {
         AkSignature akSig = method.getAnnotation(AkSignature.class);
         if (akSig != null) {
             Class<?> clazzSignature = akSig.using();
-            if (clazzSignature.getInterfaces().length > 0 // TODO NEED VERIFY
+            if (clazzSignature.getInterfaces().length > 0 // TODO: NEED VERIFY WHEN I HAVE TIME
                     && InvokeSignature.class.getName().equals(
                             clazzSignature.getInterfaces()[0].getName())) {
                 InvokeSignature is =
@@ -150,14 +150,21 @@ public class ProxyInvocationHandler implements InvocationHandler {
      * @param params such as hashmap include (namespace->'mobile')
      * @return the parsed param will be removed in HashMap (params)
      */
-    private String parseUrlbyParams(String url, HashMap<String, String> params) {
+    private String parseUrlbyParams(String url, HashMap<String, String> params)
+            throws AkInvokeException {
+
         StringBuffer sbUrl = new StringBuffer();
-        
         Pattern pattern = Pattern.compile("\\{(.+?)\\}");
         Matcher matcher = pattern.matcher(url);
         
         while (matcher.find()) {
-            matcher.appendReplacement(sbUrl, params.get(matcher.group(1)));
+            String paramValue = params.get(matcher.group(1));
+            if (paramValue != null) {
+                matcher.appendReplacement(sbUrl, paramValue);
+            } else { // 对于{name}没有匹配到的则抛出异常
+                throw new AkInvokeException(AkInvokeException.CODE_PARAM_IN_URL_NOT_FOUND,
+                        "Parameter {"+matcher.group(1)+"}'s value not found of url "+url+".");
+            }
             params.remove(matcher.group(1));
         }
         matcher.appendTail(sbUrl);

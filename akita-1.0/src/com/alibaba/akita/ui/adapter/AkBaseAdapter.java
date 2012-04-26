@@ -32,6 +32,11 @@ public abstract class AkBaseAdapter<T> extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    public void addItem(int idx, final T item) {
+        mData.add(idx, item);
+        notifyDataSetChanged();
+    }
+
     public void clearItems() {
         mData.clear();
         notifyDataSetChanged();
