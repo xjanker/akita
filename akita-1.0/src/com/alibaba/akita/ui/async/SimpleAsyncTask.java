@@ -36,6 +36,10 @@ public abstract class SimpleAsyncTask<T> extends AsyncTask<Integer, Integer, T> 
         return execute(new Integer[] {0});
     }
 
+    public AsyncTask<Integer, Integer, T> fireOnParallel() {
+        return executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, new Integer[]{0});
+    }
+
     @Override
     protected T doInBackground(Integer... integers) {
         try {
