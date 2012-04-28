@@ -1,6 +1,7 @@
 package com.alibaba.akita.ui.async;
 
 import android.os.AsyncTask;
+import android.os.Build;
 import com.alibaba.akita.exception.AkException;
 import com.alibaba.akita.util.Log;
 
@@ -37,7 +38,11 @@ public abstract class SimpleAsyncTask<T> extends AsyncTask<Integer, Integer, T> 
     }
 
     public AsyncTask<Integer, Integer, T> fireOnParallel() {
-        return executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, new Integer[]{0});
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            return executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, new Integer[]{0});
+        } else {
+            return execute(new Integer[] {0});
+        }
     }
 
     @Override
