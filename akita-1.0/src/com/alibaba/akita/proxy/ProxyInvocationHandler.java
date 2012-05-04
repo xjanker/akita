@@ -26,6 +26,7 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -201,6 +202,9 @@ public class ProxyInvocationHandler implements InvocationHandler {
                             Log.w(TAG, "UnsupportedEncodingException:" + encode);
                             paramsMap.put(paramName, arg.toString());
                         }
+                    } else if ("$paramMap".equals(paramName)) {
+                        Map<String, String> paramMap = (Map<String, String>) arg;
+                        paramsMap.putAll(paramMap);
                     } else {
                         paramsMap.put(paramName, arg.toString());
                     }

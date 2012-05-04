@@ -14,7 +14,20 @@
 
 package com.alibaba.akita.util;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.net.Uri;
+import android.telephony.TelephonyManager;
+import android.view.Window;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import com.alibaba.akita.R;
+
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -25,6 +38,7 @@ import android.content.Context;
  * @author Justin Yang
  */
 public class AndroidUtil {
+    private static final String TAG = "AndroidUtil";
     /**
      * Dp float value xform to Px int value
      * @param context
@@ -34,5 +48,116 @@ public class AndroidUtil {
     public static int dp2px(Context context, float dpValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
+    }
+
+    public static int getVerCode(Context context) {
+        try {
+            return context.getPackageManager().getPackageInfo(
+                    "com.alibaba.android.aliexpress", 0).versionCode;
+        } catch (Exception e) {
+            Log.e(TAG, "Cannot find package and its version info.");
+            return -1;
+        }
+    }
+
+    public static String getVerName(Context context) {
+        try {
+            return context.getPackageManager().getPackageInfo(
+                    "com.alibaba.android.aliexpress", 0).versionName;
+        } catch (Exception e) {
+            Log.e(TAG, "Cannot find package and its version info.");
+            return "no version name";
+        }
+    }
+
+    public static String getAppName(Context context) {
+        String verName = context.getResources().getText(R.string.app_name)  // TODO NEED PROVE
+                .toString();
+        return verName;
+    }
+
+    /**
+     * 获取DeviceId
+     *
+     * @param context
+     * @return 当获取到的TelephonyManager为null时，将返回null
+     */
+    public static String getDeviceId(Context context) {
+        TelephonyManager tm = (TelephonyManager) context
+                .getSystemService(Context.TELEPHONY_SERVICE);
+        return tm == null ? null : tm.getDeviceId();
+    }
+
+    /**
+     * 显示或隐藏IME
+     *
+     * @param context
+     * @param bHide
+     */
+    public static void hideIME(Activity context, boolean bHide) {
+        if (bHide) {
+            try {
+                ((InputMethodManager) context
+                        .getSystemService(Activity.INPUT_METHOD_SERVICE))
+                        .hideSoftInputFromWindow(context.getCurrentFocus()
+                                .getWindowToken(),
+                                InputMethodManager.HIDE_NOT_ALWAYS);
+            } catch (NullPointerException npe) {
+                npe.printStackTrace();
+            }
+        } else { // show IME
+            try {
+                ((InputMethodManager) context
+                        .getSystemService(Activity.INPUT_METHOD_SERVICE))
+                        .showSoftInput(context.getCurrentFocus(),
+                                InputMethodManager.SHOW_IMPLICIT);
+            } catch (NullPointerException npe) {
+                npe.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * 在dialog开启前确定需要开启后跳出IME
+     *
+     * @param dialog
+     */
+    public static void showIMEonDialog(AlertDialog dialog) {
+        try {
+            Window window = dialog.getWindow();
+            window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        } catch (Exception e) {
+            Log.e(TAG, e.toString());
+        }
+    }
+
+    /**
+     * 判断一个apk是否安装
+     *
+     * @param ctx
+     * @param packageName
+     * @return
+     */
+    public static boolean isPkgInstalled(Context ctx, String packageName) {
+        PackageManager pm = ctx.getPackageManager();
+        try {
+            pm.getPackageInfo(packageName, 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean isAndroidMarketInstalled(Context ctx) {
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse("market://search?q=foo"));
+        PackageManager pm = ctx.getPackageManager();
+        List<ResolveInfo> list = pm.queryIntentActivities(intent, 0);
+        if (list.size() > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
