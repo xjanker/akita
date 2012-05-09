@@ -27,6 +27,12 @@ import java.lang.reflect.Method;
  * @author zhe.yangz
  */
 public class JUnitUtil {
+
+    /**
+     * 得到AkTest标注的名称，若没有则返回null
+     * @param testCase
+     * @return
+     */
     public static String getTestName(TestCase testCase) {
         try {
             Method method = testCase.getClass().getMethod(testCase.getName(), (Class[])null);
@@ -38,11 +44,11 @@ public class JUnitUtil {
                     return method.getName();
                 }
             } else {
-                return "none";
+                return null;
             }
         } catch (NoSuchMethodException e) {
             e.printStackTrace();  //defaults
-            return "exception";
+            return null;
         }
     }
 }

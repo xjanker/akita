@@ -7,7 +7,11 @@
  */
 package com.alibaba.akita.util;
 
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
+import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
+import java.security.InvalidKeyException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -45,5 +49,27 @@ public class HashUtil {
             e.printStackTrace();
             return ori;
         }
+    }
+
+    public static final String HMAC_SHA1 = "HmacSHA1";
+    public static byte[] hmacSha1(String[] datas, byte[] key) {
+        SecretKeySpec signingKey = new SecretKeySpec(key, HMAC_SHA1);
+        Mac mac = null;
+        try {
+            mac = Mac.getInstance(HMAC_SHA1);
+            mac.init(signingKey);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e.getMessage(), e);
+        } catch (InvalidKeyException e) {
+            throw new RuntimeException(e.getMessage(), e);
+        }
+        try {
+            for (String data : datas) {
+                mac.update(data.getBytes(StringUtil.CHARSET_NAME_UTF8));
+            }
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e.getMessage(), e);
+        }
+        return mac.doFinal();
     }
 }
