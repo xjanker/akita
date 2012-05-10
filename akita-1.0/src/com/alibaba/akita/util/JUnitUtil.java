@@ -41,7 +41,7 @@ public class JUnitUtil {
                 if (akTest != null) {
                     return akTest.value();
                 } else {
-                    return method.getName();
+                    return null;
                 }
             } else {
                 return null;
