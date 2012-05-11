@@ -23,6 +23,7 @@ public class AkInvokeException extends AkException {
     public static final int CODE_IO_EXCEPTION = 1005;
     public static final int CODE_FULFILL_INVOKE_EXCEPTION = 1006;
     public static final int CODE_PARAM_IN_URL_NOT_FOUND = 1007;
+    public static final int CODE_FILE_NOT_FOUND = 1008;
 
     /**
      * exception code

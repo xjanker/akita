@@ -7,15 +7,16 @@
  */
 package com.alibaba.akita.proxy;
 
+import com.alibaba.akita.annotation.*;
 import com.alibaba.akita.exception.AkInvokeException;
 import com.alibaba.akita.io.HttpInvoker;
-import com.alibaba.akita.annotation.*;
 import com.alibaba.akita.util.JsonMapper;
 import com.alibaba.akita.util.Log;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.codehaus.jackson.JsonProcessingException;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.annotation.Annotation;
@@ -23,10 +24,7 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -63,7 +61,8 @@ public class ProxyInvocationHandler implements InvocationHandler {
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 
         // AkApiParams to hashmap, filter out of null-value
-        HashMap<String, String> paramsMap = getRawApiParams2HashMap(annosArr, args);
+        HashMap<String, File> filesToSend = new HashMap<String, File>();
+        HashMap<String, String> paramsMap = getRawApiParams2HashMap(annosArr, args, filesToSend);
         // Record this invocation
         ApiInvokeInfo apiInvokeInfo = new ApiInvokeInfo();
         apiInvokeInfo.apiName = method.getName();
@@ -111,7 +110,12 @@ public class ProxyInvocationHandler implements InvocationHandler {
             } // now default using UTF-8, maybe improved later
             retString = HttpInvoker.get(sbUrl.toString());
         } else if (akPost != null) {
-            retString = HttpInvoker.post(invokeUrl, params);
+            if (filesToSend.isEmpty()) {
+                retString = HttpInvoker.post(invokeUrl, params);
+            } else {
+                retString = HttpInvoker.postWithFilesUsingURLConnection(
+                        invokeUrl, params, filesToSend);
+            }
         } else { // use POST for default
             retString = HttpInvoker.post(invokeUrl, params);
         }
@@ -175,12 +179,15 @@ public class ProxyInvocationHandler implements InvocationHandler {
 
     /**
      * AkApiParams to hashmap, filter out of null-value
+     *
      * @param annosArr Method's params' annotation array[][]
      * @param args Method's params' values
+     * @param filesToSend
      * @return HashMap all (paramName -> paramValue)
      */
-    private HashMap<String, String> getRawApiParams2HashMap(Annotation[][] annosArr, 
-                                                            Object[] args) {
+    private HashMap<String, String> getRawApiParams2HashMap(Annotation[][] annosArr,
+                                                            Object[] args,
+                                                            HashMap<String, File> filesToSend) {
         HashMap<String, String> paramsMap = new HashMap<String, String>();
         for (int idx = 0; idx < args.length; idx++) {
             String paramName = null;
@@ -203,8 +210,13 @@ public class ProxyInvocationHandler implements InvocationHandler {
                             paramsMap.put(paramName, arg.toString());
                         }
                     } else if ("$paramMap".equals(paramName)) {
-                        Map<String, String> paramMap = (Map<String, String>) arg;
+                        Map<String, String> paramMap = (Map<String, String>)arg;
                         paramsMap.putAll(paramMap);
+                    } else if ("$filesToSend".equals(paramName)) {
+                        if (arg instanceof Map) {
+                            Map<String, File> files = (Map<String, File>)arg;
+                            filesToSend.putAll(files);
+                        }
                     } else {
                         paramsMap.put(paramName, arg.toString());
                     }

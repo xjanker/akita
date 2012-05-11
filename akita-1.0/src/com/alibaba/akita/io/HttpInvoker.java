@@ -32,8 +32,11 @@ import org.apache.http.protocol.HttpContext;
 import org.apache.http.util.EntityUtils;
 
 import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -42,6 +45,7 @@ import java.util.HashMap;
  * Post(not idempotent) 
  * Put
  * Delete
+ * Post With Files (URLConnection Impl)
  * @author zhe.yangz 2011-12-30 下午01:49:38
  */
 public class HttpInvoker {
@@ -387,7 +391,7 @@ public class HttpInvoker {
         }
         return bitmap;
     }
-    
+
     /*
      * An InputStream that skips the exact number of bytes provided, unless it
      * reaches EOF.
@@ -413,6 +417,116 @@ public class HttpInvoker {
                 totalBytesSkipped += bytesSkipped;
             }
             return totalBytesSkipped;
+        }
+    }
+
+
+    /**
+     * post with files using URLConnection Impl
+     * @param actionUrl URL to post
+     * @param params params to post
+     * @param files files to post, support multi-files
+     * @return response in String format
+     * @throws IOException
+     */
+    public static String postWithFilesUsingURLConnection(
+            String actionUrl, ArrayList<NameValuePair> params, Map<String, File> files)
+            throws AkInvokeException {
+        try {
+            String BOUNDARY = java.util.UUID.randomUUID().toString();
+            String PREFIX = "--", LINEND = "\r\n";
+            String MULTIPART_FROM_DATA = "multipart/form-data";
+            String CHARSET = "UTF-8";
+
+            URL uri = new URL(actionUrl);
+            HttpURLConnection conn = (HttpURLConnection) uri.openConnection();
+
+            conn.setReadTimeout(60 * 1000);
+            conn.setDoInput(true); // permit input
+            conn.setDoOutput(true); // permit output
+            conn.setUseCaches(false);
+            conn.setRequestMethod("POST"); // Post Method
+            conn.setRequestProperty("connection", "keep-alive");
+            conn.setRequestProperty("Charsert", "UTF-8");
+            conn.setRequestProperty("Content-Type", MULTIPART_FROM_DATA
+                    + ";boundary=" + BOUNDARY);
+
+            // firstly string params to add
+            StringBuilder sb = new StringBuilder();
+            for (NameValuePair nameValuePair : params) {
+                sb.append(PREFIX);
+                sb.append(BOUNDARY);
+                sb.append(LINEND);
+                sb.append("Content-Disposition: form-data; name=\""
+                        + nameValuePair.getName() + "\"" + LINEND);
+                sb.append("Content-Type: text/plain; charset=" + CHARSET + LINEND);
+                sb.append("Content-Transfer-Encoding: 8bit" + LINEND);
+                sb.append(LINEND);
+                sb.append(nameValuePair.getValue());
+                sb.append(LINEND);
+            }
+
+            DataOutputStream outStream = new DataOutputStream(
+                    conn.getOutputStream());
+            outStream.write(sb.toString().getBytes());
+            // send files secondly
+            if (files != null) {
+                int num = 0;
+                for (Map.Entry<String, File> file : files.entrySet()) {
+                    num++;
+                    if (file.getKey() == null || file.getValue() == null) continue;
+                    else {
+                        if (!file.getValue().exists()) {
+                            throw new AkInvokeException(AkInvokeException.CODE_FILE_NOT_FOUND,
+                                    "The file to upload is not found.");
+                        }
+                    }
+                    StringBuilder sb1 = new StringBuilder();
+                    sb1.append(PREFIX);
+                    sb1.append(BOUNDARY);
+                    sb1.append(LINEND);
+                    sb1.append("Content-Disposition: form-data; name=\"file"+num+"\"; filename=\""
+                            + file.getKey() + "\"" + LINEND);
+                    sb1.append("Content-Type: application/octet-stream; charset="
+                            + CHARSET + LINEND);
+                    sb1.append(LINEND);
+                    outStream.write(sb1.toString().getBytes());
+
+                    InputStream is = new FileInputStream(file.getValue());
+                    byte[] buffer = new byte[1024];
+                    int len = 0;
+                    while ((len = is.read(buffer)) != -1) {
+                        outStream.write(buffer, 0, len);
+                    }
+
+                    is.close();
+                    outStream.write(LINEND.getBytes());
+                }
+            }
+
+            // request end flag
+            byte[] end_data = (PREFIX + BOUNDARY + PREFIX + LINEND).getBytes();
+            outStream.write(end_data);
+            outStream.flush();
+            // get response code
+            int res = conn.getResponseCode();
+            InputStream in = conn.getInputStream();
+            StringBuilder sb2 = new StringBuilder();
+            if (res == 200) {
+                BufferedReader reader = new BufferedReader(
+                        new InputStreamReader(in, "utf-8"),
+                        8192);
+                String line = null;
+                while ((line = reader.readLine()) != null) {
+                    sb2.append(line + "\n");
+                }
+                reader.close();
+            }
+            outStream.close();
+            conn.disconnect();
+            return sb2.toString();
+        } catch (IOException ioe) {
+            throw new AkInvokeException(AkInvokeException.CODE_IO_EXCEPTION, "IO Exception", ioe);
         }
     }
     
