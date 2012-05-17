@@ -40,6 +40,8 @@ public abstract class AbsBottomTabActivity extends ActivityGroup
             R.drawable.ic_launcher };
     private String[] tabLabels = { "朋友动态",	//tab标签文字
             "拍照" };
+    private int selectedColor;
+    private int unSelectedColor;
 
     /**
      *  use doSetTab(...) to set these:
@@ -48,10 +50,13 @@ public abstract class AbsBottomTabActivity extends ActivityGroup
      */
     protected abstract void presetTab();
 
-    protected void doSetTab(String[] tabLabels, Integer[] tabImages, Intent[] intents) {
+    protected void doSetTab(String[] tabLabels, Integer[] tabImages, Intent[] intents,
+                            int selectColor, int unSelectedColor) {
         this.tabLabels = tabLabels;
         this.tabImages = tabImages;
         this.intents = intents;
+        this.selectedColor = selectColor;
+        this.unSelectedColor = unSelectedColor;
         subPageView = new Window[intents.length];
         for(int i = 0; i < intents.length; i++) {
             subPageView[i] = null;
@@ -73,7 +78,9 @@ public abstract class AbsBottomTabActivity extends ActivityGroup
         int width = this.getWindowManager().getDefaultDisplay().getWidth()//获取屏幕宽度
                 / tabImages.length;//平分宽度
         imageAdapter = new BottomTabImageAdapter(   //创建图片适配器，传递图片所需高和宽
-                this, tabImages, tabLabels, width, AndroidUtil.dp2px(this, 48));
+                this, tabImages, tabLabels, width, AndroidUtil.dp2px(this, 48),
+                this.unSelectedColor, this.selectedColor
+        );
         gv_tabPage.setAdapter(imageAdapter);// 设置菜单Adapter
         gv_tabPage.setOnItemClickListener(new ItemClickEvent()); //注册点击事件
         pageContainer = (LinearLayout) findViewById(R.id.pageContainer);
@@ -136,5 +143,10 @@ public abstract class AbsBottomTabActivity extends ActivityGroup
         //装载子页面View到LinearLayout容器里面
         pageContainer.addView(pageView.getDecorView(),
                 LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.FILL_PARENT);
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }

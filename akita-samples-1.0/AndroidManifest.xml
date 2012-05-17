@@ -17,19 +17,180 @@
           package="com.alibaba.akita.samples"
           android:versionCode="1"
           android:versionName="1.0">
-    <uses-sdk android:minSdkVersion="8"/>
+    <uses-sdk android:minSdkVersion="8"
+              android:targetSdkVersion="15" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <application android:label="@string/app_name" android:icon="@drawable/ic_launcher">
-        <activity android:name="MainActivity"
+        <activity android:name=".ListSamples"
                   android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name="Page1"></activity>
-        <activity android:name="Page2"></activity>
-        <activity android:name="Page3"></activity>
+
+        <!-- TAB UI TEMPLATE -->
+        <activity android:name=".TabActivity1"
+                  android:label="UITemplate Tab/Simple Default Tab" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.alibaba.akita.sample.SAMPLE" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".TabPage1"></activity>
+        <activity android:name=".TabPage2"></activity>
+        <activity android:name=".TabPage3"></activity>
+
+        <!-- CIRCLE INDICATOR -->
+        <activity
+                android:name=".SampleCirclesDefault"
+                android:label="PageIndicator Circles/Default">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.alibaba.akita.sample.SAMPLE" />
+            </intent-filter>
+        </activity>
+        <activity
+                android:name=".SampleCirclesInitialPage"
+                android:label="PageIndicator Circles/InitialPage">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.alibaba.akita.sample.SAMPLE" />
+            </intent-filter>
+        </activity>
+        <activity
+                android:name=".SampleCirclesSnap"
+                android:label="PageIndicator Circles/Snap">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.alibaba.akita.sample.SAMPLE" />
+            </intent-filter>
+        </activity>
+        <activity
+                android:name=".SampleCirclesStyledLayout"
+                android:label="PageIndicator Circles/Styled (via layout)"
+                android:theme="@android:style/Theme.Light">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.alibaba.akita.sample.SAMPLE" />
+            </intent-filter>
+        </activity>
+        <activity
+                android:name=".SampleCirclesStyledMethods"
+                android:label="PageIndicator Circles/Styled (via methods)"
+                android:theme="@android:style/Theme.Light">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.alibaba.akita.sample.SAMPLE" />
+            </intent-filter>
+        </activity>
+        <activity
+                android:name=".SampleCirclesStyledTheme"
+                android:label="PageIndicator Circles/Styled (via theme)"
+                android:theme="@style/StyledIndicators">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.alibaba.akita.sample.SAMPLE" />
+            </intent-filter>
+        </activity>
+        <activity
+                android:name=".SampleCirclesWithListener"
+                android:label="PageIndicator Circles/With Listener">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.alibaba.akita.sample.SAMPLE" />
+            </intent-filter>
+        </activity>
+
+        <!-- TITLE INDICATOR -->
+        <activity
+                android:name=".SampleTitlesCenterClickListener"
+                android:label="PageIndicator Titles/Center Click Listener">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.alibaba.akita.sample.SAMPLE" />
+            </intent-filter>
+        </activity>
+        <activity
+                android:name=".SampleTitlesDefault"
+                android:label="PageIndicator Titles/Default">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.alibaba.akita.sample.SAMPLE" />
+            </intent-filter>
+        </activity>
+        <activity
+                android:name=".SampleTitlesInitialPage"
+                android:label="PageIndicator Titles/Initial Page">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.alibaba.akita.sample.SAMPLE" />
+            </intent-filter>
+        </activity>
+        <activity
+                android:name=".SampleTitlesStyledLayout"
+                android:label="PageIndicator Titles/Styled (via layout)"
+                android:theme="@android:style/Theme.Light">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.alibaba.akita.sample.SAMPLE" />
+            </intent-filter>
+        </activity>
+        <activity
+                android:name=".SampleTitlesStyledMethods"
+                android:label="PageIndicator Titles/Styled (via methods)"
+                android:theme="@android:style/Theme.Light">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.alibaba.akita.sample.SAMPLE" />
+            </intent-filter>
+        </activity>
+        <activity
+                android:name=".SampleTitlesStyledTheme"
+                android:label="PageIndicator Titles/Styled (via theme)"
+                android:theme="@style/StyledIndicators">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.alibaba.akita.sample.SAMPLE" />
+            </intent-filter>
+        </activity>
+        <activity
+                android:name=".SampleTitlesTriangle"
+                android:label="PageIndicator Titles/Triangle Style">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.alibaba.akita.sample.SAMPLE" />
+            </intent-filter>
+        </activity>
+        <activity
+                android:name=".SampleTitlesWithListener"
+                android:label="PageIndicator Titles/With Listener">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.alibaba.akita.sample.SAMPLE" />
+            </intent-filter>
+        </activity>
+
+        <!-- TAB INDICATOR -->
+        <activity
+                android:name=".SampleTabsDefault"
+                android:label="PageIndicator Tabs/Default"
+                android:theme="@style/Theme.PageIndicatorDefaults">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.alibaba.akita.sample.SAMPLE" />
+            </intent-filter>
+        </activity>
+        <activity
+                android:name=".SampleTabsStyled"
+                android:label="PageIndicator Tabs/Styled"
+                android:theme="@style/StyledIndicators">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.alibaba.akita.sample.SAMPLE" />
+            </intent-filter>
+        </activity>
+
     </application>
 </manifest>

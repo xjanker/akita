@@ -12,24 +12,23 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.ViewSwitcher;
 import com.alibaba.akita.Akita;
-import com.alibaba.akita.R;
 import com.alibaba.akita.util.AndroidUtil;
-import com.alibaba.akita.widget.image.RemoteImageLoader;
-import com.alibaba.akita.widget.image.RemoteImageLoaderHandler;
+import com.alibaba.akita.widget.remoteimageview.RemoteImageLoader;
+import com.alibaba.akita.widget.remoteimageview.RemoteImageLoaderHandler;
 
 
 /**
- * An image view that fetches its image off the web using the supplied URL. While the image is being
+ * An remoteimageview view that fetches its remoteimageview off the web using the supplied URL. While the remoteimageview is being
  * downloaded, a progress indicator will be shown. The following attributes are supported:
  * <ul>
- * <li>android:src (Drawable) -- The default/placeholder image that is shown if no image can be
- * downloaded, or before the image download starts (see {@link android.R.attr#src})
- * <li>android:indeterminateDrawable (Drawable) -- The progress drawable to use while the image is
+ * <li>android:src (Drawable) -- The default/placeholder remoteimageview that is shown if no remoteimageview can be
+ * downloaded, or before the remoteimageview download starts (see {@link android.R.attr#src})
+ * <li>android:indeterminateDrawable (Drawable) -- The progress drawable to use while the remoteimageview is
  * being downloaded (see {@link android.R.attr#indeterminateDrawable})</li>
- * <li>ignition:imageUrl (String) -- The URL at which the image is found online</li>
+ * <li>ignition:imageUrl (String) -- The URL at which the remoteimageview is found online</li>
  * <li>ignition:autoLoad (Boolean) -- Whether the download should start immediately after view
  * inflation</li>
- * <li>ignition:errorDrawable (Drawable) -- The drawable to display if the image download fails</li>
+ * <li>ignition:errorDrawable (Drawable) -- The drawable to display if the remoteimageview download fails</li>
  * </ul>
  * 
  * @author Matthias Kaeppler original.
@@ -51,12 +50,12 @@ public class RemoteImageView extends ViewSwitcher {
 
     private String imageUrl;
     /**
-     * image real Width in px
+     * remoteimageview real Width in px
      * wrap_content (<=0)
      */
     private int imgBoxWidth = 0;
     /**
-     * image real Height in px
+     * remoteimageview real Height in px
      * wrap_content (<=0)
      */
     private int imgBoxHeight = 0;
@@ -72,12 +71,12 @@ public class RemoteImageView extends ViewSwitcher {
     private static RemoteImageLoader sharedImageLoader;
 
     /**
-     * Use this method to inject an image loader that will be shared across all instances of this
+     * Use this method to inject an remoteimageview loader that will be shared across all instances of this
      * class. If the shared reference is null, a new {@link RemoteImageLoader} will be instantiated
      * for every instance of this class.
      * 
      * @param imageLoader
-     *            the shared image loader
+     *            the shared remoteimageview loader
      */
     public static void setSharedImageLoader(RemoteImageLoader imageLoader) {
         sharedImageLoader = imageLoader;
@@ -87,10 +86,10 @@ public class RemoteImageView extends ViewSwitcher {
      * @param context
      *            the view's current context
      * @param imageUrl
-     *            the URL of the image to download and show
+     *            the URL of the remoteimageview to download and show
      * @param autoLoad
      *            Whether the download should start immediately after creating the view. If set to
-     *            false, use {@link #loadImage()} to manually trigger the image download.
+     *            false, use {@link #loadImage()} to manually trigger the remoteimageview download.
      */
     public RemoteImageView(Context context, String imageUrl, boolean autoLoad) {
         super(context);
@@ -101,15 +100,15 @@ public class RemoteImageView extends ViewSwitcher {
      * @param context
      *            the view's current context
      * @param imageUrl
-     *            the URL of the image to download and show
+     *            the URL of the remoteimageview to download and show
      * @param progressDrawable
      *            the drawable to be used for the {@link android.widget.ProgressBar} which is displayed while the
-     *            image is loading
+     *            remoteimageview is loading
      * @param errorDrawable
      *            the drawable to be used if a download error occurs
      * @param autoLoad
      *            Whether the download should start immediately after creating the view. If set to
-     *            false, use {@link #loadImage()} to manually trigger the image download.
+     *            false, use {@link #loadImage()} to manually trigger the remoteimageview download.
      */
     public RemoteImageView(Context context, String imageUrl, Drawable progressDrawable,
                            Drawable errorDrawable, boolean autoLoad) {
@@ -201,7 +200,7 @@ public class RemoteImageView extends ViewSwitcher {
 
     private void addImageView(Context context, AttributeSet attributes) {
         if (attributes != null) {
-            // pass along any view attribtues inflated from XML to the image view
+            // pass along any view attribtues inflated from XML to the remoteimageview view
             imageView = new ImageView(context, attributes);
         } else {
             imageView = new ImageView(context);
@@ -212,12 +211,12 @@ public class RemoteImageView extends ViewSwitcher {
     }
 
     /**
-     * Use this method to trigger the image download if you had previously set autoLoad to false.
+     * Use this method to trigger the remoteimageview download if you had previously set autoLoad to false.
      */
     public void loadImage() {
         if (imageUrl == null) {
             throw new IllegalStateException(
-                    "image URL is null; did you forget to set it for this view?");
+                    "remoteimageview URL is null; did you forget to set it for this view?");
         }
         setDisplayedChild(0);
         imageLoader.loadImage(imageUrl, imageView, new DefaultImageLoaderHandler(imgBoxWidth, imgBoxHeight));
@@ -239,7 +238,7 @@ public class RemoteImageView extends ViewSwitcher {
     /**
      * Box size in px.
      * wrap_contant: <=0
-     * Set it to scale the image using this box
+     * Set it to scale the remoteimageview using this box
      * @param imgMaxWidth
      * @param imgMaxHeight
      */
@@ -249,11 +248,11 @@ public class RemoteImageView extends ViewSwitcher {
     }
 
     /**
-     * Often you have resources which usually have an image, but some don't. For these cases, use
-     * this method to supply a placeholder drawable which will be loaded instead of a web image.
+     * Often you have resources which usually have an remoteimageview, but some don't. For these cases, use
+     * this method to supply a placeholder drawable which will be loaded instead of a web remoteimageview.
      *
      * @param imageResourceId
-     *            the resource of the placeholder image drawable
+     *            the resource of the placeholder remoteimageview drawable
      */
     public void setNoImageDrawable(int imageResourceId) {
         imageView.setImageDrawable(getContext().getResources().getDrawable(imageResourceId));
@@ -285,26 +284,26 @@ public class RemoteImageView extends ViewSwitcher {
     }
 
     /**
-     * Returns the URL of the image to show. Corresponds to the view attribute ignition:imageUrl.
+     * Returns the URL of the remoteimageview to show. Corresponds to the view attribute ignition:imageUrl.
      *
-     * @return the image URL
+     * @return the remoteimageview URL
      */
     public String getImageUrl() {
         return imageUrl;
     }
 
     /**
-     * Whether or not the image should be downloaded immediately after view inflation. Corresponds
+     * Whether or not the remoteimageview should be downloaded immediately after view inflation. Corresponds
      * to the view attribute ignition:autoLoad (default: true).
      *
-     * @return true if auto downloading of the image is enabled
+     * @return true if auto downloading of the remoteimageview is enabled
      */
     public boolean isAutoLoad() {
         return autoLoad;
     }
 
     /**
-     * The drawable that should be used to indicate progress while downloading the image.
+     * The drawable that should be used to indicate progress while downloading the remoteimageview.
      * Corresponds to the view attribute ignition:progressDrawable. If left blank, the platform's
      * standard indeterminate progress drawable will be used.
      *
@@ -315,7 +314,7 @@ public class RemoteImageView extends ViewSwitcher {
     }
 
     /**
-     * The drawable that will be shown when the image download fails. Corresponds to the view
+     * The drawable that will be shown when the remoteimageview download fails. Corresponds to the view
      * attribute ignition:errorDrawable. If left blank, a stock alert icon from the Android platform
      * will be used.
      *
@@ -326,7 +325,7 @@ public class RemoteImageView extends ViewSwitcher {
     }
 
     /**
-     * The image view that will render the downloaded image.
+     * The remoteimageview view that will render the downloaded remoteimageview.
      *
      * @return the {@link android.widget.ImageView}
      */
@@ -335,7 +334,7 @@ public class RemoteImageView extends ViewSwitcher {
     }
 
     /**
-     * The progress bar that is shown while the image is loaded.
+     * The progress bar that is shown while the remoteimageview is loaded.
      *
      * @return the {@link android.widget.ProgressBar}
      */

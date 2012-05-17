@@ -35,8 +35,8 @@ import java.util.ArrayList;
  *
  * @author Justin Yang
  */
-public class Page3 extends Activity {
-    private static final String TAG = "Page3";
+public class TabPage3 extends Activity {
+    private static final String TAG = "TabPage3";
     private MyCustomAdapter mAdapter;
 
     /** Called when the activity is first created. */
@@ -89,5 +89,10 @@ public class Page3 extends Activity {
     public static class ViewHolder {
         public TextView textView;
         public RemoteImageView imageView;
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }

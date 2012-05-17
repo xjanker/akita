@@ -215,8 +215,8 @@ public class HttpInvoker {
     private static byte[] retrieveImageData(InputStream inputStream, String imgUrl, int fileSize)
             throws IOException {
 
-        // determine the image size and allocate a buffer
-        //Log.d(TAG, "fetching image " + imgUrl + " (" +
+        // determine the remoteimageview size and allocate a buffer
+        //Log.d(TAG, "fetching remoteimageview " + imgUrl + " (" +
         //        (fileSize <= 0 ? "size unknown" : Long.toString(fileSize)) + ")");
         BufferedInputStream istream = new BufferedInputStream(inputStream);
 
@@ -258,7 +258,7 @@ public class HttpInvoker {
     private static final int DEFAULT_RETRY_SLEEP_TIME = 1000;
 
     /**
-     * version 2 image download impl, use byte[] to decode.
+     * version 2 remoteimageview download impl, use byte[] to decode.
      * NUM_RETRIES retry.
      * @param imgUrl
      * @param inSampleSize
@@ -335,7 +335,7 @@ public class HttpInvoker {
     }
 
     /**
-     * version 1 image download impl, use InputStream to decode.
+     * version 1 remoteimageview download impl, use InputStream to decode.
      * @param imgUrl
      * @param inSampleSize
      * @return

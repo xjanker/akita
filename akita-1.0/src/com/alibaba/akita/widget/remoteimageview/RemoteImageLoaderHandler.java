@@ -1,4 +1,4 @@
-package com.alibaba.akita.widget.image;
+package com.alibaba.akita.widget.remoteimageview;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
@@ -48,14 +48,14 @@ public class RemoteImageLoaderHandler extends Handler {
      * called directly for performance reasons, in which case the message will be null
      * 
      * @param bitmap
-     *            the bitmap returned from the image loader
+     *            the bitmap returned from the remoteimageview loader
      * @param msg
      *            the handler message; can be null
-     * @return true if the view was updated with the new image, false if it was discarded
+     * @return true if the view was updated with the new remoteimageview, false if it was discarded
      */
     protected boolean handleImageLoaded(Bitmap bitmap, Message msg) {
         // If this handler is used for loading images in a ListAdapter,
-        // the thread will set the image only if it's the right position,
+        // the thread will set the remoteimageview only if it's the right position,
         // otherwise it won't do anything.
         String forUrl = (String) imageView.getTag();
         if (imageUrl.equals(forUrl)) {
@@ -76,7 +76,7 @@ public class RemoteImageLoaderHandler extends Handler {
                 }
             }
 
-            // remove the image URL from the view's tag
+            // remove the remoteimageview URL from the view's tag
             imageView.setTag(null);
 
             return true;

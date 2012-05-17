@@ -15,7 +15,6 @@
 package com.alibaba.akita.ui.activity.bottomtabac;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,17 +33,22 @@ public class BottomTabImageAdapter extends BaseAdapter {
     private Context context;
     private int width;
     private int height;
+    private int selectedColor;
+    private int unSelectedColor;
     private Integer[] imgeIDs;
     private String[] tabLables;
     private LayoutInflater mInflater;
     private int mSelected = 0;
 
-    public BottomTabImageAdapter(Context context, Integer[] imageIDs, String[] tabLables, int width, int height) {
+    public BottomTabImageAdapter(Context context, Integer[] imageIDs, String[] tabLables,
+                                 int width, int height, int unSelectedColor, int selectedColor) {
         this.context = context;
         this.imgeIDs = imageIDs;
         this.tabLables = tabLables;
         this.width = width;
         this.height = height;
+        this.selectedColor = selectedColor;
+        this.unSelectedColor = unSelectedColor;
 
         mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -87,9 +91,9 @@ public class BottomTabImageAdapter extends BaseAdapter {
             holder = (Holder) convertView.getTag();
         }
         if (mSelected == position) {
-            holder.v_indicator.setBackgroundColor(Color.YELLOW);
+            holder.v_indicator.setBackgroundColor(this.selectedColor);
         } else {
-            holder.v_indicator.setBackgroundColor(Color.BLACK);
+            holder.v_indicator.setBackgroundColor(this.unSelectedColor);
         }
         if (imgeIDs[position] == null) {
             holder.iv_tab.setVisibility(View.GONE);

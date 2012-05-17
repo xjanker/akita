@@ -1,4 +1,4 @@
-package com.alibaba.akita.widget.image;
+package com.alibaba.akita.widget.remoteimageview;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -26,15 +26,15 @@ public class RemoteImageLoaderJob implements Runnable {
     }
 
     /**
-     * The job method run on a worker thread. It will first query the image cache, and on a miss,
-     * download the image from the Web.
+     * The job method run on a worker thread. It will first query the remoteimageview cache, and on a miss,
+     * download the remoteimageview from the Web.
      */
     @Override
     public void run() {
         Bitmap bitmap = null;
 
         if (imageCache != null) {
-            // at this point we know the image is not in memory, but it could be cached to SD card
+            // at this point we know the remoteimageview is not in memory, but it could be cached to SD card
             bitmap = imageCache.get(imageUrl);
         }
 

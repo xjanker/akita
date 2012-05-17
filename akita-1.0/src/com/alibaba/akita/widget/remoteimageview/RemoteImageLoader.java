@@ -12,13 +12,12 @@
  * limitations under the License.
  */
 
-package com.alibaba.akita.widget.image;
+package com.alibaba.akita.widget.remoteimageview;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
-import com.alibaba.akita.R;
 import com.alibaba.akita.cache.AkCacheManager;
 import com.alibaba.akita.cache.FilesCache;
 
@@ -26,10 +25,10 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 
 /**
- * Realizes a background image loader that downloads an image from a URL, optionally backed by a
- * two-level FIFO cache. If the image to be loaded is present in the cache, it is set immediately on
- * the given view. Otherwise, a thread from a thread pool will be used to download the image in the
- * background and set the image on the view as soon as it completes.
+ * Realizes a background remoteimageview loader that downloads an remoteimageview from a URL, optionally backed by a
+ * two-level FIFO cache. If the remoteimageview to be loaded is present in the cache, it is set immediately on
+ * the given view. Otherwise, a thread from a thread pool will be used to download the remoteimageview in the
+ * background and set the remoteimageview on the view as soon as it completes.
  * 
  * @author Matthias Kaeppler
  */
@@ -58,7 +57,7 @@ public class RemoteImageLoader {
     /**
      * Creates a new ImageLoader that is backed by an {@link FilesCache<Bitmap>}. The cache will by default
      * cache to the device's external storage, and expire images after 1 day. You can set useCache
-     * to false and then supply your own image cache instance via {@link #setImageCache(FilesCache<Bitmap>)}
+     * to false and then supply your own remoteimageview cache instance via {@link #setImageCache(FilesCache<Bitmap>)}
      * , or fine-tune the default one through {@link #getImageCache()}.
      * 
      * @param context
@@ -87,7 +86,7 @@ public class RemoteImageLoader {
 
     /**
      * @param numAttempts
-     *            how often the image loader should retry the image download if network connection
+     *            how often the remoteimageview loader should retry the remoteimageview download if network connection
      *            fails
      */
     public void setMaxDownloadAttempts(int numAttempts) {
@@ -97,11 +96,11 @@ public class RemoteImageLoader {
     /**
      * If the server you're loading images from does not report file sizes via the Content-Length
      * header, then you can use this method to tell the downloader how much space it should allocate
-     * by default when downloading an image into memory.
+     * by default when downloading an remoteimageview into memory.
      * 
      * @param defaultBufferSize
-     *            how big the buffer should be into which the image file is read. This should be big
-     *            enough to hold the largest image you expect to download
+     *            how big the buffer should be into which the remoteimageview file is read. This should be big
+     *            enough to hold the largest remoteimageview you expect to download
      */
     public void setDefaultBufferSize(int defaultBufferSize) {
         this.defaultBufferSize = defaultBufferSize;
@@ -120,7 +119,7 @@ public class RemoteImageLoader {
     }
 
     /**
-     * Clears the image cache, if it's used. A good candidate for calling in
+     * Clears the remoteimageview cache, if it's used. A good candidate for calling in
      * {@link android.app.Application#onLowMemory()}.
      */
     public void clearImageCache() {
@@ -130,7 +129,7 @@ public class RemoteImageLoader {
     }
 
     /**
-     * Returns the image cache backing this image loader.
+     * Returns the remoteimageview cache backing this remoteimageview loader.
      * 
      * @return the {@link FilesCache<Bitmap>}
      */
@@ -139,15 +138,15 @@ public class RemoteImageLoader {
     }
 
     /**
-     * Triggers the image loader for the given image and view. The image loading will be performed
-     * concurrently to the UI main thread, using a fixed size thread pool. The loaded image will be
+     * Triggers the remoteimageview loader for the given remoteimageview and view. The remoteimageview loading will be performed
+     * concurrently to the UI main thread, using a fixed size thread pool. The loaded remoteimageview will be
      * posted back to the given ImageView upon completion. This method will the default
      * {@link RemoteImageLoaderHandler} to process the bitmap after downloading it.
      * 
      * @param imageUrl
-     *            the URL of the image to download
+     *            the URL of the remoteimageview to download
      * @param imageView
-     *            the ImageView which should be updated with the new image
+     *            the ImageView which should be updated with the new remoteimageview
      */
     public void loadImage(String imageUrl, ImageView imageView) {
         loadImage(imageUrl, imageView, defaultDummyDrawable, new RemoteImageLoaderHandler(
@@ -155,17 +154,17 @@ public class RemoteImageLoader {
     }
 
     /**
-     * Triggers the image loader for the given image and view. The image loading will be performed
-     * concurrently to the UI main thread, using a fixed size thread pool. The loaded image will be
+     * Triggers the remoteimageview loader for the given remoteimageview and view. The remoteimageview loading will be performed
+     * concurrently to the UI main thread, using a fixed size thread pool. The loaded remoteimageview will be
      * posted back to the given ImageView upon completion. This method will the default
      * {@link RemoteImageLoaderHandler} to process the bitmap after downloading it.
      *
      * @param imageUrl
-     *            the URL of the image to download
+     *            the URL of the remoteimageview to download
      * @param imageView
-     *            the ImageView which should be updated with the new image
+     *            the ImageView which should be updated with the new remoteimageview
      * @param dummyDrawable
-     *            the Drawable to be shown while the image is being downloaded.
+     *            the Drawable to be shown while the remoteimageview is being downloaded.
      */
     public void loadImage(String imageUrl, ImageView imageView, Drawable dummyDrawable) {
         loadImage(imageUrl, imageView, dummyDrawable, new RemoteImageLoaderHandler(
@@ -173,14 +172,14 @@ public class RemoteImageLoader {
     }
 
     /**
-     * Triggers the image loader for the given image and view. The image loading will be performed
-     * concurrently to the UI main thread, using a fixed size thread pool. The loaded image will be
+     * Triggers the remoteimageview loader for the given remoteimageview and view. The remoteimageview loading will be performed
+     * concurrently to the UI main thread, using a fixed size thread pool. The loaded remoteimageview will be
      * posted back to the given ImageView upon completion.
      * 
      * @param imageUrl
-     *            the URL of the image to download
+     *            the URL of the remoteimageview to download
      * @param imageView
-     *            the ImageView which should be updated with the new image
+     *            the ImageView which should be updated with the new remoteimageview
      * @param handler
      *            the handler that will process the bitmap after completion
      */
@@ -189,17 +188,17 @@ public class RemoteImageLoader {
     }
 
     /**
-     * Triggers the image loader for the given image and view. The image loading will be performed
-     * concurrently to the UI main thread, using a fixed size thread pool. The loaded image will be
+     * Triggers the remoteimageview loader for the given remoteimageview and view. The remoteimageview loading will be performed
+     * concurrently to the UI main thread, using a fixed size thread pool. The loaded remoteimageview will be
      * posted back to the given ImageView upon completion. While waiting, the dummyDrawable is
      * shown.
      * 
      * @param imageUrl
-     *            the URL of the image to download
+     *            the URL of the remoteimageview to download
      * @param imageView
-     *            the ImageView which should be updated with the new image
+     *            the ImageView which should be updated with the new remoteimageview
      * @param dummyDrawable
-     *            the Drawable to be shown while the image is being downloaded.
+     *            the Drawable to be shown while the remoteimageview is being downloaded.
      * @param handler
      *            the handler that will process the bitmap after completion
      */
@@ -208,7 +207,7 @@ public class RemoteImageLoader {
         if (imageView != null) {
             if (imageUrl == null) {
                 // In a ListView views are reused, so we must be sure to remove the tag that could
-                // have been set to the ImageView to prevent that the wrong image is set.
+                // have been set to the ImageView to prevent that the wrong remoteimageview is set.
                 imageView.setTag(null);
                 if (dummyDrawable != null) {
                     imageView.setImageDrawable(dummyDrawable);
@@ -221,7 +220,7 @@ public class RemoteImageLoader {
                 return;
             } else {
                 if (dummyDrawable != null) {
-                    // Set the dummy image while waiting for the actual image to be downloaded.
+                    // Set the dummy remoteimageview while waiting for the actual remoteimageview to be downloaded.
                     imageView.setImageDrawable(dummyDrawable);
                 }
                 imageView.setTag(imageUrl);
