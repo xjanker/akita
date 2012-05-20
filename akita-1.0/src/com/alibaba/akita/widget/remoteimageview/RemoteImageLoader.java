@@ -42,6 +42,8 @@ public class RemoteImageLoader {
     private static final int DEFAULT_NUM_RETRIES = 3;
     private static final int DEFAULT_BUFFER_SIZE = 65536;
 
+    private static FilesCache<Bitmap> sImageCache;
+
     private ThreadPoolExecutor executor;
     private FilesCache<Bitmap> imageCache;
     private int numRetries = DEFAULT_NUM_RETRIES;
@@ -68,7 +70,10 @@ public class RemoteImageLoader {
     public RemoteImageLoader(Context context, boolean createCache) {
         executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(DEFAULT_POOL_SIZE);
         if (createCache) {
-            imageCache = AkCacheManager.getImageFilesCache(context);
+            if (sImageCache == null) {
+                sImageCache = AkCacheManager.getImageFilesCache(context);
+            }
+            imageCache = sImageCache;
             /*imageCache.enableDiskCache(context.getApplicationContext(),
                     ImageCache.DISK_CACHE_SDCARD);*/
         }
@@ -231,7 +236,7 @@ public class RemoteImageLoader {
             // do not go through message passing, handle directly instead
             Bitmap bm = imageCache.get(imageUrl);
             if (bm != null) {
-                handler.handleImageLoaded(imageCache.get(imageUrl), null);
+                handler.handleImageLoaded(bm, null);
             } else {
                 executor.execute(new RemoteImageLoaderJob(imageUrl, handler, imageCache, numRetries,
                         defaultBufferSize));
