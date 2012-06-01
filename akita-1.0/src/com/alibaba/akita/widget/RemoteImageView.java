@@ -63,7 +63,7 @@ public class RemoteImageView extends ViewSwitcher {
     private boolean autoLoad, isLoaded;
 
     private ProgressBar loadingSpinner;
-    private ImageView imageView;
+    private PinchZoomImageView imageView;
 
     private Drawable progressDrawable, errorDrawable;
 
@@ -198,13 +198,14 @@ public class RemoteImageView extends ViewSwitcher {
         addView(loadingSpinner, 0, lp);
     }
 
-    private void addImageView(Context context, AttributeSet attributes) {
+    private void addImageView(final Context context, AttributeSet attributes) {
         if (attributes != null) {
             // pass along any view attribtues inflated from XML to the remoteimageview view
-            imageView = new ImageView(context, attributes);
+            imageView = new PinchZoomImageView(context, attributes);
         } else {
-            imageView = new ImageView(context);
+            imageView = new PinchZoomImageView(context);
         }
+
         LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
         lp.gravity = Gravity.CENTER;
         addView(imageView, 1, lp);
