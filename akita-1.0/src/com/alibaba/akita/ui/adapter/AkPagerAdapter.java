@@ -17,6 +17,7 @@ package com.alibaba.akita.ui.adapter;
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
+import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
@@ -36,6 +37,12 @@ public abstract class AkPagerAdapter<T> extends PagerAdapter {
         mContext = c;
         mInflater = (LayoutInflater)c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
+
+    @Override
+    public abstract Object instantiateItem(ViewGroup container, int position);
+
+    @Override
+    public abstract void destroyItem(ViewGroup container, int position, Object object);
 
     @Override
     public int getCount() {
