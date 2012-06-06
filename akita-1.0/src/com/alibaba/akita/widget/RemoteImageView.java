@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Message;
 import android.util.AttributeSet;
 import android.view.Gravity;
+import android.view.animation.AlphaAnimation;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.ViewSwitcher;
@@ -44,6 +45,8 @@ public class RemoteImageView extends ViewSwitcher {
     private static final String ATTR_ERROR_DRAWABLE = "errorDrawable";
     private static final String ATTR_IMGBOX_WIDTH = "imgBoxWidth";
     private static final String ATTR_IMGBOX_HEIGHT = "imgBoxHeight";
+    private static final String ATTR_PINCH_ZOOM = "pinchZoom";
+    private static final String ATTR_FADE_IN = "fadeIn";
 
     private static final int[] ANDROID_VIEW_ATTRS = { android.R.attr.indeterminateDrawable };
     private static final int ATTR_INDET_DRAWABLE = 0;
@@ -59,11 +62,19 @@ public class RemoteImageView extends ViewSwitcher {
      * wrap_content (<=0)
      */
     private int imgBoxHeight = 0;
+    /**
+     * if true, then use PinchZoomImageView instead.
+     */
+    private boolean pinchZoom;
+    /**
+     * fade in
+     */
+    private boolean fadeIn;
 
     private boolean autoLoad, isLoaded;
 
     private ProgressBar loadingSpinner;
-    private PinchZoomImageView imageView;
+    private ImageView imageView;
 
     private Drawable progressDrawable, errorDrawable;
 
@@ -139,11 +150,12 @@ public class RemoteImageView extends ViewSwitcher {
         String imageUrl = attributes.getAttributeValue(Akita.XMLNS, ATTR_IMAGE_URL);
         boolean autoLoad = attributes
                 .getAttributeBooleanValue(Akita.XMLNS, ATTR_AUTO_LOAD, true);
-
         imgBoxWidth = AndroidUtil.dp2px(context,
                 attributes.getAttributeIntValue(Akita.XMLNS, ATTR_IMGBOX_WIDTH, 0) );
         imgBoxHeight = AndroidUtil.dp2px(context,
                 attributes.getAttributeIntValue(Akita.XMLNS, ATTR_IMGBOX_HEIGHT, 0) );
+        pinchZoom = attributes.getAttributeBooleanValue(Akita.XMLNS, ATTR_PINCH_ZOOM, false);
+        fadeIn = attributes.getAttributeBooleanValue(Akita.XMLNS, ATTR_FADE_IN, false);
 
         initialize(context, imageUrl, progressDrawable, errorDrawable, autoLoad, attributes);
     }
@@ -164,9 +176,11 @@ public class RemoteImageView extends ViewSwitcher {
         // 125.0f, preferredItemHeight / 2.0f);
         // anim.setDuration(500L);
 
-        // AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);
-        // anim.setDuration(500L);
-        // setInAnimation(anim);
+        if (fadeIn) {
+            AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);
+            anim.setDuration(500L);
+            setInAnimation(anim);
+        }
 
         addLoadingSpinnerView(context);
         addImageView(context, attributes);
@@ -199,11 +213,20 @@ public class RemoteImageView extends ViewSwitcher {
     }
 
     private void addImageView(final Context context, AttributeSet attributes) {
-        if (attributes != null) {
-            // pass along any view attribtues inflated from XML to the remoteimageview view
-            imageView = new PinchZoomImageView(context, attributes);
+        if (pinchZoom) {
+            if (attributes != null) {
+                // pass along any view attribtues inflated from XML to the remoteimageview view
+                imageView = new PinchZoomImageView(context, attributes);
+            } else {
+                imageView = new PinchZoomImageView(context);
+            }
         } else {
-            imageView = new PinchZoomImageView(context);
+            if (attributes != null) {
+                // pass along any view attribtues inflated from XML to the remoteimageview view
+                imageView = new ImageView(context, attributes);
+            } else {
+                imageView = new ImageView(context);
+            }
         }
 
         LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);

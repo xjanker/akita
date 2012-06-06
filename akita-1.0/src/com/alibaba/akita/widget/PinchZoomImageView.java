@@ -18,6 +18,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.util.FloatMath;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 
@@ -31,35 +32,31 @@ import android.widget.ImageView;
 
 public class PinchZoomImageView extends ImageView
 {
-    static final int NONE = 0;
-    static final int DRAG = 1;	   //拖动中
-    static final int ZOOM = 2;     //缩放中
-    static final int BIGGER = 3;   //放大ing
-    static final int SMALLER = 4;  //缩小ing
-    private int mode = NONE;	   //当前的事件
+    enum Mode {
+        NONE,
+        DRAGING,   // 拖动中
+        ZOOMING    // 缩放中
+    }
 
-    private float beforeLenght;   //两触点距离
-    private float afterLenght;    //两触点距离
-    private float scale = 0.04f;  //缩放的比例 X Y方向都是这个值 越大缩放的越快
+    enum ZoomFlag {
+        BIGGER,   // 放大ing
+        SMALLER   // 缩小ing
+    }
 
-    private int screenW;
-    private int screenH;
+    private Mode mode = Mode.NONE; // 当前的事件
 
-    /*处理拖动 变量 */
+    private float beforeLenght;    // 两触点距离
+    private float afterLenght;     // 两触点距离
+    private float scale = 0.04f;   // 缩放的比例 X Y方向都是这个值 越大缩放的越快
+
+    // 处理拖动 变量
     private int start_x;
     private int start_y;
     private int stop_x ;
     private int stop_y ;
 
-    private TranslateAnimation trans; //处理超出边界的动画
+    private TranslateAnimation trans; // 处理超出边界的动画
 
-    public PinchZoomImageView(Context context, int w, int h)
-    {
-        super(context);
-        this.setPadding(0, 0, 0, 0);
-        screenW = w;
-        screenH = h;
-    }
 
     public PinchZoomImageView(Context context, AttributeSet attributes) {
         super(context, attributes);    //defaults
@@ -70,7 +67,7 @@ public class PinchZoomImageView extends ImageView
     }
 
     /**
-     * 就算两点间的距离
+     * distance of 2 points
      */
     private float spacing(MotionEvent event) {
         float x = event.getX(0) - event.getX(1);
@@ -79,14 +76,14 @@ public class PinchZoomImageView extends ImageView
     }
 
     /**
-     * 处理触碰..
+     * handle touch event
      */
     @Override
     public boolean onTouchEvent(MotionEvent event)
     {
         switch (event.getAction() & MotionEvent.ACTION_MASK) {
             case MotionEvent.ACTION_DOWN:
-                mode = DRAG;
+                mode = Mode.DRAGING;
                 stop_x = (int) event.getRawX();
                 stop_y = (int) event.getRawY();
                 start_x = (int) event.getX();
@@ -96,64 +93,125 @@ public class PinchZoomImageView extends ImageView
                 break;
             case MotionEvent.ACTION_POINTER_DOWN:
                 if (spacing(event) > 10f) {
-                    mode = ZOOM;
+                    mode = Mode.ZOOMING;
                     beforeLenght = spacing(event);
                 }
                 break;
             case MotionEvent.ACTION_UP:
-                /*判断是否超出范围     并处理*/
-                int disX = 0;
-                int disY = 0;
-                if(getHeight()<=screenH || this.getTop()<0)
-                {
-                    if(this.getTop()<0 )
-                    {
-                        int dis = getTop();
-                        this.layout(this.getLeft(), 0, this.getRight(), 0 + this.getHeight());
-                        disY = dis - getTop();
+                // handle and process if the image out of range
+                int deltaXfrom=0, deltaXto=0;
+                int deltaYfrom=0, deltaYto=0;
+                View parentView = (View) getParent();
+
+                if (getTop() < 0) { // must down
+                    int topHide = -getTop();
+                    int bottomLeave = (parentView.getHeight()-(getHeight()+getTop()));
+                    if (bottomLeave <= 0) {
+                        // no op
+                    } else if (bottomLeave > topHide) { // 下面空间比上面遮挡部分大
+                        deltaYfrom = getTop();
+                        deltaYto = 0;
+
+                        this.layout(
+                                getLeft(), 0,
+                                getRight(), getBottom() + topHide);
+                    } else {
+                        deltaYfrom = -bottomLeave;
+                        deltaYto = 0;
+
+                        this.layout(
+                                getLeft(), getTop()+bottomLeave,
+                                getRight(), getBottom()+bottomLeave);
                     }
-                    else if(this.getBottom()>screenH)
-                    {
-                        disY = getHeight()- screenH+getTop();
-                        this.layout(this.getLeft(), screenH-getHeight(), this.getRight(), screenH);
+                } else if (getBottom() > parentView.getHeight()) { // must up
+                    int topLeave = getTop();
+                    int bottomHide = getBottom() - parentView.getHeight();
+                    if (topLeave <= 0) {
+                        // no op
+                    } else if (topLeave > bottomHide) { // 上面空间比下面遮挡空间大
+                        deltaYfrom = bottomHide;
+                        deltaYto = 0;
+
+                        this.layout(
+                                getLeft(), getTop() - bottomHide,
+                                getRight(), getBottom() - bottomHide);
+                    } else {
+                        deltaYfrom = topLeave;
+                        deltaYto = 0;
+
+                        this.layout(
+                                getLeft(), getTop() - topLeave,
+                                getRight(), getBottom() - topLeave);
                     }
                 }
-                if(getWidth()<=screenW)
-                {
-                    if(this.getLeft()<0)
-                    {
-                        disX = getLeft();
-                        this.layout(0, this.getTop(), 0+getWidth(), this.getBottom());
+
+                if (getLeft() < 0) { // must right
+                    int leftHide = -getLeft();
+                    int rightLeave = (parentView.getWidth()-(getWidth()+getLeft()));
+                    if (rightLeave <= 0) {
+                        // no op
+                    } else if (rightLeave > leftHide) { // 右边空间比左边遮挡部分大
+                        deltaXfrom = getLeft();
+                        deltaXto = 0;
+
+                        this.layout(
+                                0, getTop(),
+                                getRight() + leftHide, getBottom());
+                    } else {
+                        deltaXfrom = -rightLeave;
+                        deltaXto = 0;
+
+                        this.layout(
+                                getLeft() + rightLeave, getTop(),
+                                getRight() + rightLeave, getBottom());
                     }
-                    else if(this.getRight()>screenW)
-                    {
-                        disX = getWidth()-screenW+getLeft();
-                        this.layout(screenW-getWidth(), this.getTop(), screenW, this.getBottom());
+                } else if (getRight() > parentView.getWidth()) { // must left
+                    int leftLeave = getLeft();
+                    int rightHide = getRight() - parentView.getWidth();
+                    if (leftLeave <= 0) {
+                        // no op
+                    } else if (leftLeave > rightHide) { // 左边空间比右边遮挡空间大
+                        deltaXfrom = rightHide;
+                        deltaXto = 0;
+
+                        this.layout(
+                                getLeft() - rightHide, getTop(),
+                                getRight() - rightHide, getBottom() );
+                    } else {
+                        deltaXfrom = leftLeave;
+                        deltaXto = 0;
+
+                        this.layout(
+                                0, getTop(),
+                                getRight() - leftLeave, getBottom());
                     }
                 }
-                if(disX!=0 || disY!=0)
-                {
-                    trans = new TranslateAnimation(disX, 0, disY, 0);
-                    trans.setDuration(500);
-                    this.startAnimation(trans);
-                }
-                mode = NONE;
+                // animations
+                trans = new TranslateAnimation(deltaXfrom, deltaXto, deltaYfrom, deltaYto);
+                trans.setDuration(500);
+                this.startAnimation(trans);
+
+                mode = Mode.NONE;
                 break;
             case MotionEvent.ACTION_POINTER_UP:
-                mode = NONE;
+                mode = Mode.NONE;
                 break;
             case MotionEvent.ACTION_MOVE:
-                /*处理拖动*/
-                if (mode == DRAG) {
-                    if(Math.abs(stop_x-start_x-getLeft())<88 && Math.abs(stop_y - start_y-getTop())<85)
+                // drag
+                if (mode == Mode.DRAGING) {
+                    if(Math.abs(stop_x-start_x-getLeft())<88
+                            && Math.abs(stop_y - start_y-getTop())<85)
                     {
-                        this.setPosition(stop_x - start_x, stop_y - start_y, stop_x + this.getWidth() - start_x, stop_y - start_y + this.getHeight());
+                        this.setPosition(
+                                stop_x - start_x, stop_y - start_y,
+                                stop_x + this.getWidth() - start_x,
+                                stop_y - start_y + this.getHeight());
                         stop_x = (int) event.getRawX();
                         stop_y = (int) event.getRawY();
                     }
                 }
-                /*处理缩放*/
-                else if (mode == ZOOM) {
+                // zoom
+                else if (mode == Mode.ZOOMING) {
                     if(spacing(event)>10f)
                     {
                         afterLenght = spacing(event);
@@ -164,9 +222,9 @@ public class PinchZoomImageView extends ImageView
                         else if(Math.abs(gapLenght)>5f)
                         {
                             if(gapLenght>0) {
-                                this.setScale(scale,BIGGER);
+                                this.setScale(scale, ZoomFlag.BIGGER);
                             }else {
-                                this.setScale(scale,SMALLER);
+                                this.setScale(scale, ZoomFlag.SMALLER);
                             }
                             beforeLenght = afterLenght;
                         }
@@ -178,16 +236,16 @@ public class PinchZoomImageView extends ImageView
     }
 
     /**
-     * 实现处理缩放
+     * zoom
      */
-    private void setScale(float temp,int flag) {
+    private void setScale(float temp, ZoomFlag zoomFlag) {
 
-        if(flag==BIGGER) {
+        if (zoomFlag == ZoomFlag.BIGGER) {
             this.setFrame(this.getLeft()-(int)(temp*this.getWidth()),
                     this.getTop()-(int)(temp*this.getHeight()),
                     this.getRight()+(int)(temp*this.getWidth()),
                     this.getBottom()+(int)(temp*this.getHeight()));
-        }else if(flag==SMALLER){
+        } else if (zoomFlag == ZoomFlag.SMALLER) {
             this.setFrame(this.getLeft()+(int)(temp*this.getWidth()),
                     this.getTop()+(int)(temp*this.getHeight()),
                     this.getRight()-(int)(temp*this.getWidth()),
@@ -196,7 +254,7 @@ public class PinchZoomImageView extends ImageView
     }
 
     /**
-     * 实现处理拖动
+     * drag
      */
     private void setPosition(int left,int top,int right,int bottom) {
         this.layout(left,top,right,bottom);
