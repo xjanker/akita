@@ -40,6 +40,17 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="lib" level="project" />
     <orderEntry type="library" name="android-support-v4" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/android-support-v4.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/../../android-sdk-windows/sources/android-15" />
+        </SOURCES>
+      </library>
+    </orderEntry>
   </component>
 </module>
 
