@@ -246,10 +246,12 @@ public class RemoteImageView extends ViewSwitcher {
         imageLoader.loadImage(imageUrl, imageView, new DefaultImageLoaderHandler(imgBoxWidth, imgBoxHeight));
     }
 
+    /**
+     * reset dummy image
+     */
     public void resetDummyImage() {
         imageView.setImageResource(android.R.drawable.ic_menu_gallery);
     }
-
 
     public boolean isLoaded() {
         return isLoaded;
@@ -275,18 +277,33 @@ public class RemoteImageView extends ViewSwitcher {
      * Often you have resources which usually have an remoteimageview, but some don't. For these cases, use
      * this method to supply a placeholder drawable which will be loaded instead of a web remoteimageview.
      *
+     * Use this method to set local image.
+     *
      * @param imageResourceId
      *            the resource of the placeholder remoteimageview drawable
      */
-    public void setNoImageDrawable(int imageResourceId) {
+    public void setLocalImage(int imageResourceId) {
         imageView.setImageDrawable(getContext().getResources().getDrawable(imageResourceId));
+        setDisplayedChild(1);
+    }
+
+    /**
+     * Often you have resources which usually have an remoteimageview, but some don't. For these cases, use
+     * this method to supply a placeholder bitmap which will be loaded instead of a web remoteimageview.
+     *
+     * Use this method to set local image.
+     *
+     * @param bitmap
+     *            the bitmap of the placeholder remoteimageview drawable
+     */
+    public void setLocalImage(Bitmap bitmap) {
+        imageView.setImageBitmap(bitmap);
         setDisplayedChild(1);
     }
 
     @Override
     public void reset() {
         super.reset();
-
         this.setDisplayedChild(0);
     }
 
@@ -365,4 +382,5 @@ public class RemoteImageView extends ViewSwitcher {
     public ProgressBar getProgressBar() {
         return loadingSpinner;
     }
+
 }

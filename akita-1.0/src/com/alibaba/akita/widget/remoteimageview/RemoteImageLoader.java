@@ -111,7 +111,7 @@ public class RemoteImageLoader {
         this.defaultBufferSize = defaultBufferSize;
     }
 
-    public void setDownloadInProgressDrawable(Drawable drawable) {
+    public void setDefaultDummyDrawable(Drawable drawable) {
         this.defaultDummyDrawable = drawable;
     }
 

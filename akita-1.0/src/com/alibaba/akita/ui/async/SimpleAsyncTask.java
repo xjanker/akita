@@ -61,6 +61,11 @@ public abstract class SimpleAsyncTask<T> extends AsyncTask<Integer, Integer, T> 
 
     protected abstract void onUIBefore() throws AkException;
     protected abstract T onDoAsync() throws AkException;
+    /**
+     * it may not be executed if have exception before.
+     * @param t
+     * @throws AkException
+     */
     protected abstract void onUIAfter(T t) throws AkException;
 
     @Override

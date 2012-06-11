@@ -12,6 +12,7 @@ import android.content.SharedPreferences;
 import android.os.Environment;
 import com.alibaba.akita.util.FileUtil;
 import com.alibaba.akita.util.HashUtil;
+import com.alibaba.akita.util.Log;
 
 import java.io.File;
 
@@ -124,12 +125,13 @@ public abstract class FilesCacheSDFoldersImpl<V> implements FilesCache<V> {
      */
     private void doSave(String hashedKey, V value) {
         String state = Environment.getExternalStorageState();
-        if (Environment.MEDIA_MOUNTED.equals(state)) {                     // We can read and write the media
+        if (Environment.MEDIA_MOUNTED.equals(state)) { // We can read and write the media
 
-        } else if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {    // We can only read the media
+        } else if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) { // We can only read the media
+            Log.w(TAG, "need WRITE_EXTERNAL_STORAGE permission, otherwise part of cache can be used.");
             return;
-        } else {    // Something else is wrong. It may be one of many other states, but all we need
-                    // to know is we can neither read nor write
+        } else { // Something else is wrong. It may be one of many other states, but all we need
+                 // to know is we can neither read nor write
             return;
         }
 
