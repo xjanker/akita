@@ -82,6 +82,9 @@ public class SimpleCacheSqliteImpl implements SimpleCache {
                             CursorFactory factory, int version, String tbName){
             super(context, name, factory, version);
             mTableName = tbName;
+            SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+            onCreate(sqLiteDatabase);
+            sqLiteDatabase.close();
         }
 
         /**
@@ -142,7 +145,8 @@ public class SimpleCacheSqliteImpl implements SimpleCache {
             try {
                 db = getReadableDatabase();
                 c = db.query(
-                        mTableName, new String[]{"value","cacheTime"}, "key=?", new String[]{key}, null, null, null);
+                        mTableName, new String[]{"value","cacheTime"}, "key=?",
+                        new String[]{key}, null, null, null);
                 if (c.moveToFirst()) {
                     String value = c.getString(0);
                     long cacheTime = c.getLong(1);
