@@ -71,6 +71,7 @@ public class SimpleCacheSqliteImpl implements SimpleCache {
     }
 
     public class SQLiteHelper extends SQLiteOpenHelper {
+        public String Lock = "dblock";
         private String mTableName;
         /**
          * @param context
@@ -83,8 +84,8 @@ public class SimpleCacheSqliteImpl implements SimpleCache {
             super(context, name, factory, version);
             mTableName = tbName;
             SQLiteDatabase sqLiteDatabase = getWritableDatabase();
-            onCreate(sqLiteDatabase);
-            sqLiteDatabase.close();
+            onCreate(getWritableDatabase());
+            //sqLiteDatabase.close();
         }
 
         /**
@@ -92,15 +93,17 @@ public class SimpleCacheSqliteImpl implements SimpleCache {
          * @param value
          */
         public void updateCOByKey(String key, String value) {
-            SQLiteDatabase db = null;
-            try {
-                db = getWritableDatabase();
-                ContentValues values = new ContentValues();
-                values.put("value", value);
-                values.put("cacheTime", System.currentTimeMillis());
-                db.update(mTableName, values , "key=?", new String[]{key});
-            } finally {
-                if (db != null) db.close(); 
+            synchronized(Lock) {
+                SQLiteDatabase db = null;
+                try {
+                    db = getWritableDatabase();
+                    ContentValues values = new ContentValues();
+                    values.put("value", value);
+                    values.put("cacheTime", System.currentTimeMillis());
+                    db.update(mTableName, values , "key=?", new String[]{key});
+                } finally {
+                    //if (db != null) db.close();
+                }
             }
         }
         
@@ -109,16 +112,18 @@ public class SimpleCacheSqliteImpl implements SimpleCache {
          * @param value
          */
         public void insertCOByKey(String key, String value) {
-            SQLiteDatabase db = null;
-            try {
-                db = getWritableDatabase();
-                ContentValues values = new ContentValues();
-                values.put("key", key);
-                values.put("value", value);
-                values.put("cacheTime", System.currentTimeMillis());
-                db.insert(mTableName, null, values);
-            } finally {
-                if (db != null) db.close(); 
+            synchronized(Lock) {
+                SQLiteDatabase db = null;
+                try {
+                    db = getWritableDatabase();
+                    ContentValues values = new ContentValues();
+                    values.put("key", key);
+                    values.put("value", value);
+                    values.put("cacheTime", System.currentTimeMillis());
+                    db.insert(mTableName, null, values);
+                } finally {
+                    //if (db != null) db.close();
+                }
             }
         }
         
@@ -126,12 +131,14 @@ public class SimpleCacheSqliteImpl implements SimpleCache {
          * @param key
          */
         public void deleteCOByKey(String key) {
-            SQLiteDatabase db = null;
-            try {
-                db = getWritableDatabase();
-                db.delete(mTableName, "key=?", new String[]{key});
-            } finally {
-                if (db != null) db.close(); 
+            synchronized(Lock) {
+                SQLiteDatabase db = null;
+                try {
+                    db = getWritableDatabase();
+                    db.delete(mTableName, "key=?", new String[]{key});
+                } finally {
+                    //if (db != null) db.close();
+                }
             }
         }
 
@@ -140,26 +147,28 @@ public class SimpleCacheSqliteImpl implements SimpleCache {
          * @return
          */
         public CacheObject getCOByKey(String key) {
-            Cursor c = null;
-            SQLiteDatabase db = null;
-            try {
-                db = getReadableDatabase();
-                c = db.query(
-                        mTableName, new String[]{"value","cacheTime"}, "key=?",
-                        new String[]{key}, null, null, null);
-                if (c.moveToFirst()) {
-                    String value = c.getString(0);
-                    long cacheTime = c.getLong(1);
-                    CacheObject co = new CacheObject(key, value);
-                    co.cacheTime = cacheTime;
+            synchronized(Lock) {
+                Cursor c = null;
+                SQLiteDatabase db = null;
+                try {
+                    db = getReadableDatabase();
+                    c = db.query(
+                            mTableName, new String[]{"value","cacheTime"}, "key=?",
+                            new String[]{key}, null, null, null);
+                    if (c.moveToFirst()) {
+                        String value = c.getString(0);
+                        long cacheTime = c.getLong(1);
+                        CacheObject co = new CacheObject(key, value);
+                        co.cacheTime = cacheTime;
 
-                    return co;
-                } else {
-                    return null;
+                        return co;
+                    } else {
+                        return null;
+                    }
+                } finally {
+                    if (c != null) c.close();
+                    /*if (db != null) db.close();*/
                 }
-            } finally {
-                if (c != null) c.close();
-                if (db != null) db.close();
             }
         }
 
