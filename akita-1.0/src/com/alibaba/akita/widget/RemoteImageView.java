@@ -234,6 +234,12 @@ public class RemoteImageView extends ViewSwitcher {
         addView(imageView, 1, lp);
     }
 
+    public void setScaleType(ImageView.ScaleType scaleType) {
+        if (imageView != null) {
+            imageView.setScaleType(scaleType);
+        }
+    }
+
     /**
      * Use this method to trigger the remoteimageview download if you had previously set autoLoad to false.
      */
