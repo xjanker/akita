@@ -85,7 +85,7 @@ public class SimpleCacheSqliteImpl implements SimpleCache {
             mTableName = tbName;
             SQLiteDatabase sqLiteDatabase = getWritableDatabase();
             onCreate(getWritableDatabase());
-            //sqLiteDatabase.close();
+            sqLiteDatabase.close();
         }
 
         /**
@@ -102,7 +102,7 @@ public class SimpleCacheSqliteImpl implements SimpleCache {
                     values.put("cacheTime", System.currentTimeMillis());
                     db.update(mTableName, values , "key=?", new String[]{key});
                 } finally {
-                    //if (db != null) db.close();
+                    if (db != null) db.close();
                 }
             }
         }
@@ -122,7 +122,7 @@ public class SimpleCacheSqliteImpl implements SimpleCache {
                     values.put("cacheTime", System.currentTimeMillis());
                     db.insert(mTableName, null, values);
                 } finally {
-                    //if (db != null) db.close();
+                    if (db != null) db.close();
                 }
             }
         }
@@ -137,7 +137,7 @@ public class SimpleCacheSqliteImpl implements SimpleCache {
                     db = getWritableDatabase();
                     db.delete(mTableName, "key=?", new String[]{key});
                 } finally {
-                    //if (db != null) db.close();
+                    if (db != null) db.close();
                 }
             }
         }

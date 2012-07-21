@@ -5,7 +5,7 @@
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
-  ~ You may obtain a copy of the License at 
+  ~ You may obtain a copy of the License at
   ~ 	http://www.apache.org/licenses/LICENSE-2.0
   ~ Unless required by applicable law or agreed to in writing, software
   ~ distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,26 +15,34 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/ll_loading1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:padding="15dp"
-        android:layout_margin="5dp"
-        android:background="@drawable/bg_dlg_loading1" >
+              android:id="@+id/ll_loading1"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center"
+              android:gravity="center"
+              android:orientation="horizontal"
+              android:padding="15dp"
+              android:layout_margin="5dp"
+              android:background="@drawable/bg_dlg_loading1" >
 
     <ProgressBar  android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:layout_gravity="center"
                   android:layout_margin="5dp"
                   style="@android:style/Widget.ProgressBar.Inverse" />
-
-    <TextView android:id="@+id/tv_loadingHint"
-            android:text="Loading..."
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone" />
+    <LinearLayout android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical" >
+        <TextView android:id="@+id/tv_loadingHint"
+                  android:text="Loading..."
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:visibility="gone" />
+        <TextView android:id="@+id/tv_loadingHintProgress"
+                  android:text=""
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:visibility="gone" />
+    </LinearLayout>
 
 </LinearLayout>

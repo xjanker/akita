@@ -30,6 +30,7 @@ import com.alibaba.akita.R;
  * @author zhe.yangz
  */
 public class SimpleLoadingDialog extends Dialog {
+
     public SimpleLoadingDialog(Context context, String loadingHint) {
         super(context, R.style.LoadingDialog1);
         setContentView(R.layout.dlg_loading1);
@@ -40,5 +41,15 @@ public class SimpleLoadingDialog extends Dialog {
             tv_loadingHint.setText(loadingHint);
             tv_loadingHint.setVisibility(View.VISIBLE);
         }
+    }
+
+    /**
+     * Set hint of progress update, optional
+     * @param hintProgress
+     */
+    public void setHintProgress(String hintProgress) {
+        TextView tv_loadingHint = (TextView) findViewById(R.id.tv_loadingHintProgress);
+        tv_loadingHint.setText(hintProgress);
+        tv_loadingHint.setVisibility(View.VISIBLE);
     }
 }

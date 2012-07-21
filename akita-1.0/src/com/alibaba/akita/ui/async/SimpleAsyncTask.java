@@ -98,4 +98,12 @@ public abstract class SimpleAsyncTask<T> extends AsyncTask<Integer, Integer, T> 
      */
     protected void onUITaskEnd() {};
 
+    /**
+     * public of the method publishProgress, but must also be called in doinbackground.
+     * @param values
+     */
+    public void publishProgressPublic(Integer... values) {
+        publishProgress(values);
+    }
+
 }
