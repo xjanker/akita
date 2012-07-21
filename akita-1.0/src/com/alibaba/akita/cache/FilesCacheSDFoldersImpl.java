@@ -15,6 +15,8 @@ import com.alibaba.akita.util.HashUtil;
 import com.alibaba.akita.util.Log;
 
 import java.io.File;
+import java.net.URLEncoder;
+import java.security.spec.EncodedKeySpec;
 
 /**
  * 在SD卡中存储文件夹的实现 
@@ -57,7 +59,8 @@ public abstract class FilesCacheSDFoldersImpl<V> implements FilesCache<V> {
     protected abstract void output(String fileAbsoPath, String fileName, V v);
     
     private String mapRule(String key) {
-        return HashUtil.md5(key);
+        // because the chinese char in url will break the md5.
+        return HashUtil.md5(URLEncoder.encode(key));
     }
 
     private String getSpecifiedCacheFileName(String hashedKey) {

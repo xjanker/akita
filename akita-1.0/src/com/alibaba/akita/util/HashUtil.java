@@ -31,14 +31,25 @@ public class HashUtil {
             MessageDigest md = MessageDigest.getInstance("md5");
             md.update(ori.getBytes(), 0, ori.length());
             byte[] bytes = md.digest();
-            BigInteger i = new BigInteger(1, bytes);
-            return String.format("%1$032x", i);
+
+            return  toHexString(bytes);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
             return ori;
         }
     }
-    
+    private static final char HEX_DIGITS[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+            'A', 'B', 'C', 'D', 'E', 'F' };
+    public static String toHexString(byte[] b) {
+        //String to  byte
+        StringBuilder sb = new StringBuilder(b.length * 2);
+        for (int i = 0; i < b.length; i++) {
+            sb.append(HEX_DIGITS[(b[i] & 0xf0) >>> 4]);
+            sb.append(HEX_DIGITS[b[i] & 0x0f]);
+        }
+        return sb.toString();
+    }
+
     public static String sha1(String ori) {
         try {
             MessageDigest md = MessageDigest.getInstance("sha1");

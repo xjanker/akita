@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.ViewSwitcher;
 import com.alibaba.akita.Akita;
+import com.alibaba.akita.R;
 import com.alibaba.akita.util.AndroidUtil;
 import com.alibaba.akita.widget.remoteimageview.RemoteImageLoader;
 import com.alibaba.akita.widget.remoteimageview.RemoteImageLoaderHandler;
@@ -62,6 +63,7 @@ public class RemoteImageView extends ViewSwitcher {
      * wrap_content (<=0)
      */
     private int imgBoxHeight = 0;
+
     /**
      * if true, then use PinchZoomImageView instead.
      */
@@ -102,9 +104,10 @@ public class RemoteImageView extends ViewSwitcher {
      *            Whether the download should start immediately after creating the view. If set to
      *            false, use {@link #loadImage()} to manually trigger the remoteimageview download.
      */
-    public RemoteImageView(Context context, String imageUrl, boolean autoLoad) {
+    public RemoteImageView(Context context, String imageUrl, boolean autoLoad,
+                           boolean fadeIn, boolean pinchZoom) {
         super(context);
-        initialize(context, imageUrl, null, null, autoLoad, null);
+        initialize(context, imageUrl, null, null, autoLoad, fadeIn, pinchZoom, null);
     }
 
     /**
@@ -122,9 +125,10 @@ public class RemoteImageView extends ViewSwitcher {
      *            false, use {@link #loadImage()} to manually trigger the remoteimageview download.
      */
     public RemoteImageView(Context context, String imageUrl, Drawable progressDrawable,
-                           Drawable errorDrawable, boolean autoLoad) {
+                           Drawable errorDrawable, boolean autoLoad, boolean fadeIn, boolean pinchZoom) {
         super(context);
-        initialize(context, imageUrl, progressDrawable, errorDrawable, autoLoad, null);
+        initialize(context, imageUrl, progressDrawable, errorDrawable, autoLoad, fadeIn, pinchZoom,
+                null);
     }
 
     public RemoteImageView(Context context, AttributeSet attributes) {
@@ -154,16 +158,24 @@ public class RemoteImageView extends ViewSwitcher {
                 attributes.getAttributeIntValue(Akita.XMLNS, ATTR_IMGBOX_WIDTH, 0) );
         imgBoxHeight = AndroidUtil.dp2px(context,
                 attributes.getAttributeIntValue(Akita.XMLNS, ATTR_IMGBOX_HEIGHT, 0) );
-        pinchZoom = attributes.getAttributeBooleanValue(Akita.XMLNS, ATTR_PINCH_ZOOM, false);
-        fadeIn = attributes.getAttributeBooleanValue(Akita.XMLNS, ATTR_FADE_IN, false);
+        boolean pinchZoom = attributes.getAttributeBooleanValue(Akita.XMLNS, ATTR_PINCH_ZOOM, false);
+        boolean fadeIn = attributes.getAttributeBooleanValue(Akita.XMLNS, ATTR_FADE_IN, false);
 
-        initialize(context, imageUrl, progressDrawable, errorDrawable, autoLoad, attributes);
+        initialize(context, imageUrl, progressDrawable, errorDrawable, autoLoad, fadeIn, pinchZoom,
+                attributes);
+    }
+
+    public void setDownloadFailedImageRes(int imgRes) {
+        this.errorDrawable = getContext().getResources().getDrawable(imgRes);
     }
 
     private void initialize(Context context, String imageUrl, Drawable progressDrawable,
-            Drawable errorDrawable, boolean autoLoad, AttributeSet attributes) {
+            Drawable errorDrawable, boolean autoLoad, boolean fadeIn, boolean pinchZoom,
+            AttributeSet attributes) {
         this.imageUrl = imageUrl;
         this.autoLoad = autoLoad;
+        this.fadeIn = fadeIn;
+        this.pinchZoom = pinchZoom;
         this.progressDrawable = progressDrawable;
         this.errorDrawable = errorDrawable;
         if (sharedImageLoader == null) {
