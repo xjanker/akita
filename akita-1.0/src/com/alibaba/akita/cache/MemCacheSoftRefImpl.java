@@ -13,6 +13,7 @@
  */
 package com.alibaba.akita.cache;
 
+import android.graphics.Bitmap;
 import android.nfc.Tag;
 import com.alibaba.akita.cache.MemCache;
 import com.alibaba.akita.util.Log;
@@ -47,13 +48,24 @@ public class MemCacheSoftRefImpl<K, V> implements MemCache<K, V> {
         SoftReference<V> valueReference = mSoftVauleCache.get(key);
         if (valueReference != null) {
             final V bitmap = valueReference.get();
-            if (bitmap != null) {
-                // V found in soft cache
-                return bitmap;
+            if (bitmap instanceof Bitmap) { // for Bitmap of V
+                if (bitmap != null && !((Bitmap)bitmap).isRecycled()) {
+                    // V found in soft cache
+                    return bitmap;
+                } else {
+                    // Soft reference has been GCed
+                    mSoftVauleCache.remove(key);
+                    return null;
+                }
             } else {
-                // Soft reference has been GCed
-                mSoftVauleCache.remove(key);
-                return null;
+                if (bitmap != null) {
+                    // V found in soft cache
+                    return bitmap;
+                } else {
+                    // Soft reference has been GCed
+                    mSoftVauleCache.remove(key);
+                    return null;
+                }
             }
         }
         return null;

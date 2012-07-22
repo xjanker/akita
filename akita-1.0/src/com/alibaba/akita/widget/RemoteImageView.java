@@ -3,6 +3,7 @@ package com.alibaba.akita.widget;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Message;
@@ -15,6 +16,7 @@ import android.widget.ViewSwitcher;
 import com.alibaba.akita.Akita;
 import com.alibaba.akita.R;
 import com.alibaba.akita.util.AndroidUtil;
+import com.alibaba.akita.util.Log;
 import com.alibaba.akita.widget.remoteimageview.RemoteImageLoader;
 import com.alibaba.akita.widget.remoteimageview.RemoteImageLoaderHandler;
 
@@ -38,6 +40,7 @@ import com.alibaba.akita.widget.remoteimageview.RemoteImageLoaderHandler;
  *
  */
 public class RemoteImageView extends ViewSwitcher {
+    private static final String TAG = "akita.RemoteImageView";
 
     public static final int DEFAULT_ERROR_DRAWABLE_RES_ID = android.R.drawable.ic_dialog_alert;
 
@@ -301,7 +304,14 @@ public class RemoteImageView extends ViewSwitcher {
      *            the resource of the placeholder remoteimageview drawable
      */
     public void setLocalImage(int imageResourceId) {
-        imageView.setImageDrawable(getContext().getResources().getDrawable(imageResourceId));
+        try {
+            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), imageResourceId);
+            imageView.setImageBitmap(bitmap);
+            imageView.setTag(R.id.ll_griditem, bitmap);
+        } catch (OutOfMemoryError ooe) {
+            Log.e(TAG, ooe.toString(), ooe);
+        }
+
         setDisplayedChild(1);
     }
 
@@ -323,6 +333,11 @@ public class RemoteImageView extends ViewSwitcher {
     public void reset() {
         super.reset();
         this.setDisplayedChild(0);
+    }
+
+    public void release() {
+        Bitmap bitmap = (Bitmap) imageView.getTag(R.id.ll_griditem);
+        if (bitmap != null && !bitmap.isRecycled()) bitmap.recycle();
     }
 
     private class DefaultImageLoaderHandler extends RemoteImageLoaderHandler {

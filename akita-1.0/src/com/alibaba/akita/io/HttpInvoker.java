@@ -12,6 +12,7 @@ import android.graphics.BitmapFactory;
 import android.os.SystemClock;
 import com.alibaba.akita.exception.AkInvokeException;
 import com.alibaba.akita.exception.AkServerStatusException;
+import com.alibaba.akita.util.ImageUtil;
 import com.alibaba.akita.util.Log;
 import org.apache.http.*;
 import org.apache.http.client.ClientProtocolException;
@@ -290,7 +291,7 @@ public class HttpInvoker {
                         continue;
                     }
 
-                    BitmapFactory.Options options = new BitmapFactory.Options();
+                    /*BitmapFactory.Options options = new BitmapFactory.Options();
                     if (inSampleSize > 0 && inSampleSize < 10) {
                         options.inSampleSize = inSampleSize;
                     } else {
@@ -301,10 +302,11 @@ public class HttpInvoker {
                         } else {
                             options.inSampleSize = 0;
                         }
-                    }
+                    }*/
                     Bitmap bm = null;
                     try {
-                        bm = BitmapFactory.decodeByteArray(imgBytes, 0, imgBytes.length, options);
+                       /* bm = BitmapFactory.decodeByteArray(imgBytes, 0, imgBytes.length, options);*/
+                        bm = ImageUtil.decodeSampledBitmapFromByteArray(imgBytes, 0, imgBytes.length, 1024, 1024);
                     } catch (OutOfMemoryError ooe) {
                         Log.e(TAG, ooe.toString(), ooe);
                     }

@@ -63,16 +63,18 @@ public class RemoteImageLoaderHandler extends Handler {
                 imageView.setImageDrawable(errorDrawable);
             else {
                 Bitmap scaledBM = (Bitmap) imageView.getTag(R.id.ll_loading1);
-                if (scaledBM != null) {
+                if (scaledBM != null && !scaledBM.isRecycled()) {
                     scaledBM.recycle();
                     imageView.setTag(R.id.ll_loading1, null);
                 }
                 if (imgMaxWidth <= 0 && imgMaxHeight <= 0) {
                     imageView.setImageBitmap(bitmap);
+                    imageView.setTag(R.id.ll_griditem, bitmap);
                 } else {
                     Bitmap scaledBitmap = ImageUtil.xform(bitmap, imgMaxWidth, imgMaxHeight);
                     imageView.setImageBitmap(scaledBitmap);
                     imageView.setTag(R.id.ll_loading1, scaledBitmap);
+                    imageView.setTag(R.id.ll_griditem, scaledBitmap);
                 }
             }
 

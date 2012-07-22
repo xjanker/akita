@@ -47,7 +47,7 @@ public class PinchZoomImageView extends ImageView
 
     private float beforeLenght;    // 两触点距离
     private float afterLenght;     // 两触点距离
-    private float scale = 0.04f;   // 缩放的比例 X Y方向都是这个值 越大缩放的越快
+    private float scale = 0.03f;   // 缩放的比例 X Y方向都是这个值 越大缩放的越快
 
     // 处理拖动 变量
     private int start_x;
