@@ -73,7 +73,7 @@ public class AkCacheManager {
                     dir.mkdirs();
                     File f = new File(dir, fileName);
                     FileOutputStream fos = new FileOutputStream(f);
-                    v.compress(Bitmap.CompressFormat.JPEG, 90, fos);
+                    v.compress(Bitmap.CompressFormat.JPEG, 80, fos);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
