@@ -3,6 +3,7 @@ package com.alibaba.akita.util;
 
 
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Pattern;
@@ -267,6 +268,21 @@ public final class StringUtil {
             return true;
         } else {
             return false;
+        }
+    }
+
+    /**
+     * URLEncoder.encode(url, "UTF-8")的封装
+     * @param url
+     * @return
+     */
+    public static String urlEncode(String url) {
+        if (url == null) return null;
+        try {
+            return URLEncoder.encode(url, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();  //default
+            return "";
         }
     }
 

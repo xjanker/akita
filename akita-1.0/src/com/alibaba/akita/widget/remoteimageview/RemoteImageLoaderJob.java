@@ -12,13 +12,16 @@ public class RemoteImageLoaderJob implements Runnable {
     private static final String TAG = "Ignition/ImageLoader";
 
     private String imageUrl;
+    private String httpReferer;
     private RemoteImageLoaderHandler handler;
     private FilesCache<Bitmap> imageCache;
     private int numRetries, defaultBufferSize;
 
-    public RemoteImageLoaderJob(String imageUrl, RemoteImageLoaderHandler handler, FilesCache<Bitmap> imageCache,
-            int numRetries, int defaultBufferSize) {
+    public RemoteImageLoaderJob(String imageUrl, String httpReferer,
+                                RemoteImageLoaderHandler handler, FilesCache<Bitmap> imageCache,
+                                int numRetries, int defaultBufferSize) {
         this.imageUrl = imageUrl;
+        this.httpReferer = httpReferer;
         this.handler = handler;
         this.imageCache = imageCache;
         this.numRetries = numRetries;
@@ -48,7 +51,7 @@ public class RemoteImageLoaderJob implements Runnable {
     // use HttpInvoker to handle
     protected Bitmap downloadImage() {
         try {
-            Bitmap bm = HttpInvoker.getBitmapFromUrl(imageUrl, 0);
+            Bitmap bm = HttpInvoker.getBitmapFromUrl(imageUrl, httpReferer);
             if (imageCache != null && bm != null) {
                 imageCache.put(imageUrl, bm);
             }

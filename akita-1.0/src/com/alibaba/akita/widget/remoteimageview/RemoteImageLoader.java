@@ -154,7 +154,7 @@ public class RemoteImageLoader {
      *            the ImageView which should be updated with the new remoteimageview
      */
     public void loadImage(String imageUrl, ImageView imageView) {
-        loadImage(imageUrl, imageView, defaultDummyDrawable, new RemoteImageLoaderHandler(
+        loadImage(imageUrl, null, imageView, defaultDummyDrawable, new RemoteImageLoaderHandler(
                 imageView, imageUrl, errorDrawable, 0, 0));
     }
 
@@ -172,7 +172,7 @@ public class RemoteImageLoader {
      *            the Drawable to be shown while the remoteimageview is being downloaded.
      */
     public void loadImage(String imageUrl, ImageView imageView, Drawable dummyDrawable) {
-        loadImage(imageUrl, imageView, dummyDrawable, new RemoteImageLoaderHandler(
+        loadImage(imageUrl, null, imageView, dummyDrawable, new RemoteImageLoaderHandler(
                 imageView, imageUrl, errorDrawable, 0 , 0));
     }
 
@@ -188,8 +188,9 @@ public class RemoteImageLoader {
      * @param handler
      *            the handler that will process the bitmap after completion
      */
-    public void loadImage(String imageUrl, ImageView imageView, RemoteImageLoaderHandler handler) {
-        loadImage(imageUrl, imageView, defaultDummyDrawable, handler);
+    public void loadImage(String imageUrl, String httpReferer,
+                          ImageView imageView, RemoteImageLoaderHandler handler) {
+        loadImage(imageUrl, httpReferer, imageView, defaultDummyDrawable, handler);
     }
 
     /**
@@ -207,8 +208,8 @@ public class RemoteImageLoader {
      * @param handler
      *            the handler that will process the bitmap after completion
      */
-    public void loadImage(String imageUrl, ImageView imageView, Drawable dummyDrawable,
-            RemoteImageLoaderHandler handler) {
+    public void loadImage(String imageUrl, String httpReferer, ImageView imageView,
+                          Drawable dummyDrawable, RemoteImageLoaderHandler handler) {
         if (imageView != null) {
             if (imageUrl == null) {
                 // In a ListView views are reused, so we must be sure to remove the tag that could
@@ -225,7 +226,8 @@ public class RemoteImageLoader {
                 return;
             } else {
                 if (dummyDrawable != null) {
-                    // Set the dummy remoteimageview while waiting for the actual remoteimageview to be downloaded.
+                    // Set the dummy remoteimageview while waiting for
+                    // the actual remoteimageview to be downloaded.
                     imageView.setImageDrawable(dummyDrawable);
                 }
                 imageView.setTag(imageUrl);
@@ -238,8 +240,8 @@ public class RemoteImageLoader {
             if (bm != null) {
                 handler.handleImageLoaded(bm, null);
             } else {
-                executor.execute(new RemoteImageLoaderJob(imageUrl, handler, imageCache, numRetries,
-                        defaultBufferSize));
+                executor.execute(new RemoteImageLoaderJob(imageUrl, httpReferer, handler,
+                        imageCache, numRetries, defaultBufferSize));
             }
         }
     }

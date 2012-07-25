@@ -56,6 +56,7 @@ public class RemoteImageView extends ViewSwitcher {
     private static final int ATTR_INDET_DRAWABLE = 0;
 
     private String imageUrl;
+    private String httpReferer;
     /**
      * remoteimageview real Width in px
      * wrap_content (<=0)
@@ -264,7 +265,8 @@ public class RemoteImageView extends ViewSwitcher {
                     "remoteimageview URL is null; did you forget to set it for this view?");
         }
         setDisplayedChild(0);
-        imageLoader.loadImage(imageUrl, imageView, new DefaultImageLoaderHandler(imgBoxWidth, imgBoxHeight));
+        imageLoader.loadImage(imageUrl, httpReferer, imageView,
+                new DefaultImageLoaderHandler(imgBoxWidth, imgBoxHeight));
     }
 
     /**
@@ -278,8 +280,21 @@ public class RemoteImageView extends ViewSwitcher {
         return isLoaded;
     }
 
+    /**
+     * set the url of remote image.
+     * use this method, then call loadImage().
+     * @param imageUrl
+     */
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    /**
+     * to that kind of image which must be filled with referring url
+     * @param httpReferer referring url
+     */
+    public void setHttpReferer(String httpReferer) {
+        this.httpReferer = httpReferer;
     }
 
     /**

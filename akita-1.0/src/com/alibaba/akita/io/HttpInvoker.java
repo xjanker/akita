@@ -255,7 +255,7 @@ public class HttpInvoker {
         }
     }
 
-    private static final int NUM_RETRIES = 3;
+    private static final int NUM_RETRIES = 2;
     private static final int DEFAULT_RETRY_SLEEP_TIME = 1000;
 
     /**
@@ -267,7 +267,7 @@ public class HttpInvoker {
      * @throws AkServerStatusException
      * @throws AkInvokeException
      */
-    public static Bitmap getBitmapFromUrl(String imgUrl, int inSampleSize)
+    public static Bitmap getBitmapFromUrl(String imgUrl, String httpReferer)
     throws AkServerStatusException, AkInvokeException {
         Log.v(TAG, "getBitmapFromUrl:" + imgUrl);
 
@@ -276,6 +276,7 @@ public class HttpInvoker {
         while (timesTried <= NUM_RETRIES) {
             try {
                 HttpGet request = new HttpGet(imgUrl);
+                if (httpReferer != null) request.setHeader("Referer", httpReferer);
                 HttpResponse response = client.execute(request);
                 int statusCode = response.getStatusLine().getStatusCode();
                 if (statusCode == HttpStatus.SC_OK
