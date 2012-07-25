@@ -45,7 +45,7 @@ public class AkCacheManager {
     }
     
     public static SimpleCache getSimpleCache(Context context) {
-        return new SimpleCacheSqliteImpl(context, "simplecache.db", "default", 1, 0);
+        return new SimpleCacheSqliteImpl(context, "simplecache.db", "defaulttable", 1, 0);
     }
 
     public static SimpleCache getSimpleCache(Context context, String tagName) {

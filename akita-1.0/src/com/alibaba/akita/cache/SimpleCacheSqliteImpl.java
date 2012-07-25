@@ -174,7 +174,7 @@ public class SimpleCacheSqliteImpl implements SimpleCache {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-            db.execSQL("create table if not exists "+mTableName+"("
+            db.execSQL("create table if not exists `"+mTableName+"` ("
                     + "key varchar(128) primary key,"
                     + "value varchar(4096),"
                     + "cacheTime long)");
