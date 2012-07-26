@@ -17,5 +17,11 @@ public interface SimpleCache {
     public String get(String key);
     public String put(String key, String value);
     public String remove(String key);
+    public void removeAll();
+    /**
+     * Close the db and sth. else.
+     * @return
+     */
+    public void close();
     
 }

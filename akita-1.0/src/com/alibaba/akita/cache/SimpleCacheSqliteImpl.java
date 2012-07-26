@@ -70,6 +70,16 @@ public class SimpleCacheSqliteImpl implements SimpleCache {
         return oldValue;
     }
 
+    @Override
+    public void removeAll() {
+        mSqliteHelper.deleteAllKey();
+    }
+
+    @Override
+    public void close() {
+        mSqliteHelper.close();
+    }
+
     public class SQLiteHelper extends SQLiteOpenHelper {
         public String Lock = "dblock";
         private String mTableName;
@@ -143,6 +153,21 @@ public class SimpleCacheSqliteImpl implements SimpleCache {
         }
 
         /**
+         * Clear all in this table
+         */
+        public void deleteAllKey() {
+            synchronized(Lock) {
+                SQLiteDatabase db = null;
+                try {
+                    db = getWritableDatabase();
+                    db.delete(mTableName, null, null);
+                } finally {
+                    if (db != null) db.close();
+                }
+            }
+        }
+
+        /**
          * @param key
          * @return
          */
@@ -174,7 +199,7 @@ public class SimpleCacheSqliteImpl implements SimpleCache {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-            db.execSQL("create table if not exists `"+mTableName+"` ("
+            db.execSQL("create table if not exists "+mTableName+"("
                     + "key varchar(128) primary key,"
                     + "value varchar(4096),"
                     + "cacheTime long)");

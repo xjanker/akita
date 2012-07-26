@@ -51,6 +51,14 @@ public class AkCacheManager {
     public static SimpleCache getSimpleCache(Context context, String tagName) {
         return new SimpleCacheSqliteImpl(context, "simplecache.db", tagName, 1, 0);
     }
+
+    public static SimpleCache getAppData(Context context) {
+        return new SimpleCacheSqliteImpl(context, "appdata.db", "defaulttable", 1, 0);
+    }
+
+    public static SimpleCache getAppData(Context context, String tagName) {
+        return new SimpleCacheSqliteImpl(context, "appdata.db", tagName, 1, 0);
+    }
     
     public static FilesCache<Bitmap> getImageFilesCache(Context context) {
         return new FilesCacheSDFoldersImpl<Bitmap>(context, "image0") {
@@ -80,4 +88,6 @@ public class AkCacheManager {
             }
         };
     }
+
+
 }
