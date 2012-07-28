@@ -262,7 +262,7 @@ public class HttpInvoker {
      * version 2 remoteimageview download impl, use byte[] to decode.
      * NUM_RETRIES retry.
      * @param imgUrl
-     * @param inSampleSize
+     * @param httpReferer http Referer
      * @return
      * @throws AkServerStatusException
      * @throws AkInvokeException
@@ -274,6 +274,7 @@ public class HttpInvoker {
         int timesTried = 1;
 
         while (timesTried <= NUM_RETRIES) {
+            timesTried++;
             try {
                 HttpGet request = new HttpGet(imgUrl);
                 if (httpReferer != null) request.setHeader("Referer", httpReferer);
@@ -292,24 +293,13 @@ public class HttpInvoker {
                         continue;
                     }
 
-                    /*BitmapFactory.Options options = new BitmapFactory.Options();
-                    if (inSampleSize > 0 && inSampleSize < 10) {
-                        options.inSampleSize = inSampleSize;
-                    } else {
-                        if (imgBytes.length > 2000000) { // can be improved
-                            options.inSampleSize = 4;
-                        } else if (imgBytes.length > 500000) {
-                            options.inSampleSize = 2;
-                        } else {
-                            options.inSampleSize = 0;
-                        }
-                    }*/
                     Bitmap bm = null;
                     try {
-                       /* bm = BitmapFactory.decodeByteArray(imgBytes, 0, imgBytes.length, options);*/
-                        bm = ImageUtil.decodeSampledBitmapFromByteArray(imgBytes, 0, imgBytes.length, 1024, 1024);
+                        bm = ImageUtil.decodeSampledBitmapFromByteArray(
+                                imgBytes, 0, imgBytes.length, 1024, 1024);
                     } catch (OutOfMemoryError ooe) {
                         Log.e(TAG, ooe.toString(), ooe);
+                        return null; // if oom, no need to retry.
                     }
                     if (bm == null) {
                         SystemClock.sleep(DEFAULT_RETRY_SLEEP_TIME);
@@ -349,7 +339,7 @@ public class HttpInvoker {
     throws AkServerStatusException, AkInvokeException {
         Log.v(TAG, "getImageFromUrl:" + imgUrl);
         Bitmap bitmap = null;
-        for (int cnt = 0; cnt < 3; cnt++) {
+        for (int cnt = 0; cnt < NUM_RETRIES; cnt++) {
             try {
                 HttpGet request = new HttpGet(imgUrl);
                 HttpResponse response = client.execute(request);
