@@ -36,7 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
-                android:src="@drawable/ic_launcher"
+                android:src="@drawable/ic_akita"
                 />
         <TextView
                 android:id="@+id/tv_tab"

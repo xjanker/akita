@@ -36,8 +36,8 @@ public abstract class AbsBottomTabActivity extends ActivityGroup
     public LinearLayout pageContainer;		//放置子页面的容器
     private Intent[] intents;				//页面跳转Intent
     private Window[] subPageView;			//子页面视图View
-    private Integer[] tabImages = { R.drawable.ic_launcher,	//tab标签图标
-            R.drawable.ic_launcher };
+    private Integer[] tabImages = { R.drawable.ic_akita,	//tab标签图标
+            R.drawable.ic_akita };
     private String[] tabLabels = { "朋友动态",	//tab标签文字
             "拍照" };
     private int selectedColor;
