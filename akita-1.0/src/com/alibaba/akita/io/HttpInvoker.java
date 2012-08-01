@@ -296,7 +296,7 @@ public class HttpInvoker {
                     Bitmap bm = null;
                     try {
                         bm = ImageUtil.decodeSampledBitmapFromByteArray(
-                                imgBytes, 0, imgBytes.length, 1024, 1024);
+                                imgBytes, 0, imgBytes.length, 682, 682);
                     } catch (OutOfMemoryError ooe) {
                         Log.e(TAG, ooe.toString(), ooe);
                         return null; // if oom, no need to retry.
