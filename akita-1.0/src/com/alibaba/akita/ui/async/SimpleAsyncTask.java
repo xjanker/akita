@@ -1,7 +1,9 @@
 package com.alibaba.akita.ui.async;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.widget.Toast;
 import com.alibaba.akita.exception.AkException;
 import com.alibaba.akita.util.Log;
 
@@ -15,6 +17,7 @@ import com.alibaba.akita.util.Log;
 public abstract class SimpleAsyncTask<T> extends AsyncTask<Integer, Integer, T> {
     private static final String TAG = "SimpleAsyncTask<T>";
     protected AkException mAkException = null;
+    private Context mContext = null;
 
     /**
      * guarantees the method be invoked on ui thread once time when task start.
@@ -43,6 +46,16 @@ public abstract class SimpleAsyncTask<T> extends AsyncTask<Integer, Integer, T> 
         } else {
             return execute(new Integer[] {0});
         }
+    }
+
+    public AsyncTask<Integer, Integer, T> fire(Context context) {
+        mContext = context;
+        return fire();
+    }
+
+    public AsyncTask<Integer, Integer, T> fireOnParallel(Context context) {
+        mContext = context;
+        return fireOnParallel();
     }
 
     @Override
@@ -91,6 +104,11 @@ public abstract class SimpleAsyncTask<T> extends AsyncTask<Integer, Integer, T> 
 
     protected void onHandleAkException(AkException mAkException) {
         Log.e(TAG, mAkException.toString(), mAkException);
+
+        if (mContext != null) {
+            Toast.makeText(mContext, mAkException.toString(), Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     /**

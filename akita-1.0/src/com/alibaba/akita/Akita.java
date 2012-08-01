@@ -23,4 +23,6 @@ package com.alibaba.akita;
  */
 public class Akita {
     public static final String XMLNS = "http://schemas.alibaba.com/apk/res/akita";
+
+    public static final String UTF_8 = "UTF-8";
 }
