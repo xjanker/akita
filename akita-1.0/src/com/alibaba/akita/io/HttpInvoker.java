@@ -112,14 +112,23 @@ public class HttpInvoker {
         });
         
     }
-    
-    public static String get(String url) 
+
+    public static String get(String url) throws AkServerStatusException, AkInvokeException {
+        return get(url, null);
+    }
+
+    public static String get(String url, Header[] headers)
     throws AkServerStatusException, AkInvokeException {
         Log.v(TAG, "get:" + url);
 
         String retString = null;
         try {
             HttpGet request = new HttpGet(url);
+            if (headers != null) {
+                for (Header header : headers) {
+                    request.addHeader(header);
+                }
+            }
             HttpResponse response = client.execute(request);
             int statusCode = response.getStatusLine().getStatusCode();
             if (statusCode == HttpStatus.SC_OK
@@ -277,7 +286,7 @@ public class HttpInvoker {
             timesTried++;
             try {
                 HttpGet request = new HttpGet(imgUrl);
-                if (httpReferer != null) request.setHeader("Referer", httpReferer);
+                if (httpReferer != null) request.addHeader("Referer", httpReferer);
                 HttpResponse response = client.execute(request);
                 int statusCode = response.getStatusLine().getStatusCode();
                 if (statusCode == HttpStatus.SC_OK
