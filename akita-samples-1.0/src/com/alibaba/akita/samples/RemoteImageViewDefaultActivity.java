@@ -28,8 +28,8 @@ public class RemoteImageViewDefaultActivity extends Activity {
         setContentView(R.layout.ac_remoteimageview_default);
 
         RemoteImageView remoteImageView = (RemoteImageView) findViewById(R.id.riv);
-        remoteImageView.setImageUrl("http://t4.mangafiles.com/Files/Images/3758/70688/imanhua_011.png");
-        remoteImageView.setHttpReferer("http://www.imanhua.com");
+        remoteImageView.setHttpReferer("http://www.imanhua.com/");
+        remoteImageView.setImageUrl("http://t4.mangafiles.com/Files/Images/3758/70688/imanhua_017.png");
         remoteImageView.loadImage();
     }
 
