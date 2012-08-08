@@ -329,6 +329,10 @@ public class HttpInvoker {
                 Log.e(TAG, ioe.toString(), ioe);
                 throw new AkInvokeException(AkInvokeException.CODE_CONNECTION_ERROR,
                         ioe.toString(), ioe);
+            } catch (IllegalStateException ise) {
+                Log.e(TAG, ise.toString(), ise);
+                throw new AkInvokeException(AkInvokeException.CODE_TARGET_HOST_OR_URL_ERROR,
+                        ise.toString(), ise);
             }
 
         }
