@@ -88,6 +88,7 @@ public class PinchZoomImageView extends ImageView
                 stop_y = (int) event.getRawY();
                 start_x = (int) event.getX();
                 start_y = stop_y - this.getTop();
+
                 if(event.getPointerCount()==2)
                     beforeLenght = spacing(event);
                 break;
@@ -199,6 +200,19 @@ public class PinchZoomImageView extends ImageView
             case MotionEvent.ACTION_MOVE:
                 // drag
                 if (mode == Mode.DRAGING) {
+                    // trick to drag when using ViewPager
+                    try{
+                        if (getLeft() >= 20 && (stop_x - event.getRawX()) < 0) {
+                            getParent().getParent().requestDisallowInterceptTouchEvent(false);
+                        } else if (getRight() <= (((View)getParent()).getWidth() - 20)
+                                && (stop_x - event.getRawX()) > 0 ) {
+                            getParent().getParent().requestDisallowInterceptTouchEvent(false);
+                        } else {
+                            getParent().getParent().requestDisallowInterceptTouchEvent(true);
+                        }
+                    } catch (Exception e) {e.printStackTrace();};
+
+                    // main drag logic
                     if(Math.abs(stop_x-start_x-getLeft())<88
                             && Math.abs(stop_y - start_y-getTop())<85)
                     {
@@ -209,13 +223,7 @@ public class PinchZoomImageView extends ImageView
                         stop_x = (int) event.getRawX();
                         stop_y = (int) event.getRawY();
                     }
-                    // trick to drag when using ViewPager
-                    try{
-                    if (getLeft()<0 && getRight()>((View)getParent()).getWidth()) {
-                        getParent().getParent().requestDisallowInterceptTouchEvent(true);
-                    } else {
-                        getParent().getParent().requestDisallowInterceptTouchEvent(false);
-                    } } catch (Exception e) {e.printStackTrace();};
+
                 }
                 // zoom
                 else if (mode == Mode.ZOOMING) {
