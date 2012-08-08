@@ -209,6 +209,13 @@ public class PinchZoomImageView extends ImageView
                         stop_x = (int) event.getRawX();
                         stop_y = (int) event.getRawY();
                     }
+                    // trick to drag when using ViewPager
+                    try{
+                    if (getLeft()<0 && getRight()>((View)getParent()).getWidth()) {
+                        getParent().getParent().requestDisallowInterceptTouchEvent(true);
+                    } else {
+                        getParent().getParent().requestDisallowInterceptTouchEvent(false);
+                    } } catch (Exception e) {e.printStackTrace();};
                 }
                 // zoom
                 else if (mode == Mode.ZOOMING) {
