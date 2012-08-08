@@ -30,6 +30,15 @@
             </intent-filter>
         </activity>
 
+        <!-- REMOTE IMAGE VIEW -->
+        <activity android:name=".RemoteImageViewDefaultActivity"
+                  android:label="RemoteImageView/Default" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.alibaba.akita.sample.SAMPLE" />
+            </intent-filter>
+        </activity>
+
         <!-- TAB UI TEMPLATE -->
         <activity android:name=".TabActivity1"
                   android:label="UITemplate Tab/Simple Default Tab" >
