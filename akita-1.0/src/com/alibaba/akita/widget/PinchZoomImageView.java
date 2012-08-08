@@ -202,9 +202,9 @@ public class PinchZoomImageView extends ImageView
                 if (mode == Mode.DRAGING) {
                     // trick to drag when using ViewPager
                     try{
-                        if (getLeft() >= 20 && (stop_x - event.getRawX()) < 0) {
+                        if (getLeft() >= 50 && (stop_x - event.getRawX()) < 0) {
                             getParent().getParent().requestDisallowInterceptTouchEvent(false);
-                        } else if (getRight() <= (((View)getParent()).getWidth() - 20)
+                        } else if (getRight() <= (((View)getParent()).getWidth() - 50)
                                 && (stop_x - event.getRawX()) > 0 ) {
                             getParent().getParent().requestDisallowInterceptTouchEvent(false);
                         } else {
