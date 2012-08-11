@@ -89,6 +89,17 @@ public class PinchZoomImageView extends ImageView
                 start_x = (int) event.getX();
                 start_y = stop_y - this.getTop();
 
+                try{
+                    if (getLeft() >= 0 && (stop_x - event.getRawX()) < 0) {
+                        getParent().getParent().requestDisallowInterceptTouchEvent(false);
+                    } else if (getRight() <= (((View)getParent()).getWidth())
+                            && (stop_x - event.getRawX()) > 0 ) {
+                        getParent().getParent().requestDisallowInterceptTouchEvent(false);
+                    } else {
+                        getParent().getParent().requestDisallowInterceptTouchEvent(true);
+                    }
+                } catch (Exception e) {e.printStackTrace();};
+
                 if(event.getPointerCount()==2)
                     beforeLenght = spacing(event);
                 break;
