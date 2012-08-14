@@ -9,7 +9,7 @@ import com.alibaba.akita.io.HttpInvoker;
 
 public class RemoteImageLoaderJob implements Runnable {
 
-    private static final String TAG = "Ignition/ImageLoader";
+    private static final String TAG = "akita.RemoteImageLoaderJob";
 
     private String imageUrl;
     private String httpReferer;

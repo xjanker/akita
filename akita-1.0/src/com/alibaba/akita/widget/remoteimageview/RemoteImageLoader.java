@@ -20,6 +20,7 @@ import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 import com.alibaba.akita.cache.AkCacheManager;
 import com.alibaba.akita.cache.FilesCache;
+import com.alibaba.akita.widget.RemoteImageView;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -77,7 +78,7 @@ public class RemoteImageLoader {
             /*imageCache.enableDiskCache(context.getApplicationContext(),
                     ImageCache.DISK_CACHE_SDCARD);*/
         }
-        errorDrawable = context.getResources().getDrawable(android.R.drawable.ic_dialog_alert);
+        errorDrawable = context.getResources().getDrawable(RemoteImageView.DEFAULT_ERROR_DRAWABLE_RES_ID);
         defaultDummyDrawable = context.getResources().getDrawable(android.R.drawable.ic_menu_gallery);
     }
 
