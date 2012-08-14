@@ -261,8 +261,10 @@ public class RemoteImageView extends ViewSwitcher {
      */
     public void loadImage() {
         if (imageUrl == null) {
-            throw new IllegalStateException(
+            Exception e = new IllegalStateException(
                     "remoteimageview URL is null; did you forget to set it for this view?");
+            Log.e(TAG, e.toString(), e);
+            return;
         }
         setDisplayedChild(0);
         imageLoader.loadImage(imageUrl, httpReferer, imageView,
