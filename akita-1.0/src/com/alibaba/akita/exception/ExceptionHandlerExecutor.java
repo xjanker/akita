@@ -19,7 +19,7 @@ package com.alibaba.akita.exception;
  */
 public class ExceptionHandlerExecutor {
 
-    public static void execute(ExceptionHandler eh, AkException e) {
+    public static void execute(ExceptionHandler eh, Exception e) {
         eh.handle(e);
     }
 

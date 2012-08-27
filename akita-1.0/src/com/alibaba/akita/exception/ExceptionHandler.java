@@ -19,6 +19,6 @@ package com.alibaba.akita.exception;
  */
 public interface ExceptionHandler {
 
-    public void handle(AkException e);
+    public void handle(Exception e);
 
 }

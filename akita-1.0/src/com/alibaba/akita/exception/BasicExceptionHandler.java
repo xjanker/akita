@@ -29,7 +29,7 @@ public class BasicExceptionHandler implements ExceptionHandler {
         mContext = c;
     }
 
-    public void handle(AkException e) {
+    public void handle(Exception e) {
         if (e instanceof AkInvokeException) {
             Log.e(TAG, ((AkInvokeException) e).code + " " + e.getCause().toString(), e);
         }
