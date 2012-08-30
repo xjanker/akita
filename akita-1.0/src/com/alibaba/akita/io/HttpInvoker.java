@@ -160,6 +160,8 @@ public class HttpInvoker {
     public static String post(String url, ArrayList<NameValuePair> params)
             throws AkInvokeException, AkServerStatusException {
         //==log start
+        // TEMP
+        url = url.replace("gw.api.alibaba.com", "205.204.112.73");
         Log.v(TAG, "post:" + url);
         if (params != null) {
             Log.v(TAG, "params:=====================");

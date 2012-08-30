@@ -14,6 +14,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+
 /**
  *  
  * @author zhe.yangz 2012-3-30 下午03:23:19
@@ -163,6 +165,37 @@ public class SimpleCacheSqliteImpl implements SimpleCache {
                     db.delete(mTableName, null, null);
                 } finally {
                     if (db != null) db.close();
+                }
+            }
+        }
+
+        public ArrayList<CacheObject> getLatestCOs(int num) {
+            synchronized(Lock) {
+                Cursor c = null;
+                SQLiteDatabase db = null;
+                try {
+                    db = getReadableDatabase();
+                    c = db.query(
+                            mTableName, new String[]{"key","value","cacheTime"}, null,
+                            null, null, null, "cacheTime desc limit " + num);
+                    if (c.moveToFirst()) {
+                        ArrayList<CacheObject> cos = new ArrayList<CacheObject>();
+
+                        while (!c.isAfterLast()) {
+                            String key = c.getString(0);
+                            String value = c.getString(1);
+                            long cacheTime = c.getLong(2);
+                            CacheObject co = new CacheObject(key, value);
+                            co.cacheTime = cacheTime;
+                            cos.add(co);
+                        }
+                        return cos;
+                    } else {
+                        return null;
+                    }
+                } finally {
+                    if (c != null) c.close();
+                    /*if (db != null) db.close();*/
                 }
             }
         }

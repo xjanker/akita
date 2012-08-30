@@ -123,7 +123,7 @@ public class ProxyInvocationHandler implements InvocationHandler {
         // invoked, then add to history
         ApiStats.addApiInvocation(apiInvokeInfo);
         
-        Log.d(TAG, retString);
+        //Log.d(TAG, retString);
         
         // parse the return-string
         Class<?> returnType = method.getReturnType();

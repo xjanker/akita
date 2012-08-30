@@ -15,6 +15,7 @@
 package com.alibaba.akita.util;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -46,5 +47,23 @@ public class DateUtil {
         Date date = new Date(milliseconds);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss Z");
         return sdf.format(date);
+    }
+
+    /**
+     * "20100315072741000-0700" =>  "yyyy-MM-dd HH:mm:ss Z"
+     * ex. 可用于Ocean返回的时间格式的转换
+     * @param strTime
+     * @return
+     */
+    public static String getTimeString(String strTime){
+        try {
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmssSSSZ");
+            Date d = formatter.parse(strTime);
+            DateFormat df1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss Z");
+
+            return df1.format(d);
+        } catch (ParseException e) {
+            return strTime;
+        }
     }
 }
