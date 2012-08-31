@@ -47,6 +47,21 @@ public class SimpleCacheSqliteImpl implements SimpleCache {
         }
     }
 
+    public ArrayList<String> getLatest(int num) {
+        ArrayList<CacheObject> cos = mSqliteHelper.getLatestCOs(num);
+        ArrayList<String> rets = new ArrayList<String>();
+        if (cos != null) {
+            for (CacheObject co : cos) {
+                if ((System.currentTimeMillis()-co.cacheTime) > mReserveTime) {
+                    remove(co.key);
+                } else {
+                    rets.add(co.value);
+                }
+            }
+        }
+        return rets;
+    }
+
     @Override
     public String put(String key, String value) {
         String oldValue = null;
@@ -175,12 +190,10 @@ public class SimpleCacheSqliteImpl implements SimpleCache {
                 SQLiteDatabase db = null;
                 try {
                     db = getReadableDatabase();
-                    c = db.query(
-                            mTableName, new String[]{"key","value","cacheTime"}, null,
-                            null, null, null, "cacheTime desc limit " + num);
+                    c = db.rawQuery("select `key`, `value`, `cacheTime` from `" + mTableName +
+                            "` order by cacheTime desc limit " + num, null);
                     if (c.moveToFirst()) {
                         ArrayList<CacheObject> cos = new ArrayList<CacheObject>();
-
                         while (!c.isAfterLast()) {
                             String key = c.getString(0);
                             String value = c.getString(1);
@@ -188,6 +201,7 @@ public class SimpleCacheSqliteImpl implements SimpleCache {
                             CacheObject co = new CacheObject(key, value);
                             co.cacheTime = cacheTime;
                             cos.add(co);
+                            c.moveToNext();
                         }
                         return cos;
                     } else {

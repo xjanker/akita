@@ -26,10 +26,15 @@ import android.widget.Toast;
  */
 public class MessageUtil {
     public static void showLongToast(Context context, int res) {
-        Toast.makeText(context, res, Toast.LENGTH_LONG).show();
+        try {
+            Toast.makeText(context, res, Toast.LENGTH_LONG).show();
+        } catch (Exception e) {};
     }
 
     public static void showShortToast(Context context, int res) {
-        Toast.makeText(context, res, Toast.LENGTH_SHORT).show();
+        try{
+            Toast.makeText(context, res, Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {};
+
     }
 }

@@ -43,13 +43,23 @@ public class AkCacheManager {
     public static <K, V> MemCache<K, V> newMemSoftRefCache() {
         return new MemCacheSoftRefImpl<K, V>();
     }
-    
+
+    /**
+     * 默认保留24小时
+     * @param context
+     * @return
+     */
     public static SimpleCache getSimpleCache(Context context) {
         return new SimpleCacheSqliteImpl(context, "simplecache.db", "defaulttable", 1, 0);
     }
 
     public static SimpleCache getSimpleCache(Context context, String tagName) {
         return new SimpleCacheSqliteImpl(context, "simplecache.db", tagName, 1, 0);
+    }
+
+    public static SimpleCache getSimpleCache(Context context, String tagName, int reserveTimeHours) {
+        return new SimpleCacheSqliteImpl(
+                context, "simplecache.db", tagName, 1, reserveTimeHours * 3600 * 1000);
     }
 
     public static SimpleCache getAppData(Context context) {

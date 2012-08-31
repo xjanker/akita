@@ -8,6 +8,8 @@
 package com.alibaba.akita.cache;
 
 
+import java.util.ArrayList;
+
 /**
  * K\V String 
  * @author zhe.yangz 2012-3-30 下午03:23:19
@@ -15,6 +17,13 @@ package com.alibaba.akita.cache;
 public interface SimpleCache {
 
     public String get(String key);
+
+    /**
+     * get Latest items, max to num
+     * @param num
+     * @return
+     */
+    public ArrayList<String> getLatest(int num);
     public String put(String key, String value);
     public String remove(String key);
     public void removeAll();
