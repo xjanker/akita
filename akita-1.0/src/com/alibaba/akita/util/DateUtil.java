@@ -64,6 +64,8 @@ public class DateUtil {
             return df1.format(d);
         } catch (ParseException e) {
             return strTime;
+        } catch (NullPointerException npe) {
+            return "";
         }
     }
 }
