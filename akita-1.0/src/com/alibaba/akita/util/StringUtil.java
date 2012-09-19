@@ -1,7 +1,6 @@
 package com.alibaba.akita.util;
 
 
-
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
@@ -9,11 +8,12 @@ import java.util.Date;
 import java.util.regex.Pattern;
 
 /**
- * 对API调用的请求请求进行签名的String util类，
+ * String util类，
  * 详情参考http://10.249.200.45:1880/test/requestSignature.html
- * 
- * @author frank.yef 
- * 
+ *
+ * @author frank.yef
+ * @author zhe.yangz
+ *
  */
 public final class StringUtil {
     public static final String TAG = "StringUtil";
@@ -21,6 +21,18 @@ public final class StringUtil {
     public static final String CHARSET_NAME_UTF8        = "UTF-8";
     public static final char[] digital                  = "0123456789ABCDEF".toCharArray();
     public static final String DEFAULT_DATA_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
+    public final static Pattern EMAIL_ADDRESS_PATTERN = Pattern.compile(
+            "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
+                    "\\@" +
+                    "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
+                    "(" +
+                    "\\." +
+                    "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
+                    ")+"
+    );
+
+    private StringUtil() {
+    }
 
     public static String format(Date date) {
         String retString = "";
@@ -286,7 +298,7 @@ public final class StringUtil {
         }
     }
 
-    private StringUtil() {
+    public static boolean isEmailFormat(String email) {
+        return EMAIL_ADDRESS_PATTERN.matcher(email).matches();
     }
-
 }
