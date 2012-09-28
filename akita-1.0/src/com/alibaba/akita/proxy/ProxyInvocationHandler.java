@@ -121,7 +121,7 @@ public class ProxyInvocationHandler implements InvocationHandler {
         }
 
         // invoked, then add to history
-        ApiStats.addApiInvocation(apiInvokeInfo);
+        //ApiStats.addApiInvocation(apiInvokeInfo);
         
         //Log.d(TAG, retString);
         
