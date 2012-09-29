@@ -16,10 +16,14 @@ package com.alibaba.akita.util;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.telephony.TelephonyManager;
 import android.view.Window;
@@ -158,6 +162,36 @@ public class AndroidUtil {
             return true;
         } else {
             return false;
+        }
+    }
+
+    public static boolean networkStatusOK(final Context context) {
+        boolean netStatus = false;
+
+        try{
+            ConnectivityManager connectManager = (ConnectivityManager) context
+                    .getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo activeNetworkInfo = connectManager.getActiveNetworkInfo();
+            if (activeNetworkInfo != null) {
+                if (activeNetworkInfo.isAvailable() && activeNetworkInfo.isConnected()) {
+                    netStatus = true;
+                }
+            }
+        } catch (Exception e) {e.printStackTrace();}
+
+        return netStatus;
+    }
+
+    public static void showNetworkFailureDlg(final Activity context) {
+        try {
+            AlertDialog.Builder b = new AlertDialog.Builder(context)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setTitle(R.string.check_network_no_available_network_title)
+                    .setMessage(
+                            R.string.check_network_no_available_network_message);
+            b.setPositiveButton(android.R.string.ok, null).show();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

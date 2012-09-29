@@ -4,4 +4,7 @@
     <string name="hello">Hello World!</string>
     <string name="app_name">Org.akita-1.0</string>
 
+    <string name="check_network_no_available_network_title">No available network</string>
+    <string name="check_network_no_available_network_message">Please note that there\'s some problem on your network status. You must set your network properly first.</string>
+
 </resources>
