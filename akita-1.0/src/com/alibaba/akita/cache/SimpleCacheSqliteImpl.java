@@ -17,12 +17,13 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 
 /**
- *  
+ * reserveTime==0  1年
+ * 默认为24小时
  * @author zhe.yangz 2012-3-30 下午03:23:19
  */
 public class SimpleCacheSqliteImpl implements SimpleCache {
     private SQLiteHelper mSqliteHelper = null;
-    private long mReserveTime = 24 * 3600 * 1000;
+    private long mReserveTime = 24 * 3600 * 1000L;
     
     /**
      * 
@@ -30,7 +31,11 @@ public class SimpleCacheSqliteImpl implements SimpleCache {
     protected SimpleCacheSqliteImpl(Context context, String dbName, String tbName,
                                  int version, long reserveTime) {
         mSqliteHelper = new SQLiteHelper(context, dbName, null, version, tbName);
-        if (reserveTime > 0) mReserveTime = reserveTime;
+        if (reserveTime > 0) {
+            mReserveTime = reserveTime;
+        } else if (reserveTime == 0){
+            mReserveTime = 365 * 24 * 3600 * 1000L;
+        }
     }
     
     @Override
@@ -38,8 +43,7 @@ public class SimpleCacheSqliteImpl implements SimpleCache {
         CacheObject co = mSqliteHelper.getCOByKey(key);
         if (co == null) {
             return null;
-        } else if (co != null 
-                && (System.currentTimeMillis()-co.cacheTime) > mReserveTime) {
+        } else if ((System.currentTimeMillis()-co.cacheTime) > mReserveTime) {
             remove(key);
             return null;
         } else {
