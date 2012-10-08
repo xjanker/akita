@@ -32,6 +32,18 @@ public interface FilesCache<V> {
      */
     public void evict();
 
+    /**
+     * 清空此Cache的所有文件数据
+     * 主意：此方法可能耗时
+     */
+    public void clearCache();
+
+    /**
+     * 得到当前的Cache占用大小
+     * @return
+     */
+    public double getCacheCurrentSizeMB();
+
     public void setCacheSize(int cacheSizeInMB);
     
 }

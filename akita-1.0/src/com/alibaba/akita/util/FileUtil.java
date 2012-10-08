@@ -33,6 +33,7 @@ public class FileUtil {
     public static long getFileSize(File dir) //取得文件夹大小
     {
         long size = 0;
+        if (dir == null) return size;
         if (!dir.isDirectory()) return dir.length();
         File flist[] = dir.listFiles();
         if (flist == null) return 0;
@@ -55,7 +56,8 @@ public class FileUtil {
      * @return space size of all files in this dir, in MBytes.
      */
     public static double getFileSizeMB(File dir) {
-        return getFileSize(dir) / 1024. / 1024.;
+        double mb = getFileSize(dir) / 1024. / 1024.;
+        return Double.parseDouble(NumberUtil.fractionDigits(mb, 2));
     }
 
     /**

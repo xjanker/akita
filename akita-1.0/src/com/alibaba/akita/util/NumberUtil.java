@@ -40,5 +40,13 @@ public class NumberUtil {
         return nbf.format(num);
     }
 
+    public static String fractionDigits(double num, int digits) {
+        NumberFormat nbf = NumberFormat.getInstance(Locale.US);
+        nbf.setMinimumFractionDigits(digits);
+        nbf.setMaximumFractionDigits(digits);
+        nbf.setGroupingUsed(true);
+        return nbf.format(num);
+    }
+
     private NumberUtil() {}
 }

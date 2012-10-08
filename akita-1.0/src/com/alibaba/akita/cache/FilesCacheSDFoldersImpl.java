@@ -187,7 +187,19 @@ public abstract class FilesCacheSDFoldersImpl<V> implements FilesCache<V> {
         }
     }
 
+    public double getCacheCurrentSizeMB() {
+        return FileUtil.getFileSizeMB(new File(getSepcifiedCacheDir()));
+    }
 
+    @Override
+    public void clearCache() {
+        try{
+            File cacheDir = new File(getSepcifiedCacheDir());
+            FileUtil.deleteFileOrDir(cacheDir);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public void setCacheSize(int cacheSizeInMB) {
