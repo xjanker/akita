@@ -115,7 +115,7 @@ public class SimpleCacheSqliteImpl implements SimpleCache {
             super(context, name, factory, version);
             mTableName = tbName;
             SQLiteDatabase sqLiteDatabase = getWritableDatabase();
-            onCreate(getWritableDatabase());
+            //onCreate(getWritableDatabase());  // no need to execute
             sqLiteDatabase.close();
         }
 
