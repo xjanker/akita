@@ -193,6 +193,7 @@ public class SimpleCacheSqliteImpl implements SimpleCache {
 
         public ArrayList<CacheObject> getLatestCOs(int num) {
             synchronized(Lock) {
+                ArrayList<CacheObject> cos = new ArrayList<CacheObject>();
                 Cursor c = null;
                 SQLiteDatabase db = null;
                 try {
@@ -200,7 +201,6 @@ public class SimpleCacheSqliteImpl implements SimpleCache {
                     c = db.rawQuery("select `key`, `value`, `cacheTime` from `" + mTableName +
                             "` order by cacheTime desc limit " + num, null);
                     if (c.moveToFirst()) {
-                        ArrayList<CacheObject> cos = new ArrayList<CacheObject>();
                         while (!c.isAfterLast()) {
                             String key = c.getString(0);
                             String value = c.getString(1);
@@ -214,6 +214,9 @@ public class SimpleCacheSqliteImpl implements SimpleCache {
                     } else {
                         return null;
                     }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return cos;
                 } finally {
                     if (c != null) c.close();
                     /*if (db != null) db.close();*/

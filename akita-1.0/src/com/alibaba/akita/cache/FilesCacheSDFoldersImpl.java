@@ -161,14 +161,14 @@ public abstract class FilesCacheSDFoldersImpl<V> implements FilesCache<V> {
     }
 
     /**
-     * 根据容量来清除一批过期数据
-     * note: 可能很耗时
+     * When current size > mCacheSizeInMB, then remove some data.
+     * note: maybe time-consuming
      */
     @Override
     public void evict() {
         double size = FileUtil.getFileSizeMB(new File(getSepcifiedCacheDir()));
         if (size > mCacheSizeInMB) {
-            // 扔掉
+            // junk it
             File cacheDir = new File(getSepcifiedCacheDir());
             File[] dirs = cacheDir.listFiles();
             for (File dir : dirs) {

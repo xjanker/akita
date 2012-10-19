@@ -55,7 +55,7 @@ public class DateUtil {
      * @param strTime
      * @return
      */
-    public static String getTimeString(String strTime){
+    public static String getTimeString(String strTime) {
         try {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmssSSSZ");
             Date d = formatter.parse(strTime);

@@ -24,7 +24,9 @@ public abstract class AkBaseAdapter<T> extends BaseAdapter {
 
     public AkBaseAdapter(Context c) {
         mContext = c;
-        mInflater = (LayoutInflater)c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        try {
+            mInflater = (LayoutInflater)c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        } catch (Exception e) {e.printStackTrace();}
     }
 
     public void addItem(final T item) {
@@ -58,22 +60,24 @@ public abstract class AkBaseAdapter<T> extends BaseAdapter {
     }
 
     /**
-    ViewHolder holder = null;
-    if (convertView == null) {
-        convertView = mInflater.inflate(R.layout.list_item2, null);
-        holder = new ViewHolder();
-        holder.textView = (TextView)convertView.findViewById(R.id.text);
-        holder.imageView = (RemoteImageView)convertView.findViewById(R.id.ri);
-        convertView.setTag(holder);
-    } else {
-        holder = (ViewHolder)convertView.getTag();
-    }
-    holder.textView.setText(mData.get(position).status.text);
-    if (mData.get(position).status.original_pic!=null) {
-        holder.imageView.setImageUrl(mData.get(position).status.original_pic);
-        holder.imageView.loadImage();
-    }
-    return convertView;
+     * Example：
+     *
+        ViewHolder holder = null;
+        if (convertView == null) {
+            convertView = mInflater.inflate(R.layout.list_item2, null);
+            holder = new ViewHolder();
+            holder.textView = (TextView)convertView.findViewById(R.id.text);
+            holder.imageView = (RemoteImageView)convertView.findViewById(R.id.ri);
+            convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder)convertView.getTag();
+        }
+        holder.textView.setText(mData.get(position).status.text);
+        if (mData.get(position).status.original_pic!=null) {
+            holder.imageView.setImageUrl(mData.get(position).status.original_pic);
+            holder.imageView.loadImage();
+        }
+        return convertView;
     */
     @Override
     public abstract View getView(int position, View convertView, ViewGroup parent);

@@ -57,7 +57,7 @@ public class AndroidUtil {
     public static int getVerCode(Context context) {
         try {
             return context.getPackageManager().getPackageInfo(
-                    "com.alibaba.android.aliexpress", 0).versionCode;
+                    context.getPackageName(), 0).versionCode;
         } catch (Exception e) {
             Log.e(TAG, "Cannot find package and its version info.");
             return -1;
@@ -67,7 +67,7 @@ public class AndroidUtil {
     public static String getVerName(Context context) {
         try {
             return context.getPackageManager().getPackageInfo(
-                    "com.alibaba.android.aliexpress", 0).versionName;
+                    context.getPackageName() , 0).versionName;
         } catch (Exception e) {
             Log.e(TAG, "Cannot find package and its version info.");
             return "no version name";
@@ -84,12 +84,17 @@ public class AndroidUtil {
      * 获取DeviceId
      *
      * @param context
-     * @return 当获取到的TelephonyManager为null时，将返回null
+     * @return 当获取到的TelephonyManager为null时，将返回"null"
      */
     public static String getDeviceId(Context context) {
         TelephonyManager tm = (TelephonyManager) context
                 .getSystemService(Context.TELEPHONY_SERVICE);
-        return tm == null ? null : tm.getDeviceId();
+        if (tm == null) {
+            return "null";
+        } else {
+            String id = tm.getDeviceId();
+            return id == null? "null" : id;
+        }
     }
 
     /**
@@ -152,6 +157,16 @@ public class AndroidUtil {
         return true;
     }
 
+    public static boolean isGooglePlayInstalled(Context ctx) {
+        return isAndroidMarketInstalled(ctx);
+    }
+
+    /**
+     * @deprecated
+     * use isGooglePlayInstalled(Context ctx) instead
+     * @param ctx
+     * @return
+     */
     public static boolean isAndroidMarketInstalled(Context ctx) {
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_VIEW);

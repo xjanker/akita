@@ -27,7 +27,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 
 /**
- * 客户端Cache统一解决方案 
+ * Client Cache Universal Solution
  * @author zhe.yangz 2012-3-30 下午03:23:31
  */
 public class AkCacheManager {
@@ -45,16 +45,16 @@ public class AkCacheManager {
     }
 
     /**
-     * 默认保留24小时
+     * default reserve data 24 hours (-1)
      * @param context
      * @return
      */
     public static SimpleCache getSimpleCache(Context context) {
-        return new SimpleCacheSqliteImpl(context, "simplecache.db", "defaulttable", 1, 0);
+        return new SimpleCacheSqliteImpl(context, "simplecache.db", "defaulttable", 1, -1);
     }
 
     public static SimpleCache getSimpleCache(Context context, String tagName) {
-        return new SimpleCacheSqliteImpl(context, "simplecache.db", tagName, 1, 0);
+        return new SimpleCacheSqliteImpl(context, "simplecache.db", tagName, 1, -1);
     }
 
     public static SimpleCache getSimpleCache(Context context, String tagName, int reserveTimeHours) {
@@ -62,10 +62,21 @@ public class AkCacheManager {
                 context, "simplecache.db", tagName, 1, reserveTimeHours * 3600 * 1000);
     }
 
+    /**
+     * reserve data 365 days（0）
+     * @param context
+     * @return
+     */
     public static SimpleCache getAppData(Context context) {
         return new SimpleCacheSqliteImpl(context, "appdata.db", "defaulttable", 1, 0);
     }
 
+    /**
+     * reserve data 365 days（0）
+     * @param context
+     * @param tagName
+     * @return
+     */
     public static SimpleCache getAppData(Context context, String tagName) {
         return new SimpleCacheSqliteImpl(context, "appdata.db", tagName, 1, 0);
     }

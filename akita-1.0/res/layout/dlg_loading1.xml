@@ -35,11 +35,13 @@
                   android:orientation="vertical" >
         <TextView android:id="@+id/tv_loadingHint"
                   android:text="Loading..."
+                  android:textColor="@color/WhiteSmoke"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:visibility="gone" />
         <TextView android:id="@+id/tv_loadingHintProgress"
                   android:text=""
+                  android:textColor="@color/WhiteSmoke"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:visibility="gone" />

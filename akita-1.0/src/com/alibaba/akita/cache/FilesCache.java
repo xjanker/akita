@@ -9,9 +9,8 @@ package com.alibaba.akita.cache;
 
 
 /**
- * Key为String 
- * V对应文件夹系统中的特定File  
- * in SD卡目录中
+ * Key is String
+ * V is specified File of file system on sd card
  * @author zhe.yangz 2012-3-30 下午03:23:19
  */
 public interface FilesCache<V> {
@@ -27,23 +26,27 @@ public interface FilesCache<V> {
     public V remove(String key);
 
     /**
-     * 根据建立Impl对象时所定义的容量受控大小来逐出一批过期内容。
+     * evict cache data according to the cache size set.
      * @return
      */
     public void evict();
 
     /**
-     * 清空此Cache的所有文件数据
-     * 主意：此方法可能耗时
+     * Clear all this cache data
+     * Note: this method maybe Time-consuming, you may run it async
      */
     public void clearCache();
 
     /**
-     * 得到当前的Cache占用大小
+     * get current cache size in MB
      * @return
      */
     public double getCacheCurrentSizeMB();
 
+    /**
+     * set normal cache size limit in MB
+     * @param cacheSizeInMB
+     */
     public void setCacheSize(int cacheSizeInMB);
     
 }
