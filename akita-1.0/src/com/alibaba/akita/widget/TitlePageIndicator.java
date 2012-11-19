@@ -495,8 +495,9 @@ public class TitlePageIndicator extends View implements PageIndicator {
                     }
 
                     mLastMotionX = x;
-
-                    mViewPager.fakeDragBy(deltaX);
+                    try {
+                        mViewPager.fakeDragBy(deltaX);
+                    } catch (Exception e) {e.printStackTrace();}
                 }
 
                 break;

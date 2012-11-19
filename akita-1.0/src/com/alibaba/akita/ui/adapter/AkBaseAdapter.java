@@ -39,6 +39,16 @@ public abstract class AkBaseAdapter<T> extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    public T removeItem(int idx) {
+        if (idx < mData.size()) {
+            T t =  mData.remove(idx);
+            notifyDataSetChanged();
+            return t;
+        } else {
+            return null;
+        }
+    }
+
     public void clearItems() {
         mData.clear();
         notifyDataSetChanged();
