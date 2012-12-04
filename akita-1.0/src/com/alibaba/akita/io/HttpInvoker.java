@@ -280,6 +280,7 @@ public class HttpInvoker {
      */
     public static Bitmap getBitmapFromUrl(String imgUrl, String httpReferer)
     throws AkServerStatusException, AkInvokeException {
+        imgUrl = imgUrl.trim();
         Log.v(TAG, "getBitmapFromUrl:" + imgUrl);
 
         int timesTried = 1;
@@ -335,6 +336,9 @@ public class HttpInvoker {
                 Log.e(TAG, ise.toString(), ise);
                 throw new AkInvokeException(AkInvokeException.CODE_TARGET_HOST_OR_URL_ERROR,
                         ise.toString(), ise);
+            } catch (IllegalArgumentException iae) {
+                throw new AkInvokeException(AkInvokeException.CODE_TARGET_HOST_OR_URL_ERROR,
+                        iae.toString(), iae);
             }
 
         }

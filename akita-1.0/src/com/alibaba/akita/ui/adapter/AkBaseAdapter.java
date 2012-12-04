@@ -61,7 +61,11 @@ public abstract class AkBaseAdapter<T> extends BaseAdapter {
 
     @Override
     public T getItem(int position) {
-        return mData.get(position);
+        if (position < mData.size()) {
+            return mData.get(position);
+        } else {
+            return null;
+        }
     }
 
     @Override
