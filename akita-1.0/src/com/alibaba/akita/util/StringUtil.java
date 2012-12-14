@@ -30,6 +30,7 @@ public final class StringUtil {
                     "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
                     ")+"
     );
+    public static final String EMPTY_STRING = "";
 
     private StringUtil() {
     }

@@ -120,7 +120,8 @@ public class HttpInvoker {
     public static String get(String url, Header[] headers)
     throws AkServerStatusException, AkInvokeException {
         Log.v(TAG, "get:" + url);
-
+        //url = url.replace("gw.api.alibaba.com", "172.20.128.127");
+        //url = url.replace("mobi.aliexpress.com", "172.20.226.142");
         String retString = null;
         try {
             HttpGet request = new HttpGet(url);
@@ -161,7 +162,8 @@ public class HttpInvoker {
             throws AkInvokeException, AkServerStatusException {
         //==log start
         // TEMP
-        //url = url.replace("gw.api.alibaba.com", "205.204.112.73");
+        //url = url.replace("gw.api.alibaba.com", "172.20.128.127");
+        //url = url.replace("mobi.aliexpress.com", "172.20.226.142");
         Log.v(TAG, "post:" + url);
         if (params != null) {
             Log.v(TAG, "params:=====================");

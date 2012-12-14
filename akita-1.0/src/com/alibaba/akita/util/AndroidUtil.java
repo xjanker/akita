@@ -16,6 +16,7 @@ package com.alibaba.akita.util;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DownloadManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -25,12 +26,15 @@ import android.content.pm.ResolveInfo;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
 import android.telephony.TelephonyManager;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import com.alibaba.akita.R;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -178,6 +182,58 @@ public class AndroidUtil {
         } else {
             return false;
         }
+    }
+
+    public static void installApkWithPrompt(File apkFile, Context context) {
+        Intent promptInstall = new Intent(Intent.ACTION_VIEW);
+        promptInstall.setDataAndType(Uri.fromFile(apkFile),
+                "application/vnd.android.package-archive");
+        context.startActivity(promptInstall);
+    }
+
+    /**
+     * @param context used to check the device version and DownloadManager information
+     * @return true if the download manager is available
+     */
+    public static boolean isDownloadManagerAvailable(Context context) {
+        try {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.GINGERBREAD) {
+                return false;
+            }
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_LAUNCHER);
+            intent.setClassName("com.android.providers.downloads.ui", "com.android.providers.downloads.ui.DownloadList");
+            List<ResolveInfo> list = context.getPackageManager().queryIntentActivities(intent,
+                    PackageManager.MATCH_DEFAULT_ONLY);
+            return list.size() > 0;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    /**
+     * Note: Make sure isDownloadManagerAvailable return is true before use this method.
+     * @param apkName Apk File Name
+     * @param fullApkUrl url of full
+     * @param context Context
+     */
+    public static void downloadApkByDownloadManager(String apkName, String fullApkUrl, Context context) {
+        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(fullApkUrl));
+        request.setDescription(fullApkUrl);
+        request.setTitle(apkName);
+
+        // in order for this if to run, you must use the android 3.2 to compile your app
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            request.allowScanningByMediaScanner();
+            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        }
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, apkName);
+        request.setVisibleInDownloadsUi(false);
+        request.setMimeType("application/vnd.android.package-archive");
+
+        // get download service and enqueue file
+        DownloadManager manager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
+        manager.enqueue(request);
     }
 
     public static boolean networkStatusOK(final Context context) {
