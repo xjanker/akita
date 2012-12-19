@@ -12,7 +12,7 @@ package com.alibaba.akita.exception;
  * @author zhe.yangz 2012-1-17 下午06:57:53
  */
 public class AkException extends Exception {
-    private static final long serialVersionUID = -2431196726844826744L;
+    private static final long serialVersionUID =  -2431196726844826744L;
     
     protected AkException(){
         super();
