@@ -10,6 +10,7 @@ package com.alibaba.akita.io;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.SystemClock;
+import android.widget.ProgressBar;
 import com.alibaba.akita.exception.AkInvokeException;
 import com.alibaba.akita.exception.AkServerStatusException;
 import com.alibaba.akita.util.ImageUtil;
@@ -226,7 +227,7 @@ public class HttpInvoker {
     }
 
     private static final int DEFAULT_BUFFER_SIZE = 65536;
-    private static byte[] retrieveImageData(InputStream inputStream, String imgUrl, int fileSize)
+    private static byte[] retrieveImageData(InputStream inputStream, int fileSize, ProgressBar progressBar)
             throws IOException {
 
         // determine the remoteimageview size and allocate a buffer
@@ -256,6 +257,12 @@ public class HttpInvoker {
                 while (bytesRead != -1 && offset < fileSize) {
                     bytesRead = istream.read(imageData, offset, fileSize - offset);
                     offset += bytesRead;
+                    // process reporting
+                    try {
+                        if (progressBar != null) {
+                            progressBar.setProgress(offset*100/fileSize);
+                        }
+                    } catch (Exception e) { e.printStackTrace(); }
                 }
                 return imageData;
             }
@@ -272,7 +279,8 @@ public class HttpInvoker {
     private static final int DEFAULT_RETRY_SLEEP_TIME = 1000;
 
     /**
-     * version 2 remoteimageview download impl, use byte[] to decode.
+     * Vversion 2 remoteimageview download impl, use byte[] to decode.
+     * Note: Recommanded to use this method instead of version 1.
      * NUM_RETRIES retry.
      * @param imgUrl
      * @param httpReferer http Referer
@@ -280,7 +288,7 @@ public class HttpInvoker {
      * @throws AkServerStatusException
      * @throws AkInvokeException
      */
-    public static Bitmap getBitmapFromUrl(String imgUrl, String httpReferer)
+    public static Bitmap getBitmapFromUrl(String imgUrl, String httpReferer, ProgressBar progressBar)
     throws AkServerStatusException, AkInvokeException {
         imgUrl = imgUrl.trim();
         Log.v(TAG, "getBitmapFromUrl:" + imgUrl);
@@ -290,6 +298,9 @@ public class HttpInvoker {
         while (timesTried <= NUM_RETRIES) {
             timesTried++;
             try {
+                if (progressBar != null) {
+                    progressBar.setProgress(0);
+                }
                 HttpGet request = new HttpGet(imgUrl);
                 if (httpReferer != null) request.addHeader("Referer", httpReferer);
                 HttpResponse response = client.execute(request);
@@ -301,7 +312,7 @@ public class HttpInvoker {
                     InputStream inputStream = resEntity.getContent();
 
                     byte[] imgBytes = retrieveImageData(
-                            inputStream, imgUrl, (int)(resEntity.getContentLength()));
+                            inputStream, (int)(resEntity.getContentLength()), progressBar);
                     if (imgBytes == null) {
                         SystemClock.sleep(DEFAULT_RETRY_SLEEP_TIME);
                         continue;
@@ -341,6 +352,8 @@ public class HttpInvoker {
             } catch (IllegalArgumentException iae) {
                 throw new AkInvokeException(AkInvokeException.CODE_TARGET_HOST_OR_URL_ERROR,
                         iae.toString(), iae);
+            } catch (Exception e) {
+                throw new  AkInvokeException(AkInvokeException.CODE_UNKOWN_ERROR, e.toString(), e);
             }
 
         }

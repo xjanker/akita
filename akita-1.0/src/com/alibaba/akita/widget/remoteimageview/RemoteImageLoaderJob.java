@@ -3,6 +3,7 @@ package com.alibaba.akita.widget.remoteimageview;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Message;
+import android.widget.ProgressBar;
 import com.alibaba.akita.cache.FilesCache;
 import com.alibaba.akita.exception.AkException;
 import com.alibaba.akita.io.HttpInvoker;
@@ -13,15 +14,17 @@ public class RemoteImageLoaderJob implements Runnable {
 
     private String imageUrl;
     private String httpReferer;
+    private ProgressBar progressBar;
     private RemoteImageLoaderHandler handler;
     private FilesCache<Bitmap> imageCache;
     private int numRetries, defaultBufferSize;
 
-    public RemoteImageLoaderJob(String imageUrl, String httpReferer,
+    public RemoteImageLoaderJob(String imageUrl, String httpReferer, ProgressBar progressBar,
                                 RemoteImageLoaderHandler handler, FilesCache<Bitmap> imageCache,
                                 int numRetries, int defaultBufferSize) {
         this.imageUrl = imageUrl;
         this.httpReferer = httpReferer;
+        this.progressBar = progressBar;
         this.handler = handler;
         this.imageCache = imageCache;
         this.numRetries = numRetries;
@@ -51,7 +54,7 @@ public class RemoteImageLoaderJob implements Runnable {
     // use HttpInvoker to handle
     protected Bitmap downloadImage() {
         try {
-            Bitmap bm = HttpInvoker.getBitmapFromUrl(imageUrl, httpReferer);
+            Bitmap bm = HttpInvoker.getBitmapFromUrl(imageUrl, httpReferer, progressBar);
             if (imageCache != null && bm != null) {
                 imageCache.put(imageUrl, bm);
             }

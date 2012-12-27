@@ -51,12 +51,14 @@ public class RemoteImageView extends ViewSwitcher {
     private static final String ATTR_IMGBOX_HEIGHT = "imgBoxHeight";
     private static final String ATTR_PINCH_ZOOM = "pinchZoom";
     private static final String ATTR_FADE_IN = "fadeIn";
+    private static final String ATTR_SHOW_PROGRESS = "showProgress";
 
     private static final int[] ANDROID_VIEW_ATTRS = { android.R.attr.indeterminateDrawable };
     private static final int ATTR_INDET_DRAWABLE = 0;
 
     private String imageUrl;
     private String httpReferer;
+
     /**
      * remoteimageview real Width in px
      * wrap_content (<=0)
@@ -76,6 +78,10 @@ public class RemoteImageView extends ViewSwitcher {
      * fade in
      */
     private boolean fadeIn;
+    /**
+     * show exact progress
+     */
+    private boolean showProgress;
 
     private boolean autoLoad, isLoaded;
 
@@ -109,9 +115,9 @@ public class RemoteImageView extends ViewSwitcher {
      *            false, use {@link #loadImage()} to manually trigger the remoteimageview download.
      */
     public RemoteImageView(Context context, String imageUrl, boolean autoLoad,
-                           boolean fadeIn, boolean pinchZoom) {
+                           boolean fadeIn, boolean pinchZoom, boolean showProgress) {
         super(context);
-        initialize(context, imageUrl, null, null, autoLoad, fadeIn, pinchZoom, null);
+        initialize(context, imageUrl, null, null, autoLoad, fadeIn, pinchZoom, showProgress, null);
     }
 
     /**
@@ -129,9 +135,10 @@ public class RemoteImageView extends ViewSwitcher {
      *            false, use {@link #loadImage()} to manually trigger the remoteimageview download.
      */
     public RemoteImageView(Context context, String imageUrl, Drawable progressDrawable,
-                           Drawable errorDrawable, boolean autoLoad, boolean fadeIn, boolean pinchZoom) {
+                           Drawable errorDrawable, boolean autoLoad, boolean fadeIn,
+                           boolean pinchZoom, boolean showProgress) {
         super(context);
-        initialize(context, imageUrl, progressDrawable, errorDrawable, autoLoad, fadeIn, pinchZoom,
+        initialize(context, imageUrl, progressDrawable, errorDrawable, autoLoad, fadeIn, pinchZoom, showProgress,
                 null);
     }
 
@@ -164,8 +171,9 @@ public class RemoteImageView extends ViewSwitcher {
                 attributes.getAttributeIntValue(Akita.XMLNS, ATTR_IMGBOX_HEIGHT, 0) );
         boolean pinchZoom = attributes.getAttributeBooleanValue(Akita.XMLNS, ATTR_PINCH_ZOOM, false);
         boolean fadeIn = attributes.getAttributeBooleanValue(Akita.XMLNS, ATTR_FADE_IN, false);
+        boolean showProgress = attributes.getAttributeBooleanValue(Akita.XMLNS, ATTR_SHOW_PROGRESS, false);
 
-        initialize(context, imageUrl, progressDrawable, errorDrawable, autoLoad, fadeIn, pinchZoom,
+        initialize(context, imageUrl, progressDrawable, errorDrawable, autoLoad, fadeIn, pinchZoom, showProgress,
                 attributes);
     }
 
@@ -174,12 +182,13 @@ public class RemoteImageView extends ViewSwitcher {
     }
 
     private void initialize(Context context, String imageUrl, Drawable progressDrawable,
-            Drawable errorDrawable, boolean autoLoad, boolean fadeIn, boolean pinchZoom,
+            Drawable errorDrawable, boolean autoLoad, boolean fadeIn, boolean pinchZoom, boolean showProgress,
             AttributeSet attributes) {
         this.imageUrl = imageUrl;
         this.autoLoad = autoLoad;
         this.fadeIn = fadeIn;
         this.pinchZoom = pinchZoom;
+        this.showProgress = showProgress;
         this.progressDrawable = progressDrawable;
         this.errorDrawable = errorDrawable;
         if (sharedImageLoader == null) {
@@ -210,20 +219,30 @@ public class RemoteImageView extends ViewSwitcher {
     }
 
     private void addLoadingSpinnerView(Context context) {
-        loadingSpinner = new ProgressBar(context);
-        loadingSpinner.setIndeterminate(true);
-        if (this.progressDrawable == null) {
-            this.progressDrawable = loadingSpinner.getIndeterminateDrawable();
-        } else {
-            loadingSpinner.setIndeterminateDrawable(progressDrawable);
-            if (progressDrawable instanceof AnimationDrawable) {
-                ((AnimationDrawable) progressDrawable).start();
-            }
-        }
+        LayoutParams lp;
 
-        LayoutParams lp = new LayoutParams(progressDrawable.getIntrinsicWidth(),
-                progressDrawable.getIntrinsicHeight());
-        lp.gravity = Gravity.CENTER;
+        if (showProgress) {
+
+            loadingSpinner = (ProgressBar) ProgressBar.inflate(context, R.layout.processbar_horizontal, null);
+            lp = new LayoutParams(AndroidUtil.dp2px(context, 36), AndroidUtil.dp2px(context, 36));
+            lp.gravity = Gravity.CENTER;
+
+        } else {
+            loadingSpinner = new ProgressBar(context);
+            loadingSpinner.setIndeterminate(true);
+            if (this.progressDrawable == null) {
+                this.progressDrawable = loadingSpinner.getIndeterminateDrawable();
+            } else {
+                loadingSpinner.setIndeterminateDrawable(progressDrawable);
+                if (progressDrawable instanceof AnimationDrawable) {
+                    ((AnimationDrawable) progressDrawable).start();
+                }
+            }
+
+            lp = new LayoutParams(progressDrawable.getIntrinsicWidth(),
+                    progressDrawable.getIntrinsicHeight());
+            lp.gravity = Gravity.CENTER;
+        }
 
         addView(loadingSpinner, 0, lp);
     }
@@ -267,8 +286,15 @@ public class RemoteImageView extends ViewSwitcher {
             return;
         }
         setDisplayedChild(0);
-        imageLoader.loadImage(imageUrl, httpReferer, imageView,
-                new DefaultImageLoaderHandler(imgBoxWidth, imgBoxHeight));
+
+        if (showProgress) {
+            loadingSpinner.setProgress(0);
+            imageLoader.loadImage(imageUrl, httpReferer, loadingSpinner, imageView,
+                    new DefaultImageLoaderHandler(imgBoxWidth, imgBoxHeight));
+        } else {
+            imageLoader.loadImage(imageUrl, httpReferer, null, imageView,
+                    new DefaultImageLoaderHandler(imgBoxWidth, imgBoxHeight));
+        }
     }
 
     /**

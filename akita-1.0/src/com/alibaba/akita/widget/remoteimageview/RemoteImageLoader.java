@@ -18,6 +18,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import com.alibaba.akita.cache.AkCacheManager;
 import com.alibaba.akita.cache.FilesCache;
 import com.alibaba.akita.widget.RemoteImageView;
@@ -154,8 +155,9 @@ public class RemoteImageLoader {
      * @param imageView
      *            the ImageView which should be updated with the new remoteimageview
      */
-    public void loadImage(String imageUrl, ImageView imageView) {
-        loadImage(imageUrl, null, imageView, defaultDummyDrawable, new RemoteImageLoaderHandler(
+    public void loadImage(String imageUrl, String httpReferer, ProgressBar progressBar,
+                          ImageView imageView) {
+        loadImage(imageUrl, httpReferer, progressBar, imageView, defaultDummyDrawable, new RemoteImageLoaderHandler(
                 imageView, imageUrl, errorDrawable, 0, 0));
     }
 
@@ -172,8 +174,9 @@ public class RemoteImageLoader {
      * @param dummyDrawable
      *            the Drawable to be shown while the remoteimageview is being downloaded.
      */
-    public void loadImage(String imageUrl, ImageView imageView, Drawable dummyDrawable) {
-        loadImage(imageUrl, null, imageView, dummyDrawable, new RemoteImageLoaderHandler(
+    public void loadImage(String imageUrl, String httpReferer, ProgressBar progressBar,
+                          ImageView imageView, Drawable dummyDrawable) {
+        loadImage(imageUrl, httpReferer, progressBar, imageView, dummyDrawable, new RemoteImageLoaderHandler(
                 imageView, imageUrl, errorDrawable, 0 , 0));
     }
 
@@ -189,9 +192,9 @@ public class RemoteImageLoader {
      * @param handler
      *            the handler that will process the bitmap after completion
      */
-    public void loadImage(String imageUrl, String httpReferer,
+    public void loadImage(String imageUrl, String httpReferer, ProgressBar progressBar,
                           ImageView imageView, RemoteImageLoaderHandler handler) {
-        loadImage(imageUrl, httpReferer, imageView, defaultDummyDrawable, handler);
+        loadImage(imageUrl, httpReferer, progressBar, imageView, defaultDummyDrawable, handler);
     }
 
     /**
@@ -209,7 +212,7 @@ public class RemoteImageLoader {
      * @param handler
      *            the handler that will process the bitmap after completion
      */
-    public void loadImage(String imageUrl, String httpReferer, ImageView imageView,
+    public void loadImage(String imageUrl, String httpReferer, ProgressBar progressBar, ImageView imageView,
                           Drawable dummyDrawable, RemoteImageLoaderHandler handler) {
         if (imageView != null) {
             if (imageUrl == null) {
@@ -241,7 +244,7 @@ public class RemoteImageLoader {
             if (bm != null) {
                 handler.handleImageLoaded(bm, null);
             } else {
-                executor.execute(new RemoteImageLoaderJob(imageUrl, httpReferer, handler,
+                executor.execute(new RemoteImageLoaderJob(imageUrl, httpReferer, progressBar, handler,
                         imageCache, numRetries, defaultBufferSize));
             }
         }
