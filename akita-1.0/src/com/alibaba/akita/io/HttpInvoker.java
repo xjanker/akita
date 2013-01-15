@@ -121,7 +121,8 @@ public class HttpInvoker {
     public static String get(String url, Header[] headers)
     throws AkServerStatusException, AkInvokeException {
         Log.v(TAG, "get:" + url);
-        //url = url.replace("gw.api.alibaba.com", "172.20.128.127");
+        //url = url.replace("gw.api.alibaba.com", "205.204.112.73"); // usa ocean
+        //url = url.replace("gw.api.alibaba.com", "172.20.128.127");  // yufa
         //url = url.replace("mobi.aliexpress.com", "172.20.226.142");
         String retString = null;
         try {
@@ -161,8 +162,14 @@ public class HttpInvoker {
 
     public static String post(String url, ArrayList<NameValuePair> params)
             throws AkInvokeException, AkServerStatusException {
+        return post(url, params, null);
+    }
+
+    public static String post(String url, ArrayList<NameValuePair> params, Header[] headers)
+            throws AkInvokeException, AkServerStatusException {
         //==log start
         // TEMP
+        //url = url.replace("gw.api.alibaba.com", "205.204.112.73"); // usa ocean
         //url = url.replace("gw.api.alibaba.com", "172.20.128.127");
         //url = url.replace("mobi.aliexpress.com", "172.20.226.142");
         Log.v(TAG, "post:" + url);
@@ -179,6 +186,11 @@ public class HttpInvoker {
 
         try {
             HttpPost request = new HttpPost(url);
+            if (headers != null) {
+                for (Header header : headers) {
+                    request.addHeader(header);
+                }
+            }
             UrlEncodedFormEntity entity = new UrlEncodedFormEntity(params, CHARSET);
             request.setEntity(entity);
             HttpResponse response = client.execute(request);

@@ -534,7 +534,13 @@ public class TitlePageIndicator extends View implements PageIndicator {
 
                 mIsDragging = false;
                 mActivePointerId = INVALID_POINTER;
-                if (mViewPager.isFakeDragging()) mViewPager.endFakeDrag();
+                if (mViewPager.isFakeDragging()) {
+                    try {
+                        mViewPager.endFakeDrag();
+                    } catch (NullPointerException npe) {
+                        npe.printStackTrace();  // fix a crash report.
+                    }
+                }
                 break;
 
             case MotionEventCompat.ACTION_POINTER_DOWN: {
