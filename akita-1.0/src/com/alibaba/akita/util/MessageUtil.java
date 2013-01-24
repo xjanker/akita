@@ -37,4 +37,17 @@ public class MessageUtil {
         } catch (Exception e) {};
 
     }
+
+    public static void showLongToast(Context context, String text) {
+        try {
+            Toast.makeText(context, text, Toast.LENGTH_LONG).show();
+        } catch (Exception e) {};
+    }
+
+    public static void showShortToast(Context context, String text) {
+        try{
+            Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {};
+
+    }
 }
