@@ -14,15 +14,21 @@
 
 package com.alibaba.akita;
 
+import com.alibaba.akita.proxy.ProxyFactory;
+
 /**
  * Created with IntelliJ IDEA.
  * User: justin
  * Date: 12-4-3
  * Time: 下午4:44
- * To change this template use File | Settings | File Templates.
  */
 public class Akita {
     public static final String XMLNS = "http://schemas.alibaba.com/apk/res/akita";
-
     public static final String UTF_8 = "UTF-8";
+
+
+    public static <T> T createAPI(Class<T> clazz) {
+        return ProxyFactory.getProxy(clazz);
+    }
+
 }

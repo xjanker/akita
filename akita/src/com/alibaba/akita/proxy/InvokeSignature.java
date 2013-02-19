@@ -8,6 +8,7 @@
 package com.alibaba.akita.proxy;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.alibaba.akita.annotation.AkSignature;
 import org.apache.http.NameValuePair;
@@ -19,5 +20,6 @@ import org.apache.http.NameValuePair;
  */
 public interface InvokeSignature {
     public String getSignatureParamName();
-    public String signature(AkSignature akSig,  String invokeUrl, ArrayList<NameValuePair> params);
+    public String signature(AkSignature akSig, String invokeUrl,
+                            ArrayList<NameValuePair> params, HashMap<String, String> paramsMapOri);
 }

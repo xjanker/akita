@@ -50,6 +50,17 @@ public class DateUtil {
     }
 
     /**
+     * "yyyy-MM-dd HH:mm:ss"
+     * @param milliseconds 毫秒数
+     * @return 默认上述格式的时间
+     */
+    public static String getTimestampDatetime(long milliseconds) {
+        Date date = new Date(milliseconds);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return sdf.format(date);
+    }
+
+    /**
      * "20100315072741000-0700" =>  "yyyy-MM-dd HH:mm:ss Z"
      * ex. 可用于Ocean返回的时间格式的转换
      * @param strTime

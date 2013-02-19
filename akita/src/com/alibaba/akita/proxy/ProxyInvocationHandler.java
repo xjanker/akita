@@ -62,7 +62,8 @@ public class ProxyInvocationHandler implements InvocationHandler {
 
         // AkApiParams to hashmap, filter out of null-value
         HashMap<String, File> filesToSend = new HashMap<String, File>();
-        HashMap<String, String> paramsMap = getRawApiParams2HashMap(annosArr, args, filesToSend);
+        HashMap<String, String> paramsMapOri = new HashMap<String, String>();
+        HashMap<String, String> paramsMap = getRawApiParams2HashMap(annosArr, args, filesToSend, paramsMapOri);
         // Record this invocation
         ApiInvokeInfo apiInvokeInfo = new ApiInvokeInfo();
         apiInvokeInfo.apiName = method.getName();
@@ -86,7 +87,7 @@ public class ProxyInvocationHandler implements InvocationHandler {
                             clazzSignature.getInterfaces()[0].getName())) {
                 InvokeSignature is =
                     (InvokeSignature) clazzSignature.getConstructors()[0].newInstance();
-                String sigValue = is.signature(akSig, invokeUrl, params);
+                String sigValue = is.signature(akSig, invokeUrl, params, paramsMapOri);
                 String sigParamName = is.getSignatureParamName();
                 if (sigValue != null && sigParamName != null
                         && sigValue.length()>0 && sigParamName.length()>0 ) {
@@ -187,7 +188,8 @@ public class ProxyInvocationHandler implements InvocationHandler {
      */
     private HashMap<String, String> getRawApiParams2HashMap(Annotation[][] annosArr,
                                                             Object[] args,
-                                                            HashMap<String, File> filesToSend) {
+                                                            HashMap<String, File> filesToSend,
+                                                            HashMap<String, String> paramsMapOri) {
         HashMap<String, String> paramsMap = new HashMap<String, String>();
         for (int idx = 0; idx < args.length; idx++) {
             String paramName = null;
@@ -209,9 +211,11 @@ public class ProxyInvocationHandler implements InvocationHandler {
                             Log.w(TAG, "UnsupportedEncodingException:" + encode);
                             paramsMap.put(paramName, arg.toString());
                         }
+                        paramsMapOri.put(paramName, arg.toString());
                     } else if ("$paramMap".equals(paramName)) {
                         Map<String, String> paramMap = (Map<String, String>)arg;
                         paramsMap.putAll(paramMap);
+                        paramsMapOri.putAll(paramMap);
                     } else if ("$filesToSend".equals(paramName)) {
                         if (arg instanceof Map) {
                             Map<String, File> files = (Map<String, File>)arg;
@@ -219,6 +223,7 @@ public class ProxyInvocationHandler implements InvocationHandler {
                         }
                     } else {
                         paramsMap.put(paramName, arg.toString());
+                        paramsMapOri.put(paramName, arg.toString());
                     }
                 }
             }

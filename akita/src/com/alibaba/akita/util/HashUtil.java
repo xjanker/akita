@@ -72,4 +72,28 @@ public class HashUtil {
         }
         return mac.doFinal();
     }
+
+    public static final String HMAC_MD5 = "HmacMD5";
+    public static byte[] hmacMd5(String[] datas, byte[] key) {
+        SecretKeySpec signingKey = new SecretKeySpec(key, HMAC_MD5);
+        Mac mac = null;
+        try {
+            mac = Mac.getInstance(HMAC_MD5);
+            mac.init(signingKey);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e.getMessage(), e);
+        } catch (InvalidKeyException e) {
+            throw new RuntimeException(e.getMessage(), e);
+        }
+        try {
+            for (String data : datas) {
+                mac.update(data.getBytes(StringUtil.CHARSET_NAME_UTF8));
+            }
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e.getMessage(), e);
+        }
+        return mac.doFinal();
+    }
+
+
 }

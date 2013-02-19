@@ -13,7 +13,15 @@ package com.alibaba.akita.proxy;
  * @author zhe.yangz 2011-12-28 下午02:57:33
  */
 public class ProxyFactory {
+
+    /**
+     * @deprecated use Akita.createAPI() to instead
+     * @param clazz
+     * @param <T>
+     * @return
+     */
     @SuppressWarnings("unchecked")
+    @Deprecated
     public static <T> T getProxy(Class<T> clazz){
         ProxyInvocationHandler proxyHandler = new ProxyInvocationHandler();
         return (T) proxyHandler.bind(clazz);
