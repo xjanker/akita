@@ -38,4 +38,13 @@ public class TaobaoAgent {
         return topAPI.execute(DateUtil.getTimestampDatetime(System.currentTimeMillis()),"2.0", app_key, app_secret,
                 method, session, partner_id,"json", "hmac", appLayerData);
     }
+
+    public String mtopAPI()
+            throws AkInvokeException, AkServerStatusException {
+        MTopAPI mTopAPI = Akita.createAPI(MTopAPI.class);
+        return mTopAPI.execute(null, app_secret, app_key, "mtop.sys.createDeviceId", "1.0", "wujiu1.0.0@autotest",
+                "IMSI54534434534", "IMEI12342354324", System.currentTimeMillis()/1000,
+                "{\"c0\":\"BRAND1343121937095\"}",
+                null);
+    }
 }
