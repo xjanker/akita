@@ -43,5 +43,5 @@ public interface MTopAPI {
             @AkParam("t") long t,
             @AkParam(value = "data", encode = "utf8") String data,
             @AkParam("sid") String sid
-    ) throws AkInvokeException, AkServerStatusException;
+    ) throws AkInvokeException,  AkServerStatusException;
 }
