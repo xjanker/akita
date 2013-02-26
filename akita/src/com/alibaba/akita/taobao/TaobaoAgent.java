@@ -5,7 +5,6 @@ import com.alibaba.akita.exception.AkInvokeException;
 import com.alibaba.akita.exception.AkServerStatusException;
 import com.alibaba.akita.util.DateUtil;
 
-import java.util.Date;
 import java.util.Map;
 
 /**
