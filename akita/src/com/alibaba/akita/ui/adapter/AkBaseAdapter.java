@@ -49,6 +49,10 @@ public abstract class AkBaseAdapter<T> extends BaseAdapter {
         }
     }
 
+    public ArrayList<T> getData() {
+        return mData;
+    }
+
     public void clearItems() {
         mData.clear();
         notifyDataSetChanged();

@@ -40,32 +40,40 @@ public class MTopAPISignature implements InvokeSignature {
         String t = "";
         String data = "";
         String sid = "";
-        Iterator<Map.Entry<String, String>> iterator = paramsMapOri.entrySet().iterator();
+        Iterator<NameValuePair> iterator = params.iterator();
         while (iterator.hasNext()) {
-            Map.Entry<String, String> entry = iterator.next();
-            if ("ecode".equals(entry.getKey())) {
-                ecode = entry.getValue();
-                params.remove(entry);
-            } else if ("appSecret".equals(entry.getKey())) {
-                appSecret = entry.getValue();
-                params.remove(entry);
-            } else if ("appKey".equals(entry.getKey())) {
-                appKey = entry.getValue();
-            } else if ("api".equals(entry.getKey())) {
-                api = entry.getValue();
-            } else if ("v".equals(entry.getKey())) {
-                v = entry.getValue();
-            } else if ("imsi".equals(entry.getKey())) {
-                imsi = entry.getValue();
-            } else if ("imei".equals(entry.getKey())) {
-                imei = entry.getValue();
-            } else if ("t".equals(entry.getKey())) {
-                t = entry.getValue();
-            } else if ("data".equals(entry.getKey())) {
-                data = entry.getValue();
+            NameValuePair entry = iterator.next();
+            if ("ecode".equals(entry.getName())) {
+                ecode = paramsMapOri.get(entry.getName());
+                iterator.remove();
+            } else if ("appSecret".equals(entry.getName())) {
+                appSecret = paramsMapOri.get(entry.getName());
+                iterator.remove();
+            } else if ("appKey".equals(entry.getName())) {
+                appKey = paramsMapOri.get(entry.getName());
+            } else if ("api".equals(entry.getName())) {
+                api = paramsMapOri.get(entry.getName());
+            } else if ("v".equals(entry.getName())) {
+                v = paramsMapOri.get(entry.getName());
+            } else if ("imsi".equals(entry.getName())) {
+                imsi = paramsMapOri.get(entry.getName());
+            } else if ("imei".equals(entry.getName())) {
+                imei = paramsMapOri.get(entry.getName());
+            } else if ("t".equals(entry.getName())) {
+                t = paramsMapOri.get(entry.getName());
+            } else if ("data".equals(entry.getName())) {
+                data = paramsMapOri.get(entry.getName());
+            } else if ("sid".equals(entry.getName())) {
+                sid = paramsMapOri.get(entry.getName());
+            }
+        }
 
-            } else if ("sid".equals(entry.getKey())) {
-                sid = entry.getValue();
+        // remove
+        for (NameValuePair nameValuePair: params) {
+            if ("ecode".equals(nameValuePair.getName())) {
+                params.remove(nameValuePair);
+            } else if ("appSecret".equals(nameValuePair.getName())) {
+                params.remove(nameValuePair);
             }
         }
 

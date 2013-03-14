@@ -31,10 +31,11 @@ public interface MTopAPI {
     @AkGET
     @AkSignature(using = MTopAPISignature.class)
     @AkAPI(url="http://api.m.taobao.com/rest/api3.do")
-    String execute(
+    String online(
             @AkParam("ecode") String ecode,
             @AkParam("appSecret") String appSecret,
             @AkParam("appKey") String appKey,
+            @AkParam("appVersion") String appVersion,
             @AkParam("api") String api,
             @AkParam("v") String v,
             @AkParam("ttid") String ttid,
@@ -42,6 +43,26 @@ public interface MTopAPI {
             @AkParam("imei") String imei,
             @AkParam("t") long t,
             @AkParam(value = "data", encode = "utf8") String data,
-            @AkParam("sid") String sid
+            @AkParam("sid") String sid,
+            @AkParam("authType") String authType
+    ) throws AkInvokeException,  AkServerStatusException;
+
+    @AkGET
+    @AkSignature(using = MTopAPISignature.class)
+    @AkAPI(url="http://api.waptest.taobao.com/rest/api3.do")
+    String test(
+            @AkParam("ecode") String ecode,
+            @AkParam("appSecret") String appSecret,
+            @AkParam("appKey") String appKey,
+            @AkParam("appVersion") String appVersion,
+            @AkParam("api") String api,
+            @AkParam("v") String v,
+            @AkParam("ttid") String ttid,
+            @AkParam("imsi") String imsi,
+            @AkParam("imei") String imei,
+            @AkParam("t") long t,
+            @AkParam(value = "data", encode = "utf8") String data,
+            @AkParam("sid") String sid,
+            @AkParam("authType") String authType
     ) throws AkInvokeException,  AkServerStatusException;
 }
