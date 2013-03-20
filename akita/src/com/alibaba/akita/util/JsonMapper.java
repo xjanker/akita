@@ -23,6 +23,8 @@ import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.JsonParser.Feature;
+import org.codehaus.jackson.annotate.JsonAutoDetect;
+import org.codehaus.jackson.annotate.JsonMethod;
 import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -52,6 +54,9 @@ public class JsonMapper {
                 .withDateFormat(new SimpleDateFormat(DATE_FORMAT))
                 .withSerializationInclusion(JsonSerialize.Inclusion.NON_NULL)
         );
+        m.setVisibilityChecker(m.getSerializationConfig().getDefaultVisibilityChecker().
+                withGetterVisibility(JsonAutoDetect.Visibility.NONE).
+                withSetterVisibility(JsonAutoDetect.Visibility.NONE));
         DeserializationConfig df =  m.getDeserializationConfig();
         m.setDeserializationConfig(df
                 .with(DeserializationConfig.Feature.USE_ANNOTATIONS)
