@@ -6,12 +6,12 @@ package com.alibaba.akita.taobao;
  * Date: 13-3-14
  * Time: PM2:29
  */
-public interface MTopRequest {
+public interface TopRequest {
     /**
      * not null
      * @return
      */
-    public String getApi();
+    public String getMethod();
 
     /**
      * v

@@ -20,22 +20,25 @@ import java.util.Map;
 public class TaobaoAgent {
     private static final String TAG = "TaobaoAgent";
 
-    private static TaobaoAgent m_cacheTaobaoAgent = null;
+    private static TaobaoAgent sCacheTaobaoAgent = null;
 
     private String app_key = null;
     private String app_secret = null;
     private String partner_id = null;
+
+    private MTopAPI mTopAPI = null;
+    private TopAPI topAPI = null;
 
     private TaobaoAgent() {
 
     }
 
     public static TaobaoAgent createAgent(String appKey, String appSecret) {
-        if (m_cacheTaobaoAgent != null) {
-            m_cacheTaobaoAgent.app_key = appKey;
-            m_cacheTaobaoAgent.app_secret = appSecret;
-            m_cacheTaobaoAgent.partner_id = "top-apitools";
-            return m_cacheTaobaoAgent;
+        if (sCacheTaobaoAgent != null) {
+            sCacheTaobaoAgent.app_key = appKey;
+            sCacheTaobaoAgent.app_secret = appSecret;
+            sCacheTaobaoAgent.partner_id = "top-apitools";
+            return sCacheTaobaoAgent;
         } else {
             TaobaoAgent taobaoAgent = new TaobaoAgent();
             taobaoAgent.app_key = appKey;
@@ -45,24 +48,61 @@ public class TaobaoAgent {
         }
     }
 
-    public String topAPI(String method, String session, Map<String,String> appLayerData)
+    /* ========
+    TOP part
+    ======== */
+    public <T> T topAPI(TopRequest topRequest, Map<String,String> appLayerData, Class<T> clazz)
             throws AkInvokeException, AkServerStatusException {
-        TopAPI topAPI = Akita.createAPI(TopAPI.class);
-        return topAPI.execute(DateUtil.getTimestampDatetime(System.currentTimeMillis()),"2.0", app_key, app_secret,
-                method, session, partner_id,"json", "hmac", appLayerData);
+        return topAPI(null, topRequest, appLayerData, clazz);
+    }
+    public <T> T topAPI(String session, TopRequest topRequest, Map<String,String> appLayerData, Class<T> clazz)
+            throws AkInvokeException, AkServerStatusException {
+        if (topAPI == null) {
+            topAPI = Akita.createAPI(TopAPI.class);
+        }
+        String retStr =
+                topAPI.execute(DateUtil.getTimestampDatetime(System.currentTimeMillis()),
+                topRequest.getV(),
+                app_key, app_secret,
+                topRequest.getMethod(), session, partner_id,"json", "hmac", appLayerData);
+
+        try {
+            if (String.class.equals(clazz)) {
+                return (T)retStr;
+            } else {
+                return JsonMapper.json2pojo(retStr, clazz);
+            }
+        } catch (JsonProcessingException e) {
+            Log.e(TAG, retStr, e);  // log can print the error return-string
+            throw new AkInvokeException(AkInvokeException.CODE_JSONPROCESS_EXCEPTION,
+                    e.getMessage(), e);
+        } catch (IOException e) {
+            throw new AkInvokeException(AkInvokeException.CODE_IO_EXCEPTION,
+                    e.getMessage(), e);
+        }
+
     }
 
+    /* ========
+    MTOP part
+    ======== */
     public <T> MTopResult<T> mtopAPI(MTopRequest request, Class<T> clazz)
             throws AkInvokeException, AkServerStatusException {
-        MTopAPI mTopAPI = Akita.createAPI(MTopAPI.class);
+        return mtopAPI(null, request, clazz);
+    }
+    public <T> MTopResult<T> mtopAPI(String ecode, MTopRequest request, Class<T> clazz)
+            throws AkInvokeException, AkServerStatusException {
+        if (mTopAPI == null) {
+            mTopAPI = Akita.createAPI(MTopAPI.class);
+        }
         String dataStr = "{}";
         try {
             dataStr = JsonMapper.pojo2json(request);
         } catch (IOException e) {
             Log.e(TAG, e.toString(), e);
         }
-        String retStr = mTopAPI.online(null, app_secret, app_key, "1.1.1", request.getApi(),
-                "1.0", "100860@juhuasuan_android_1.1.1",
+        String retStr = mTopAPI.online(ecode, app_secret, app_key, "1.1.1", request.getApi(),
+                request.getV(), "100860@juhuasuan_android_1.1.1",
                 "460011610649537", "352110052381283",
                 1363068821/*System.currentTimeMillis()/1000*/,
                 dataStr, null, "md5");
