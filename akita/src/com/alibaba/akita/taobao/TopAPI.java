@@ -31,7 +31,7 @@ public interface TopAPI {
     @AkGET
     @AkSignature(using = TopAPISignature.class)
     @AkAPI(url="http://gw.api.taobao.com/router/rest")
-    String execute(
+    String online(
             @AkParam(value = "timestamp", encode = "utf8") String timestamp,
             @AkParam("v") String v,
             @AkParam("app_key") String app_key,
@@ -41,6 +41,6 @@ public interface TopAPI {
             @AkParam("partner_id") String partner_id,
             @AkParam("format") String format,
             @AkParam("sign_method") String sign_method,
-            @AkParam("$paramMap") Map<String,String> appLayerData
+            @AkParam("$paramMap") Map<String, String> appLayerData
     ) throws AkInvokeException, AkServerStatusException;
 }

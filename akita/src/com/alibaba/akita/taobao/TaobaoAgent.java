@@ -61,10 +61,10 @@ public class TaobaoAgent {
             topAPI = Akita.createAPI(TopAPI.class);
         }
         String retStr =
-                topAPI.execute(DateUtil.getTimestampDatetime(System.currentTimeMillis()),
-                topRequest.getV(),
-                app_key, app_secret,
-                topRequest.getMethod(), session, partner_id,"json", "hmac", appLayerData);
+                topAPI.online(DateUtil.getTimestampDatetime(System.currentTimeMillis()),
+                        topRequest.getV(),
+                        app_key, app_secret,
+                        topRequest.getMethod(), session, partner_id, "json", "hmac", appLayerData);
 
         try {
             if (String.class.equals(clazz)) {
@@ -88,9 +88,9 @@ public class TaobaoAgent {
     ======== */
     public <T> MTopResult<T> mtopAPI(MTopRequest request, Class<T> clazz)
             throws AkInvokeException, AkServerStatusException {
-        return mtopAPI(null, request, clazz);
+        return mtopAPI(null, null, request, clazz);
     }
-    public <T> MTopResult<T> mtopAPI(String ecode, MTopRequest request, Class<T> clazz)
+    public <T> MTopResult<T> mtopAPI(String ecode, String ext, MTopRequest request, Class<T> clazz)
             throws AkInvokeException, AkServerStatusException {
         if (mTopAPI == null) {
             mTopAPI = Akita.createAPI(MTopAPI.class);
@@ -101,11 +101,12 @@ public class TaobaoAgent {
         } catch (IOException e) {
             Log.e(TAG, e.toString(), e);
         }
-        String retStr = mTopAPI.online(ecode, app_secret, app_key, "1.1.1", request.getApi(),
-                request.getV(), "100860@juhuasuan_android_1.1.1",
+        String retStr = mTopAPI.online(ecode, app_secret, app_key,
+                "1.1.2", request.getApi(),
+                request.getV(), "100860@juhuasuan_android_1.1.2",
                 "460011610649537", "352110052381283",
-                1363068821/*System.currentTimeMillis()/1000*/,
-                dataStr, null, "md5");
+                System.currentTimeMillis()/1000,
+                dataStr, ext, null, "md5");
 
         try {
             MTopResult mTopResult = JsonMapper.json2pojo(retStr, MTopResult.class);

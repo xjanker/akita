@@ -43,6 +43,7 @@ public interface MTopAPI {
             @AkParam("imei") String imei,
             @AkParam("t") long t,
             @AkParam(value = "data", encode = "utf8") String data,
+            @AkParam(value = "ext", encode = "utf8") String ext,
             @AkParam("sid") String sid,
             @AkParam("authType") String authType
     ) throws AkInvokeException,  AkServerStatusException;
