@@ -7,8 +7,11 @@ import com.alibaba.akita.util.DateUtil;
 import com.alibaba.akita.util.JsonMapper;
 import com.alibaba.akita.util.Log;
 import org.codehaus.jackson.JsonProcessingException;
+import org.codehaus.jackson.type.JavaType;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -51,15 +54,29 @@ public class TaobaoAgent {
     /* ========
     TOP part
     ======== */
-    public <T> T topAPI(TopRequest topRequest, Map<String,String> appLayerData, Class<T> clazz)
+    public <T> T topAPI(TopRequest topRequest, Class<T> clazz)
             throws AkInvokeException, AkServerStatusException {
-        return topAPI(null, topRequest, appLayerData, clazz);
+        return topAPI(null, topRequest, clazz);
     }
-    public <T> T topAPI(String session, TopRequest topRequest, Map<String,String> appLayerData, Class<T> clazz)
+    public <T> T topAPI(String session, TopRequest topRequest, Class<T> clazz)
             throws AkInvokeException, AkServerStatusException {
         if (topAPI == null) {
             topAPI = Akita.createAPI(TopAPI.class);
         }
+        Map<?,?> appLayerDataTemp = null;
+        Map<String, String> appLayerData = new HashMap<String, String>();
+        try {
+            appLayerDataTemp = JsonMapper.json2map(JsonMapper.pojo2json(topRequest));
+            Iterator<? extends Map.Entry<?,?>> iter =  appLayerDataTemp.entrySet().iterator();
+            while (iter.hasNext()) {
+                Map.Entry<?,?> entry = iter.next();
+                String key = String.valueOf( entry.getKey() );
+                String value = String.valueOf( entry.getValue() );
+                appLayerData.put(key, value);
+            }
+        } catch (IOException e) {
+            throw new AkInvokeException(AkInvokeException.CODE_FILE_NOT_FOUND,
+                    e.getMessage(), e);        }
         String retStr =
                 topAPI.online(DateUtil.getTimestampDatetime(System.currentTimeMillis()),
                         topRequest.getV(),
