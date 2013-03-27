@@ -18,16 +18,10 @@ public abstract class SafeAsyncTask<T> extends AsyncTask<Integer, Integer, T> {
     protected Exception mException = null;
     private Context mContext = null;
 
-    /**
-     * guarantees the method be invoked on ui thread once time when task start.
-     */
-    protected void onUITaskStart() {};
-
     @Override
     protected void onPreExecute() {
         super.onPreExecute();    //defaults
 
-        onUITaskStart();
         try{
             onUIBefore();
         } catch (Exception akException) {
@@ -71,6 +65,10 @@ public abstract class SafeAsyncTask<T> extends AsyncTask<Integer, Integer, T> {
         }
     }
 
+    /**
+     * SimpleAsyncTask中的onUITaskStart()方法在此类中取消，一律用onUIBefore()。
+     * @throws Exception
+     */
     protected abstract void onUIBefore() throws Exception;
     protected abstract T onDoAsync() throws Exception;
     /**
@@ -93,12 +91,20 @@ public abstract class SafeAsyncTask<T> extends AsyncTask<Integer, Integer, T> {
                 onHandleAkException(mException);
             }
         }
-        onUITaskEnd();
+        try {
+            onUITaskEnd();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     protected void onCancelled(T t) {
-        onUITaskEnd();
+        try {
+            onUITaskEnd();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     protected void onHandleAkException(Exception mAkException) {
@@ -112,6 +118,7 @@ public abstract class SafeAsyncTask<T> extends AsyncTask<Integer, Integer, T> {
 
     /**
      * guarantees the method be invoked on ui thread once time when task quit.
+     * if this method meet the exception, then return and no error, the code after executed-part is not called.
      */
     protected void onUITaskEnd() {};
 

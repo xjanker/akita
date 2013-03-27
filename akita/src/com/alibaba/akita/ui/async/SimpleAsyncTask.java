@@ -94,12 +94,20 @@ public abstract class SimpleAsyncTask<T> extends AsyncTask<Integer, Integer, T> 
                 onHandleAkException(mAkException);
             }
         }
-        onUITaskEnd();
+        try {
+            onUITaskEnd();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     protected void onCancelled(T t) {
-        onUITaskEnd();
+        try {
+            onUITaskEnd();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     protected void onHandleAkException(AkException mAkException) {
