@@ -18,4 +18,10 @@ public interface TopRequest {
      * @return not null, or ”1.0“、”2.0“... or "*"
      */
     public String getV();
+
+    /**
+     * client t
+     * @return
+     */
+    public long getClientT();
 }

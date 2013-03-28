@@ -18,4 +18,10 @@ public interface MTopRequest {
      * @return not null, or ”1.0“、”2.0“... or "*"
      */
     public String getV();
+
+    /**
+     * 返回客户端时间TimeMillis
+     * @return
+     */
+    public long getClientT();
 }
