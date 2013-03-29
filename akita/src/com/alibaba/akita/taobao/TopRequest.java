@@ -23,5 +23,5 @@ public interface TopRequest {
      * client t
      * @return
      */
-    public long getClientT();
+    public long getT();
 }

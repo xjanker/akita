@@ -20,8 +20,8 @@ public interface MTopRequest {
     public String getV();
 
     /**
-     * 返回客户端时间TimeMillis
+     * 返回时间TimeMillis
      * @return
      */
-    public long getClientT();
+    public long getT();
 }

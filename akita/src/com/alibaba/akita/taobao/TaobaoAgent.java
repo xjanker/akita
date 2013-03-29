@@ -98,7 +98,7 @@ public class TaobaoAgent {
             throw new AkInvokeException(AkInvokeException.CODE_FILE_NOT_FOUND,
                     e.getMessage(), e);        }
         String retStr =
-                topAPI.online(DateUtil.getTimestampDatetime(topRequest.getClientT()+timeMillisDiff),
+                topAPI.online(DateUtil.getTimestampDatetime(topRequest.getT()+timeMillisDiff),
                         topRequest.getV(),
                         app_key, app_secret,
                         topRequest.getMethod(), session, partner_id, "json", "hmac", appLayerData);
@@ -142,7 +142,7 @@ public class TaobaoAgent {
                 "1.1.2", request.getApi(),
                 request.getV(), "100860@juhuasuan_android_1.1.2",
                 "460011610649537", "352110052381283",
-                (request.getClientT()+timeMillisDiff)/1000,
+                (request.getT()+timeMillisDiff)/1000,
                 dataStr, ext, null, "md5");
 
         try {
