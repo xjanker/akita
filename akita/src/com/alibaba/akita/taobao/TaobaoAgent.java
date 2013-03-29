@@ -31,7 +31,6 @@ public class TaobaoAgent {
     private String app_key = null;
     private String app_secret = null;
     private String partner_id = null;
-    private long timeMillisDiff = 0;
 
     private TaobaoAgent() {
 
@@ -50,25 +49,6 @@ public class TaobaoAgent {
             taobaoAgent.partner_id = "top-apitools";
             return taobaoAgent;
         }
-    }
-
-    /**
-     * 设置服务器与客户端之间的时间差
-     * timeMillisDiff = 服务器时间 - 客户端时间
-     * @param timeMillisDiff
-     */
-    public void setTimeDiff(long timeMillisDiff) {
-        this.timeMillisDiff = timeMillisDiff;
-    }
-
-    /**
-     * 根据传入的客户端时间和时间差获取服务端时间
-     * Note: setTimeDiff first
-     * @param clientTimeMillis
-     * @return
-     */
-    public long getServerTimeMillis(long clientTimeMillis) {
-        return timeMillisDiff + clientTimeMillis;
     }
 
     /* ========
@@ -98,7 +78,7 @@ public class TaobaoAgent {
             throw new AkInvokeException(AkInvokeException.CODE_FILE_NOT_FOUND,
                     e.getMessage(), e);        }
         String retStr =
-                topAPI.online(DateUtil.getTimestampDatetime(topRequest.getT()+timeMillisDiff),
+                topAPI.online(DateUtil.getTimestampDatetime(topRequest.getT()),
                         topRequest.getV(),
                         app_key, app_secret,
                         topRequest.getMethod(), session, partner_id, "json", "hmac", appLayerData);
@@ -142,7 +122,7 @@ public class TaobaoAgent {
                 "1.1.2", request.getApi(),
                 request.getV(), "100860@juhuasuan_android_1.1.2",
                 "460011610649537", "352110052381283",
-                (request.getT()+timeMillisDiff)/1000,
+                (request.getT())/1000,
                 dataStr, ext, null, "md5");
 
         try {
