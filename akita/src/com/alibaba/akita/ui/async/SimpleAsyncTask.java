@@ -37,14 +37,14 @@ public abstract class SimpleAsyncTask<T> extends AsyncTask<Integer, Integer, T> 
     }
 
     public AsyncTask<Integer, Integer, T> fire() {
-        return execute(new Integer[] {0});
+        return execute(0);
     }
 
     public AsyncTask<Integer, Integer, T> fireOnParallel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            return executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, new Integer[]{0});
+            return executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, 0);
         } else {
-            return execute(new Integer[] {0});
+            return execute(0);
         }
     }
 

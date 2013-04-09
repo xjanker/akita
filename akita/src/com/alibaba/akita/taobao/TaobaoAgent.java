@@ -105,9 +105,9 @@ public class TaobaoAgent {
     ======== */
     public <T> MTopResult<T> mtopAPI(MTopRequest request, Class<T> clazz)
             throws AkInvokeException, AkServerStatusException {
-        return mtopAPI(null, null, request, clazz);
+        return mtopAPI(null, null, null, request, clazz);
     }
-    public <T> MTopResult<T> mtopAPI(String ecode, String ext, MTopRequest request, Class<T> clazz)
+    public <T> MTopResult<T> mtopAPI(String ecode, String ext, String sid, MTopRequest request, Class<T> clazz)
             throws AkInvokeException, AkServerStatusException {
         if (mTopAPI == null) {
             mTopAPI = Akita.createAPI(MTopAPI.class);
@@ -123,7 +123,7 @@ public class TaobaoAgent {
                 request.getV(), "100860@juhuasuan_android_1.1.2",
                 "460011610649537", "352110052381283",
                 (request.getT())/1000,
-                dataStr, ext, null, "md5");
+                dataStr, ext, sid, "md5");
 
         try {
             MTopResult mTopResult = JsonMapper.json2pojo(retStr, MTopResult.class);
