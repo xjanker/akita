@@ -53,6 +53,7 @@ public class JsonMapper {
                 .with(SerializationConfig.Feature.USE_ANNOTATIONS)
                 .withDateFormat(new SimpleDateFormat(DATE_FORMAT))
                 .withSerializationInclusion(JsonSerialize.Inclusion.NON_NULL)
+                .without(SerializationConfig.Feature.FAIL_ON_EMPTY_BEANS)
         );
         m.setVisibilityChecker(m.getSerializationConfig().getDefaultVisibilityChecker().
                 withGetterVisibility(JsonAutoDetect.Visibility.NONE).
