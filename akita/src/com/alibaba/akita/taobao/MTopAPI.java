@@ -31,7 +31,7 @@ public interface MTopAPI {
     @AkGET
     @AkSignature(using = MTopAPISignature.class)
     @AkAPI(url="http://api.m.taobao.com/rest/api3.do")
-    String online(
+    String mtop_online(
             @AkParam("ecode") String ecode,
             @AkParam("appSecret") String appSecret,
             @AkParam("appKey") String appKey,
@@ -51,7 +51,7 @@ public interface MTopAPI {
     @AkGET
     @AkSignature(using = MTopAPISignature.class)
     @AkAPI(url="http://api.waptest.taobao.com/rest/api3.do")
-    String test(
+    String mtop_test(
             @AkParam("ecode") String ecode,
             @AkParam("appSecret") String appSecret,
             @AkParam("appKey") String appKey,

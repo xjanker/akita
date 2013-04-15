@@ -31,7 +31,7 @@ public interface TopAPI {
     @AkGET
     @AkSignature(using = TopAPISignature.class)
     @AkAPI(url="http://gw.api.taobao.com/router/rest")
-    String online(
+    String top_online(
             @AkParam(value = "timestamp", encode = "utf8") String timestamp,
             @AkParam("v") String v,
             @AkParam("app_key") String app_key,

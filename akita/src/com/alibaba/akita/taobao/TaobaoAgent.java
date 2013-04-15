@@ -7,7 +7,6 @@ import com.alibaba.akita.util.DateUtil;
 import com.alibaba.akita.util.JsonMapper;
 import com.alibaba.akita.util.Log;
 import org.codehaus.jackson.JsonProcessingException;
-import org.codehaus.jackson.type.JavaType;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -78,7 +77,7 @@ public class TaobaoAgent {
             throw new AkInvokeException(AkInvokeException.CODE_FILE_NOT_FOUND,
                     e.getMessage(), e);        }
         String retStr =
-                topAPI.online(DateUtil.getTimestampDatetime(topRequest.getT()),
+                topAPI.top_online(DateUtil.getTimestampDatetime(topRequest.getT()),
                         topRequest.getV(),
                         app_key, app_secret,
                         topRequest.getMethod(), session, partner_id, "json", "hmac", appLayerData);
@@ -118,11 +117,11 @@ public class TaobaoAgent {
         } catch (IOException e) {
             Log.e(TAG, e.toString(), e);
         }
-        String retStr = mTopAPI.online(ecode, app_secret, app_key,
+        String retStr = mTopAPI.mtop_online(ecode, app_secret, app_key,
                 "1.1.2", request.getApi(),
                 request.getV(), "100860@juhuasuan_android_1.1.2",
                 "460011610649537", "352110052381283",
-                (request.getT())/1000,
+                (request.getT()) / 1000,
                 dataStr, ext, sid, "md5");
 
         try {
