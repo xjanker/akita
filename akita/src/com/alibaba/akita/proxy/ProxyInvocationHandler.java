@@ -67,7 +67,7 @@ public class ProxyInvocationHandler implements InvocationHandler {
         // Record this invocation
         ApiInvokeInfo apiInvokeInfo = new ApiInvokeInfo();
         apiInvokeInfo.apiName = method.getName();
-        apiInvokeInfo.paramsMap.putAll(paramsMap);
+        apiInvokeInfo.paramsMap.putAll(paramsMapOri);
         apiInvokeInfo.url = invokeUrl;
         // parse '{}'s in url
         invokeUrl = parseUrlbyParams(invokeUrl, paramsMap);
@@ -122,7 +122,7 @@ public class ProxyInvocationHandler implements InvocationHandler {
         }
 
         // invoked, then add to history
-        //ApiStats.addApiInvocation(apiInvokeInfo);
+        ApiStats.addApiInvocation(apiInvokeInfo);
         
         //Log.d(TAG, retString);
         

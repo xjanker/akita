@@ -29,16 +29,18 @@ public class TaobaoAgent {
 
     private String app_key = null;
     private String app_secret = null;
+    private String ttid = null;
     private String partner_id = null;
 
     private TaobaoAgent() {
 
     }
 
-    public static TaobaoAgent createAgent(String appKey, String appSecret) {
+    public static TaobaoAgent createAgent(String appKey, String appSecret, String ttid) {
         if (sCacheTaobaoAgent != null) {
             sCacheTaobaoAgent.app_key = appKey;
             sCacheTaobaoAgent.app_secret = appSecret;
+            sCacheTaobaoAgent.ttid = ttid;
             sCacheTaobaoAgent.partner_id = "top-apitools";
             return sCacheTaobaoAgent;
         } else {
@@ -119,7 +121,7 @@ public class TaobaoAgent {
         }
         String retStr = mTopAPI.mtop_online(ecode, app_secret, app_key,
                 "1.1.2", request.getApi(),
-                request.getV(), "100860@juhuasuan_android_1.1.2",
+                request.getV(), ttid,
                 "460011610649537", "352110052381283",
                 (request.getT()) / 1000,
                 dataStr, ext, sid, "md5");
