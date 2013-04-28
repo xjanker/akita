@@ -15,8 +15,7 @@
 package com.alibaba.akita.util;
 
 import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.graphics.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -49,6 +48,34 @@ public class ImageUtil {
 
 
         return Bitmap.createScaledBitmap(bitmap, boxWidth, boxHeight, true);
+    }
+
+    /**
+     * Get Rounded Corner Bitmap
+     * @param bitmap ori bitmap
+     * @param roundPx round size
+     * @return new bitmap
+     */
+    public static Bitmap getRoundedCornerBitmap(Bitmap bitmap,float roundPx){
+
+        Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap
+                .getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(output);
+
+        final int color = 0xff424242;
+        final Paint paint = new Paint();
+        final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+        final RectF rectF = new RectF(rect);
+
+        paint.setAntiAlias(true);
+        canvas.drawARGB(0, 0, 0, 0);
+        paint.setColor(color);
+        canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
+
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        canvas.drawBitmap(bitmap, rect, rect, paint);
+
+        return output;
     }
 
     /**

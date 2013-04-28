@@ -24,32 +24,68 @@ public class TaobaoAgent {
 
     private static TaobaoAgent sCacheTaobaoAgent = null;
 
+    private RunMode runMode = RunMode.PRODUCTION;
+
     private MTopAPI mTopAPI = null;
     private TopAPI topAPI = null;
 
     private String app_key = null;
     private String app_secret = null;
     private String ttid = null;
+    private String imei = null;
+    private String imsi = null;
+    private String appVersion = null;
     private String partner_id = null;
+
+    public enum RunMode {
+        // 日常
+        DALIY,
+
+        // 预发
+        PREDEPLOY,
+
+        // 线上
+        PRODUCTION
+    }
+
+    public RunMode getRunMode() {
+        return runMode;
+    }
+
+    public void setRunMode(RunMode runMode) {
+        this.runMode = runMode;
+    }
 
     private TaobaoAgent() {
 
     }
 
     public static TaobaoAgent createAgent(String appKey, String appSecret, String ttid) {
-        if (sCacheTaobaoAgent != null) {
-            sCacheTaobaoAgent.app_key = appKey;
-            sCacheTaobaoAgent.app_secret = appSecret;
-            sCacheTaobaoAgent.ttid = ttid;
-            sCacheTaobaoAgent.partner_id = "top-apitools";
-            return sCacheTaobaoAgent;
-        } else {
-            TaobaoAgent taobaoAgent = new TaobaoAgent();
-            taobaoAgent.app_key = appKey;
-            taobaoAgent.app_secret = appSecret;
-            taobaoAgent.partner_id = "top-apitools";
-            return taobaoAgent;
+        return createAgent(appKey, appSecret, ttid, null, null, null);
+    }
+    public static TaobaoAgent createAgent(String appKey, String appSecret, String ttid,
+                                          String imei, String imsi, String appVersion) {
+        if (sCacheTaobaoAgent == null) {
+            sCacheTaobaoAgent = new TaobaoAgent();
         }
+        sCacheTaobaoAgent.app_key = appKey;
+        sCacheTaobaoAgent.app_secret = appSecret;
+        sCacheTaobaoAgent.ttid = ttid;
+        sCacheTaobaoAgent.partner_id = null;
+        sCacheTaobaoAgent.imei = imei;
+        sCacheTaobaoAgent.imsi = imsi;
+        sCacheTaobaoAgent.appVersion = appVersion;
+        if (imei == null) {
+            sCacheTaobaoAgent.imei = "D1C91C6EA9E79D50F209D8DCB1359D81";
+        }
+        if (imsi == null) {
+            sCacheTaobaoAgent.imsi = "D1C91C6EA9E79D50F209D8DCB1359D81";
+        }
+        if (appVersion == null) {
+            sCacheTaobaoAgent.appVersion = "2.0.0";
+        }
+
+        return sCacheTaobaoAgent;
     }
 
     /* ========
@@ -119,12 +155,31 @@ public class TaobaoAgent {
         } catch (IOException e) {
             Log.e(TAG, e.toString(), e);
         }
-        String retStr = mTopAPI.mtop_online(ecode, app_secret, app_key,
-                "1.1.2", request.getApi(),
-                request.getV(), ttid,
-                "460011610649537", "352110052381283",
-                (request.getT()) / 1000,
-                dataStr, ext, sid, "md5");
+        String retStr = "";
+        switch (runMode) {
+            case PRODUCTION:
+                retStr = mTopAPI.mtop_production(ecode, app_secret, app_key,
+                        appVersion, request.getApi(),
+                        request.getV(), ttid, imsi, imei,
+                        (request.getT()) / 1000,
+                        dataStr, ext, sid, "md5");
+                break;
+            case PREDEPLOY:
+                retStr = mTopAPI.mtop_predeploy(ecode, app_secret, app_key,
+                        appVersion, request.getApi(),
+                        request.getV(), ttid, imsi, imei,
+                        (request.getT()) / 1000,
+                        dataStr, ext, sid, "md5");
+                break;
+            case DALIY:
+                retStr = mTopAPI.mtop_daily(ecode, app_secret, app_key,
+                        appVersion, request.getApi(),
+                        request.getV(), ttid, imsi, imei,
+                        (request.getT()) / 1000,
+                        dataStr, ext, sid, "md5");
+                break;
+        }
+
 
         try {
             MTopResult mTopResult = JsonMapper.json2pojo(retStr, MTopResult.class);

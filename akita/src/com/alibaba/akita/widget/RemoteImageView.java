@@ -49,6 +49,8 @@ public class RemoteImageView extends ViewSwitcher {
     private static final String ATTR_ERROR_DRAWABLE = "errorDrawable";
     private static final String ATTR_IMGBOX_WIDTH = "imgBoxWidth";
     private static final String ATTR_IMGBOX_HEIGHT = "imgBoxHeight";
+    private static final String ATTR_ROUND_CORNER = "roundCorner";
+    private static final String ATTR_NO_CACHE = "noCache";
     private static final String ATTR_PINCH_ZOOM = "pinchZoom";
     private static final String ATTR_FADE_IN = "fadeIn";
     private static final String ATTR_SHOW_PROGRESS = "showProgress";
@@ -69,6 +71,16 @@ public class RemoteImageView extends ViewSwitcher {
      * wrap_content (<=0)
      */
     private int imgBoxHeight = 0;
+    /**
+     * 0: no round corner
+     * >0: round corner px size
+     */
+    private int roundCornerPx = 0;
+    /**
+     * 是否不使用图片cache，
+     * true的时候每次都会从网络下载，并且不Cache到本地
+     */
+    private boolean noCache = false;
 
     /**
      * if true, then use PinchZoomImageView instead.
@@ -152,6 +164,11 @@ public class RemoteImageView extends ViewSwitcher {
                 ANDROID_VIEW_ATTRS, 0, 0);
         int progressDrawableId = imageViewAttrs.getResourceId(ATTR_INDET_DRAWABLE, 0);
         imageViewAttrs.recycle();
+
+        TypedArray a = context.getTheme().obtainStyledAttributes(attributes, R.styleable.RemoteImageView, 0, 0);
+        roundCornerPx = (int)a.getDimension(R.styleable.RemoteImageView_roundCorner, 0.0f);
+        noCache = a.getBoolean(R.styleable.RemoteImageView_noCache, false);
+        a.recycle();
 
         int errorDrawableId = attributes.getAttributeResourceValue(Akita.XMLNS,
                 ATTR_ERROR_DRAWABLE, DEFAULT_ERROR_DRAWABLE_RES_ID);
@@ -289,11 +306,11 @@ public class RemoteImageView extends ViewSwitcher {
 
         if (showProgress) {
             loadingSpinner.setProgress(0);
-            imageLoader.loadImage(imageUrl, httpReferer, loadingSpinner, imageView,
-                    new DefaultImageLoaderHandler(imgBoxWidth, imgBoxHeight));
+            imageLoader.loadImage(imageUrl, httpReferer, noCache, loadingSpinner, imageView,
+                    new DefaultImageLoaderHandler(imgBoxWidth, imgBoxHeight, roundCornerPx));
         } else {
-            imageLoader.loadImage(imageUrl, httpReferer, null, imageView,
-                    new DefaultImageLoaderHandler(imgBoxWidth, imgBoxHeight));
+            imageLoader.loadImage(imageUrl, httpReferer, noCache, null, imageView,
+                    new DefaultImageLoaderHandler(imgBoxWidth, imgBoxHeight, roundCornerPx));
         }
     }
 
@@ -323,6 +340,14 @@ public class RemoteImageView extends ViewSwitcher {
      */
     public void setHttpReferer(String httpReferer) {
         this.httpReferer = httpReferer;
+    }
+
+    /**
+     * Set noCache or not
+     * @param noCache If true, use no cache every loading
+     */
+    public void setNoCache(boolean noCache) {
+        this.noCache = noCache;
     }
 
     /**
@@ -385,8 +410,8 @@ public class RemoteImageView extends ViewSwitcher {
 
     private class DefaultImageLoaderHandler extends RemoteImageLoaderHandler {
 
-        public DefaultImageLoaderHandler(int imgMaxWidth, int imgMaxHeight) {
-            super(imageView, imageUrl, errorDrawable, imgMaxWidth, imgMaxHeight);
+        public DefaultImageLoaderHandler(int imgMaxWidth, int imgMaxHeight, int roundCornerPx) {
+            super(imageView, imageUrl, errorDrawable, imgMaxWidth, imgMaxHeight, roundCornerPx);
         }
 
         @Override

@@ -31,7 +31,7 @@ public interface MTopAPI {
     @AkGET
     @AkSignature(using = MTopAPISignature.class)
     @AkAPI(url="http://api.m.taobao.com/rest/api3.do")
-    String mtop_online(
+    String mtop_production(
             @AkParam("ecode") String ecode,
             @AkParam("appSecret") String appSecret,
             @AkParam("appKey") String appKey,
@@ -50,8 +50,8 @@ public interface MTopAPI {
 
     @AkGET
     @AkSignature(using = MTopAPISignature.class)
-    @AkAPI(url="http://api.waptest.taobao.com/rest/api3.do")
-    String mtop_test(
+    @AkAPI(url="http://api.wapa.taobao.com/rest/api3.do")
+    String mtop_predeploy(
             @AkParam("ecode") String ecode,
             @AkParam("appSecret") String appSecret,
             @AkParam("appKey") String appKey,
@@ -63,6 +63,28 @@ public interface MTopAPI {
             @AkParam("imei") String imei,
             @AkParam("t") long t,
             @AkParam(value = "data", encode = "utf8") String data,
+            @AkParam(value = "ext", encode = "utf8") String ext,
+            @AkParam("sid") String sid,
+            @AkParam("authType") String authType
+    ) throws AkInvokeException,  AkServerStatusException;
+
+    @AkGET
+    @AkSignature(using = MTopAPISignature.class)
+    @AkAPI(url="http://10.232.127.67/rest/api3.do")
+    //@AkAPI(url="http://api.waptest.taobao.com/rest/api3.do")
+    String mtop_daily(
+            @AkParam("ecode") String ecode,
+            @AkParam("appSecret") String appSecret,
+            @AkParam("appKey") String appKey,
+            @AkParam("appVersion") String appVersion,
+            @AkParam("api") String api,
+            @AkParam("v") String v,
+            @AkParam("ttid") String ttid,
+            @AkParam("imsi") String imsi,
+            @AkParam("imei") String imei,
+            @AkParam("t") long t,
+            @AkParam(value = "data", encode = "utf8") String data,
+            @AkParam(value = "ext", encode = "utf8") String ext,
             @AkParam("sid") String sid,
             @AkParam("authType") String authType
     ) throws AkInvokeException,  AkServerStatusException;

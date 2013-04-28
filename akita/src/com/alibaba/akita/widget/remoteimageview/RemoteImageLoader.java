@@ -38,19 +38,9 @@ public class RemoteImageLoader {
 
     // the default thread pool size
     private static final int DEFAULT_POOL_SIZE = 3;
-    // expire images after a day
-    // TODO: this currently only affects the in-memory cache, so it's quite pointless
-    private static final int DEFAULT_TTL_MINUTES = 24 * 60;
-    private static final int DEFAULT_NUM_RETRIES = 3;
-    private static final int DEFAULT_BUFFER_SIZE = 65536;
-
     private static FilesCache<Bitmap> sImageCache;
-
     private ThreadPoolExecutor executor;
     private FilesCache<Bitmap> imageCache;
-    private int numRetries = DEFAULT_NUM_RETRIES;
-    private int defaultBufferSize = DEFAULT_BUFFER_SIZE;
-    private long expirationInMinutes = DEFAULT_TTL_MINUTES;
 
     private Drawable defaultDummyDrawable, errorDrawable;
 
@@ -89,28 +79,6 @@ public class RemoteImageLoader {
      */
     public void setThreadPoolSize(int numThreads) {
         executor.setMaximumPoolSize(numThreads);
-    }
-
-    /**
-     * @param numAttempts
-     *            how often the remoteimageview loader should retry the remoteimageview download if network connection
-     *            fails
-     */
-    public void setMaxDownloadAttempts(int numAttempts) {
-        numRetries = numAttempts;
-    }
-
-    /**
-     * If the server you're loading images from does not report file sizes via the Content-Length
-     * header, then you can use this method to tell the downloader how much space it should allocate
-     * by default when downloading an remoteimageview into memory.
-     * 
-     * @param defaultBufferSize
-     *            how big the buffer should be into which the remoteimageview file is read. This should be big
-     *            enough to hold the largest remoteimageview you expect to download
-     */
-    public void setDefaultBufferSize(int defaultBufferSize) {
-        this.defaultBufferSize = defaultBufferSize;
     }
 
     public void setDefaultDummyDrawable(Drawable drawable) {
@@ -155,10 +123,10 @@ public class RemoteImageLoader {
      * @param imageView
      *            the ImageView which should be updated with the new remoteimageview
      */
-    public void loadImage(String imageUrl, String httpReferer, ProgressBar progressBar,
+    public void loadImage(String imageUrl, String httpReferer, boolean noCache, ProgressBar progressBar,
                           ImageView imageView) {
-        loadImage(imageUrl, httpReferer, progressBar, imageView, defaultDummyDrawable, new RemoteImageLoaderHandler(
-                imageView, imageUrl, errorDrawable, 0, 0));
+        loadImage(imageUrl, httpReferer, noCache, progressBar, imageView, defaultDummyDrawable, new RemoteImageLoaderHandler(
+                imageView, imageUrl, errorDrawable, 0, 0, 0));
     }
 
     /**
@@ -174,10 +142,10 @@ public class RemoteImageLoader {
      * @param dummyDrawable
      *            the Drawable to be shown while the remoteimageview is being downloaded.
      */
-    public void loadImage(String imageUrl, String httpReferer, ProgressBar progressBar,
+    public void loadImage(String imageUrl, String httpReferer, boolean noCache, ProgressBar progressBar,
                           ImageView imageView, Drawable dummyDrawable) {
-        loadImage(imageUrl, httpReferer, progressBar, imageView, dummyDrawable, new RemoteImageLoaderHandler(
-                imageView, imageUrl, errorDrawable, 0 , 0));
+        loadImage(imageUrl, httpReferer, noCache, progressBar, imageView, dummyDrawable, new RemoteImageLoaderHandler(
+                imageView, imageUrl, errorDrawable, 0, 0, 0));
     }
 
     /**
@@ -192,9 +160,9 @@ public class RemoteImageLoader {
      * @param handler
      *            the handler that will process the bitmap after completion
      */
-    public void loadImage(String imageUrl, String httpReferer, ProgressBar progressBar,
+    public void loadImage(String imageUrl, String httpReferer, boolean noCache, ProgressBar progressBar,
                           ImageView imageView, RemoteImageLoaderHandler handler) {
-        loadImage(imageUrl, httpReferer, progressBar, imageView, defaultDummyDrawable, handler);
+        loadImage(imageUrl, httpReferer, noCache, progressBar, imageView, defaultDummyDrawable, handler);
     }
 
     /**
@@ -212,7 +180,7 @@ public class RemoteImageLoader {
      * @param handler
      *            the handler that will process the bitmap after completion
      */
-    public void loadImage(String imageUrl, String httpReferer, ProgressBar progressBar, ImageView imageView,
+    public void loadImage(String imageUrl, String httpReferer, boolean noCache, ProgressBar progressBar, ImageView imageView,
                           Drawable dummyDrawable, RemoteImageLoaderHandler handler) {
         if (imageView != null) {
             if (imageUrl == null) {
@@ -238,14 +206,18 @@ public class RemoteImageLoader {
             }
         }
 
-        if (imageCache != null) {
+        if (noCache) {
+            // do not use cache, download image every time by passing the null value of imageCache
+            executor.execute(new RemoteImageLoaderJob(imageUrl, httpReferer, progressBar, handler,
+                    null));
+        } else if (imageCache != null) {
             // do not go through message passing, handle directly instead
             Bitmap bm = imageCache.get(imageUrl);
             if (bm != null) {
                 handler.handleImageLoaded(bm, null);
             } else {
                 executor.execute(new RemoteImageLoaderJob(imageUrl, httpReferer, progressBar, handler,
-                        imageCache, numRetries, defaultBufferSize));
+                        imageCache));
             }
         }
     }

@@ -20,14 +20,16 @@ public class RemoteImageLoaderHandler extends Handler {
     private Drawable errorDrawable;
     private int imgMaxWidth;
     private int imgMaxHeight;
+    private int roundCornerPx;
 
     public RemoteImageLoaderHandler(ImageView imageView, String imageUrl, Drawable errorDrawable,
-                                        int imgMaxWidth, int imgMaxHeigtht) {
+                                        int imgMaxWidth, int imgMaxHeigtht, int roundCornerPx) {
         this.imageView = imageView;
         this.imageUrl = imageUrl;
         this.errorDrawable = errorDrawable;
         this.imgMaxWidth = imgMaxWidth;
         this.imgMaxHeight = imgMaxHeigtht;
+        this.roundCornerPx = roundCornerPx;
     }
 
     @Override
@@ -62,6 +64,11 @@ public class RemoteImageLoaderHandler extends Handler {
             if (bitmap == null)
                 imageView.setImageDrawable(errorDrawable);
             else {
+                // add round corner
+                if (roundCornerPx > 0 && roundCornerPx <= 100) {
+                    bitmap = ImageUtil.getRoundedCornerBitmap(bitmap, roundCornerPx);
+                }
+
                 Bitmap scaledBM = (Bitmap) imageView.getTag(R.id.ll_loading1);
                 if (scaledBM != null && !scaledBM.isRecycled()) {
                     scaledBM.recycle();
