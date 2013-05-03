@@ -403,6 +403,9 @@ public class RemoteImageView extends ViewSwitcher {
         this.setDisplayedChild(0);
     }
 
+    /**
+     * 对于setImageBoxSize后的riv，必须在页面onDestroy时调用。
+     */
     public void release() {
         Bitmap bitmap = (Bitmap) imageView.getTag(R.id.ll_griditem);
         if (bitmap != null && !bitmap.isRecycled()) bitmap.recycle();
