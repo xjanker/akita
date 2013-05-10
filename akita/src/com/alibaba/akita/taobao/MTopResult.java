@@ -37,7 +37,7 @@ public class MTopResult<T> {
 
             try {
                 if (String.class.equals(entityClass)) {
-                    return (T)JsonMapper.node2json(data);
+                    _data = (T)JsonMapper.node2json(data);
                 } else {
                     T t = JsonMapper.node2pojo(data, entityClass);
                     try {
@@ -50,8 +50,8 @@ public class MTopResult<T> {
                         Log.v(TAG, "NoSuchMethod of fulFill.");
                     }
                     _data = t;
-                    return t;
                 }
+                return _data;
             } catch (JsonProcessingException e) {
                 Log.e(TAG, data.toString());  // log can print the error return-string
                 throw new AkInvokeException(AkInvokeException.CODE_JSONPROCESS_EXCEPTION,

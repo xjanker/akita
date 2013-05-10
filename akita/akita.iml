@@ -21,6 +21,17 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
+          <root url="jar:///Library/android-sdk-macosx/extras/android/support/v4/android-support-v4.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="file:///Library/android-sdk-macosx/sources/android-16" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/jackson-core-asl-1.9.0.jar!/" />
         </CLASSES>
         <JAVADOC />
@@ -34,17 +45,6 @@
         </CLASSES>
         <JAVADOC />
         <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library>
-        <CLASSES>
-          <root url="jar:///Library/android-sdk-macosx/extras/android/support/v4/android-support-v4.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES>
-          <root url="file:///Library/android-sdk-macosx/sources/android-16" />
-        </SOURCES>
       </library>
     </orderEntry>
   </component>

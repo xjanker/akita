@@ -29,8 +29,8 @@ public class TaobaoAgent {
     private MTopAPI mTopAPI = null;
     private TopAPI topAPI = null;
 
-    private String app_key = null;
-    private String app_secret = null;
+    public String app_key = null;
+    public String app_secret = null;
     private String ttid = null;
     private String imei = null;
     private String imsi = null;
@@ -113,12 +113,19 @@ public class TaobaoAgent {
             }
         } catch (IOException e) {
             throw new AkInvokeException(AkInvokeException.CODE_FILE_NOT_FOUND,
-                    e.getMessage(), e);        }
+                    e.getMessage(), e);
+        }
+
         String retStr =
                 topAPI.top_online(DateUtil.getTimestampDatetime(topRequest.getT()),
                         topRequest.getV(),
                         app_key, app_secret,
                         topRequest.getMethod(), session, partner_id, "json", "hmac", appLayerData);
+
+        // TOP的底层出错信息处理
+        if (retStr != null && retStr.contains("{\"error_response\":{\"code\"")) {
+            throw new AkServerStatusException(AkServerStatusException.CODE_TOP_ERROR, retStr);
+        }
 
         try {
             if (String.class.equals(clazz)) {
@@ -179,7 +186,6 @@ public class TaobaoAgent {
                         dataStr, ext, sid, "md5");
                 break;
         }
-
 
         try {
             MTopResult mTopResult = JsonMapper.json2pojo(retStr, MTopResult.class);
