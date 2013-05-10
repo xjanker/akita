@@ -70,8 +70,8 @@ public interface MTopAPI {
 
     @AkGET
     @AkSignature(using = MTopAPISignature.class)
-    @AkAPI(url="http://10.232.127.67/rest/api3.do")
-    //@AkAPI(url="http://api.waptest.taobao.com/rest/api3.do")
+    //@AkAPI(url="http://10.232.127.67/rest/api3.do")
+    @AkAPI(url="http://api.waptest.taobao.com/rest/api3.do")
     String mtop_daily(
             @AkParam("ecode") String ecode,
             @AkParam("appSecret") String appSecret,
