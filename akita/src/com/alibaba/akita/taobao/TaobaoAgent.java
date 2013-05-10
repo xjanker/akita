@@ -192,7 +192,7 @@ public class TaobaoAgent {
             mTopResult.getData(clazz);
             return mTopResult;
         } catch (JsonProcessingException e) {
-            Log.e(TAG, retStr, e);  // log can print the error return-string
+            Log.e(TAG, retStr, e);  //  log can print the error return-string
             throw new AkInvokeException(AkInvokeException.CODE_JSONPROCESS_EXCEPTION,
                     e.getMessage(), e);
         } catch (IOException e) {
