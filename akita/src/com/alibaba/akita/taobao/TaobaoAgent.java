@@ -37,17 +37,6 @@ public class TaobaoAgent {
     private String appVersion = null;
     private String partner_id = null;
 
-    public enum RunMode {
-        // 日常
-        DALIY,
-
-        // 预发
-        PREDEPLOY,
-
-        // 线上
-        PRODUCTION
-    }
-
     public RunMode getRunMode() {
         return runMode;
     }
@@ -56,9 +45,7 @@ public class TaobaoAgent {
         this.runMode = runMode;
     }
 
-    private TaobaoAgent() {
-
-    }
+    private TaobaoAgent() {/* no public can call this */}
 
     public static TaobaoAgent createAgent(String appKey, String appSecret, String ttid) {
         return createAgent(appKey, appSecret, ttid, null, null, null);
