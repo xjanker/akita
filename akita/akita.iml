@@ -32,7 +32,7 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jackson-core-asl-1.9.0.jar!/" />
+          <root url="jar://$MODULE_DIR$/libs/jackson-core-asl-1.9.0.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -41,7 +41,7 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jackson-mapper-asl-1.9.0.jar!/" />
+          <root url="jar://$MODULE_DIR$/libs/jackson-mapper-asl-1.9.0.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
