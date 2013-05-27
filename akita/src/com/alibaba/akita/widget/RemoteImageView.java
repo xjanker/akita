@@ -419,6 +419,9 @@ public class RemoteImageView extends ViewSwitcher {
 
         @Override
         protected boolean handleImageLoaded(Bitmap bitmap, Message msg) {
+            if(onImageLoadedListener != null ){
+                onImageLoadedListener.onImageLoaded(bitmap);
+            }
             boolean wasUpdated = super.handleImageLoaded(bitmap, msg);
             if (wasUpdated) {
                 isLoaded = true;
@@ -485,6 +488,17 @@ public class RemoteImageView extends ViewSwitcher {
      */
     public ProgressBar getProgressBar() {
         return loadingSpinner;
+    }
+
+    /**
+     * 图片加载完成时，可以监听到，从而拿到图片的信息，譬如大小宽高等。
+     */
+    private OnImageLoadedListener onImageLoadedListener;
+    public void setOnLoadOverListener(OnImageLoadedListener onImageLoadedListener) {
+        this.onImageLoadedListener = onImageLoadedListener;
+    }
+    public interface OnImageLoadedListener{
+        void onImageLoaded(Bitmap bitmap);
     }
 
 }
