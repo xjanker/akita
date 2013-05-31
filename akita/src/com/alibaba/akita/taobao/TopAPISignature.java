@@ -33,7 +33,7 @@ public class TopAPISignature implements InvokeSignature {
         }
         if (app_secret != null) {
             params.remove(app_secret);
-            if ("taobao.juwliserver.schedule.add".equals(invokeUrl)
+            if (paramsMapOri.containsKey("method") && "taobao.juwliserver.schedule.add".equals(paramsMapOri.get("method"))
                     && paramsMapOri!=null && paramsMapOri.size() > 0) {  // Hack only for juhuasuan预下单add接口
                 HashMap<String, String> paramsMapOriDecoded = new HashMap<String, String>();
                 for (Map.Entry<String, String> entry : paramsMapOri.entrySet()) {
