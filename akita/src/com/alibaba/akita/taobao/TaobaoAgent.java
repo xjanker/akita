@@ -107,7 +107,7 @@ public class TaobaoAgent {
                 topAPI.top_online(DateUtil.getTimestampDatetime(topRequest.getT()),
                         topRequest.getV(),
                         app_key, app_secret,
-                        topRequest.getMethod(), session, partner_id, "json", "hmac", appLayerData);
+                        topRequest.getMethod(), session, partner_id, "json", "md5", appLayerData);
 
         // TOP的底层出错信息处理
         if (retStr != null && retStr.contains("{\"error_response\":{\"code\"")) {
