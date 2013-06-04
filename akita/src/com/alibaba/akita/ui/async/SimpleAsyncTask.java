@@ -111,7 +111,7 @@ public abstract class SimpleAsyncTask<T> extends AsyncTask<Integer, Integer, T> 
     }
 
     protected void onHandleAkException(AkException mAkException) {
-        Log.e(TAG, mAkException.toString(), mAkException);
+        Log.w(TAG, mAkException.toString(), mAkException);
 
         if (mContext != null) {
             Toast.makeText(mContext, mAkException.toString(), Toast.LENGTH_SHORT).show();
