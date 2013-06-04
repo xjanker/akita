@@ -67,4 +67,8 @@ public abstract class AkPagerAdapter<T> extends PagerAdapter {
     public T getItem(int position) {
         return mData.get(position);
     }
+
+    public ArrayList<T> getData() {
+        return mData;
+    }
 }
