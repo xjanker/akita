@@ -63,7 +63,8 @@ public class ProxyInvocationHandler implements InvocationHandler {
         // AkApiParams to hashmap, filter out of null-value
         HashMap<String, File> filesToSend = new HashMap<String, File>();
         HashMap<String, String> paramsMapOri = new HashMap<String, String>();
-        HashMap<String, String> paramsMap = getRawApiParams2HashMap(annosArr, args, filesToSend, paramsMapOri);
+        HashMap<String, String> paramsMap =
+                getRawApiParams2HashMap(annosArr, args, filesToSend, paramsMapOri);
         // Record this invocation
         ApiInvokeInfo apiInvokeInfo = new ApiInvokeInfo();
         apiInvokeInfo.apiName = method.getName();
@@ -203,8 +204,31 @@ public class ProxyInvocationHandler implements InvocationHandler {
             }
             if (paramName != null) {
                 Object arg = args[idx];
-                if (arg != null) {       // filter out of null-value param
-                    if (encode != null && !"none".equals(encode)) {
+                if (arg != null) { // filter out of null-value param
+                    if ("$paramMap".equals(paramName)) {
+                        Map<String, String> paramMap = (Map<String, String>)arg;
+                        paramsMapOri.putAll(paramMap);
+                        if (encode != null && !"none".equals(encode)) {
+                            HashMap<String, String> encodedMap = new HashMap<String, String>();
+                            for (Entry<String, String> entry : paramMap.entrySet()) {
+                                try {
+                                    encodedMap.put(entry.getKey(),
+                                            URLEncoder.encode(entry.getValue(), encode));
+                                } catch (Exception e) {
+                                    Log.w(TAG, "UnsupportedEncodingException:" + encode);
+                                    encodedMap.put(entry.getKey(), entry.getValue());
+                                }
+                            }
+                            paramsMap.putAll(encodedMap);
+                        } else {
+                            paramsMap.putAll(paramMap);
+                        }
+                    } else if ("$filesToSend".equals(paramName)) {
+                        if (arg instanceof Map) {
+                            Map<String, File> files = (Map<String, File>)arg;
+                            filesToSend.putAll(files);
+                        }
+                    } else if (encode != null && !"none".equals(encode)) {
                         try {
                             paramsMap.put(paramName, URLEncoder.encode(arg.toString(), encode));
                         } catch (UnsupportedEncodingException e) {
@@ -212,15 +236,6 @@ public class ProxyInvocationHandler implements InvocationHandler {
                             paramsMap.put(paramName, arg.toString());
                         }
                         paramsMapOri.put(paramName, arg.toString());
-                    } else if ("$paramMap".equals(paramName)) {
-                        Map<String, String> paramMap = (Map<String, String>)arg;
-                        paramsMap.putAll(paramMap);
-                        paramsMapOri.putAll(paramMap);
-                    } else if ("$filesToSend".equals(paramName)) {
-                        if (arg instanceof Map) {
-                            Map<String, File> files = (Map<String, File>)arg;
-                            filesToSend.putAll(files);
-                        }
                     } else {
                         paramsMap.put(paramName, arg.toString());
                         paramsMapOri.put(paramName, arg.toString());
