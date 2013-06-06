@@ -97,14 +97,25 @@ public class AkCacheManager {
 
             @Override
             protected void output(String fileAbsoPath, String fileName, Bitmap v) {
+                // TODO: It would be nice to replace Buffered Output Stream
+                // and do some tests when I have time
+                FileOutputStream fos = null;
                 try {
                     File dir = new File(fileAbsoPath);
                     dir.mkdirs();
                     File f = new File(dir, fileName);
-                    FileOutputStream fos = new FileOutputStream(f);
+                    fos = new FileOutputStream(f);
                     v.compress(Bitmap.CompressFormat.JPEG, 75, fos);
                 } catch (Exception e) {
                     e.printStackTrace();
+                } finally {
+                    if (fos != null) {
+                        try {
+                            fos.close();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
             }
         };
