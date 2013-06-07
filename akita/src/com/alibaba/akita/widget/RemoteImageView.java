@@ -17,6 +17,7 @@ import com.alibaba.akita.Akita;
 import com.alibaba.akita.R;
 import com.alibaba.akita.util.AndroidUtil;
 import com.alibaba.akita.util.Log;
+import com.alibaba.akita.widget.remoteimageview.ImageView_;
 import com.alibaba.akita.widget.remoteimageview.RemoteImageLoader;
 import com.alibaba.akita.widget.remoteimageview.RemoteImageLoaderHandler;
 
@@ -98,7 +99,7 @@ public class RemoteImageView extends ViewSwitcher {
     private boolean autoLoad, isLoaded;
 
     private ProgressBar loadingSpinner;
-    private ImageView imageView;
+    private ImageView_ imageView;
 
     private Drawable progressDrawable, errorDrawable;
 
@@ -275,9 +276,9 @@ public class RemoteImageView extends ViewSwitcher {
         } else {
             if (attributes != null) {
                 // pass along any view attribtues inflated from XML to the remoteimageview view
-                imageView = new ImageView(context, attributes);
+                imageView = new ImageView_(context, attributes);
             } else {
-                imageView = new ImageView(context);
+                imageView = new ImageView_(context);
             }
         }
 
