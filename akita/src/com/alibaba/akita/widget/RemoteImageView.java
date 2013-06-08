@@ -101,7 +101,8 @@ public class RemoteImageView extends ViewSwitcher {
     private ProgressBar loadingSpinner;
     private ImageView_ imageView;
 
-    private Drawable progressDrawable, errorDrawable;
+    private Drawable progressDrawable;
+    private int errorDrawable;
 
     private RemoteImageLoader imageLoader;
     private static RemoteImageLoader sharedImageLoader;
@@ -130,7 +131,7 @@ public class RemoteImageView extends ViewSwitcher {
     public RemoteImageView(Context context, String imageUrl, boolean autoLoad,
                            boolean fadeIn, boolean pinchZoom, boolean showProgress) {
         super(context);
-        initialize(context, imageUrl, null, null, autoLoad, fadeIn, pinchZoom, showProgress, null);
+        initialize(context, imageUrl, null, 0, autoLoad, fadeIn, pinchZoom, showProgress, null);
     }
 
     /**
@@ -148,7 +149,7 @@ public class RemoteImageView extends ViewSwitcher {
      *            false, use {@link #loadImage()} to manually trigger the remoteimageview download.
      */
     public RemoteImageView(Context context, String imageUrl, Drawable progressDrawable,
-                           Drawable errorDrawable, boolean autoLoad, boolean fadeIn,
+                           int errorDrawable, boolean autoLoad, boolean fadeIn,
                            boolean pinchZoom, boolean showProgress) {
         super(context);
         initialize(context, imageUrl, progressDrawable, errorDrawable, autoLoad, fadeIn, pinchZoom, showProgress,
@@ -173,7 +174,7 @@ public class RemoteImageView extends ViewSwitcher {
 
         int errorDrawableId = attributes.getAttributeResourceValue(Akita.XMLNS,
                 ATTR_ERROR_DRAWABLE, DEFAULT_ERROR_DRAWABLE_RES_ID);
-        Drawable errorDrawable = context.getResources().getDrawable(errorDrawableId);
+        int errorDrawable = errorDrawableId;
 
         Drawable progressDrawable = null;
         if (progressDrawableId > 0) {
@@ -196,11 +197,11 @@ public class RemoteImageView extends ViewSwitcher {
     }
 
     public void setDownloadFailedImageRes(int imgRes) {
-        this.errorDrawable = getContext().getResources().getDrawable(imgRes);
+        this.errorDrawable = imgRes;
     }
 
     private void initialize(Context context, String imageUrl, Drawable progressDrawable,
-            Drawable errorDrawable, boolean autoLoad, boolean fadeIn, boolean pinchZoom, boolean showProgress,
+            int errorDrawable, boolean autoLoad, boolean fadeIn, boolean pinchZoom, boolean showProgress,
             AttributeSet attributes) {
         this.imageUrl = imageUrl;
         this.autoLoad = autoLoad;
@@ -406,6 +407,7 @@ public class RemoteImageView extends ViewSwitcher {
 
     /**
      * 对于setImageBoxSize后的riv，必须在页面onDestroy时调用。
+     * 对于返回的上一页面中有相同
      */
     public void release() {
         Bitmap bitmap = (Bitmap) imageView.getTag(R.id.ll_griditem);
@@ -467,9 +469,9 @@ public class RemoteImageView extends ViewSwitcher {
      * attribute ignition:errorDrawable. If left blank, a stock alert icon from the Android platform
      * will be used.
      *
-     * @return the error drawable
+     * @return the error drawable res
      */
-    public Drawable getErrorDrawable() {
+    public int getErrorDrawableRes() {
         return errorDrawable;
     }
 

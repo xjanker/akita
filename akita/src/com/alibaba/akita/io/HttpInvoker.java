@@ -191,7 +191,7 @@ public class HttpInvoker {
                     request.addHeader(header);
                 }
             }
-            UrlEncodedFormEntity entity = new UrlEncodedFormEntity(params, CHARSET);
+            UrlEncodedFormEntity entity = new UrlEncodedFormEntity(params, CHARSET);  //TODO: params null situation
             request.setEntity(entity);
             HttpResponse response = client.execute(request);
             int statusCode = response.getStatusLine().getStatusCode();

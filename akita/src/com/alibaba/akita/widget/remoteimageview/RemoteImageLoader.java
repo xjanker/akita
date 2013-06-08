@@ -42,7 +42,8 @@ public class RemoteImageLoader {
     private ThreadPoolExecutor executor;
     private FilesCache<Bitmap> imageCache;
 
-    private Drawable defaultDummyDrawable, errorDrawable;
+    private Drawable defaultDummyDrawable;
+    private int errorDrawable;
 
     public RemoteImageLoader(Context context) {
         this(context, true);
@@ -69,7 +70,7 @@ public class RemoteImageLoader {
             /*imageCache.enableDiskCache(context.getApplicationContext(),
                     ImageCache.DISK_CACHE_SDCARD);*/
         }
-        errorDrawable = context.getResources().getDrawable(RemoteImageView.DEFAULT_ERROR_DRAWABLE_RES_ID);
+        errorDrawable = RemoteImageView.DEFAULT_ERROR_DRAWABLE_RES_ID;
         defaultDummyDrawable = context.getResources().getDrawable(android.R.drawable.ic_menu_gallery);
     }
 
@@ -85,7 +86,7 @@ public class RemoteImageLoader {
         this.defaultDummyDrawable = drawable;
     }
 
-    public void setDownloadFailedDrawable(Drawable drawable) {
+    public void setDownloadFailedDrawableRes(int drawable) {
         this.errorDrawable = drawable;
     }
 
