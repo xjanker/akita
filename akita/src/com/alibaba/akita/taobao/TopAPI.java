@@ -41,6 +41,6 @@ public interface TopAPI {
             @AkParam("partner_id") String partner_id,
             @AkParam("format") String format,
             @AkParam("sign_method") String sign_method,
-            @AkParam("$paramMap") Map<String, String> appLayerData
+            @AkParam(value = "$paramMap", encode = "utf8") Map<String, String> appLayerData
     ) throws AkInvokeException, AkServerStatusException;
 }
