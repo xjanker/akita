@@ -249,7 +249,7 @@ public class HttpInvoker {
 
         try {
             if (fileSize <= 0) {
-                android.util.Log.w(TAG,
+                Log.w(TAG,
                         "Server did not set a Content-Length header, will default to buffer size of "
                                 + DEFAULT_BUFFER_SIZE + " bytes");
                 ByteArrayOutputStream buf = new ByteArrayOutputStream(DEFAULT_BUFFER_SIZE);
