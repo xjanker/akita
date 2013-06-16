@@ -9,6 +9,7 @@ package com.alibaba.akita.cache;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Environment;
 import com.alibaba.akita.util.FileUtil;
 import com.alibaba.akita.util.HashUtil;
@@ -36,6 +37,10 @@ public abstract class FilesCacheSDFoldersImpl<V> implements FilesCache<V> {
      * 默认Cache Size MB
      */
     private static final int DEFAULT_CACHE_SIZE_MB = 150;
+    /**
+     * 小于该值的图片会缓存在软引用Mem中
+     */
+    private static final int MEM_BITMAP_BYTE = 2000000;
 
     protected String mCacheTag;
     private MemCache<String, V> mSoftBitmapCache;
@@ -85,7 +90,16 @@ public abstract class FilesCacheSDFoldersImpl<V> implements FilesCache<V> {
             return bm;
         } else {
             bm = doLoad(mapRule(key));
-            mSoftBitmapCache.put(key, bm);
+            if (bm != null) {
+                if (bm instanceof Bitmap) {
+                    Bitmap bitmap = (Bitmap) bm;
+                    if (bitmap.getByteCount() < MEM_BITMAP_BYTE) {
+                        mSoftBitmapCache.put(key, bm);
+                    }
+                } else {
+                    mSoftBitmapCache.put(key, bm);
+                }
+            }
             return bm;
         }
     }
@@ -116,7 +130,14 @@ public abstract class FilesCacheSDFoldersImpl<V> implements FilesCache<V> {
         if (value != null) {
             V oldV = remove(key);
             doSave(mapRule(key), value);
-            mSoftBitmapCache.put(key, value);
+            if (value instanceof Bitmap) {
+                Bitmap bitmap = (Bitmap) value;
+                if (bitmap.getByteCount() < MEM_BITMAP_BYTE) {
+                    mSoftBitmapCache.put(key, value);
+                }
+            } else {
+                mSoftBitmapCache.put(key, value);
+            }
             return oldV;
         }
         return null;
