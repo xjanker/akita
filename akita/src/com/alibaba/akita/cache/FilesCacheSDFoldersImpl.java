@@ -10,6 +10,7 @@ package com.alibaba.akita.cache;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Environment;
 import com.alibaba.akita.util.FileUtil;
 import com.alibaba.akita.util.HashUtil;
@@ -40,7 +41,7 @@ public abstract class FilesCacheSDFoldersImpl<V> implements FilesCache<V> {
     /**
      * 小于该值的图片会缓存在软引用Mem中
      */
-    private static final int MEM_BITMAP_BYTE = 2000000;
+    private static final int MEM_BITMAP_BYTE = 8000000;
 
     protected String mCacheTag;
     private MemCache<String, V> mSoftBitmapCache;
@@ -58,6 +59,20 @@ public abstract class FilesCacheSDFoldersImpl<V> implements FilesCache<V> {
         // in Config
         SharedPreferences sp = context.getSharedPreferences(PREF_PREFIX + cacheTag, 0);
         mCacheSizeInMB = sp.getInt(CACHE_SIZE_KEY, DEFAULT_CACHE_SIZE_MB);
+
+        // create dir if not exist
+        try {
+            File dir = new File(getSepcifiedCacheDir());
+            dir.mkdirs();
+
+            for (int idx = 10; idx < 30; idx++) {
+                File f = new File(dir, String.valueOf(idx)+"/");
+                f.mkdir();
+            }
+        } catch (Exception e) {
+            /* no op */
+        }
+
     }
 
     protected abstract V xform(String fileAbsoPathAndName);
@@ -78,8 +93,8 @@ public abstract class FilesCacheSDFoldersImpl<V> implements FilesCache<V> {
     }
 
     private String getSpecifiedCacheFilePath(String hashedKey) {
-        String path = getSepcifiedCacheDir() + hashedKey.substring(0, 2)
-                + "/" + hashedKey.substring(2, 4) + "/";
+        String path = getSepcifiedCacheDir() + (Math.abs(hashedKey.hashCode()) % 20 + 10) + "/";
+        /* + hashedKey.substring(2, 4) + "/";*/
         return path;
     }
     
@@ -91,7 +106,7 @@ public abstract class FilesCacheSDFoldersImpl<V> implements FilesCache<V> {
         } else {
             bm = doLoad(mapRule(key));
             if (bm != null) {
-                if (bm instanceof Bitmap) {
+                if (bm instanceof Bitmap && Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {
                     Bitmap bitmap = (Bitmap) bm;
                     if (bitmap.getByteCount() < MEM_BITMAP_BYTE) {
                         mSoftBitmapCache.put(key, bm);
@@ -130,7 +145,7 @@ public abstract class FilesCacheSDFoldersImpl<V> implements FilesCache<V> {
         if (value != null) {
             V oldV = remove(key);
             doSave(mapRule(key), value);
-            if (value instanceof Bitmap) {
+            if (value instanceof Bitmap && Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {
                 Bitmap bitmap = (Bitmap) value;
                 if (bitmap.getByteCount() < MEM_BITMAP_BYTE) {
                     mSoftBitmapCache.put(key, value);
@@ -194,14 +209,9 @@ public abstract class FilesCacheSDFoldersImpl<V> implements FilesCache<V> {
             File[] dirs = cacheDir.listFiles();
             for (File dir : dirs) {
                 if (dir.isDirectory()) {
-                    File[] dirs2 = dir.listFiles();
-                    for (File dir2 : dirs2) {
-                        if (dir2.isDirectory()) {
-                            long diff = System.currentTimeMillis() - dir2.lastModified();
-                            if (diff > CACHE_EVICT_HOURS * 60 * 60 * 1000) {
-                                FileUtil.deleteFileOrDir(dir2);
-                            }
-                        }
+                    long diff = System.currentTimeMillis() - dir.lastModified();
+                    if (diff > CACHE_EVICT_HOURS * 60 * 60 * 1000) {
+                        FileUtil.deleteFileOrDir(dir);
                     }
                 }
             }

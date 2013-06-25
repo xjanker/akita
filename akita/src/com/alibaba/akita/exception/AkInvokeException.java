@@ -26,6 +26,7 @@ public class AkInvokeException extends AkException {
     public static final int CODE_FILE_NOT_FOUND = 1008;
     public static final int CODE_TARGET_HOST_OR_URL_ERROR = 1009;
     public static final int CODE_REQUEST_FIELD_EXCEPTION = 1010;
+    public static final int CODE_POST_PARAM_NULL_ERROR = 1011;
 
     public static final int CODE_UNKOWN_ERROR = 1099;
 

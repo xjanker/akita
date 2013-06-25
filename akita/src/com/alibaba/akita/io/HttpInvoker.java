@@ -191,7 +191,12 @@ public class HttpInvoker {
                     request.addHeader(header);
                 }
             }
-            UrlEncodedFormEntity entity = new UrlEncodedFormEntity(params, CHARSET);  //TODO: params null situation
+            if (params == null) {
+                Log.e(TAG, "Post Parameters Null Error");
+                throw new AkInvokeException(AkInvokeException.CODE_POST_PARAM_NULL_ERROR,
+                        "Post Parameters Null Error");
+            }
+            UrlEncodedFormEntity entity = new UrlEncodedFormEntity(params, CHARSET);
             request.setEntity(entity);
             HttpResponse response = client.execute(request);
             int statusCode = response.getStatusLine().getStatusCode();
@@ -408,7 +413,7 @@ public class HttpInvoker {
                         bitmap = BitmapFactory.decodeStream(new FlushedInputStream(
                                 inputStream), null, options);
                     } catch (Exception e) {
-                        e.printStackTrace();  //TODO Just for test
+                        e.printStackTrace();  //TODO no op
                         // no op
                     }
                     break;

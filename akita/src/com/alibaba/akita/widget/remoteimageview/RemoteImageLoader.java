@@ -61,7 +61,11 @@ public class RemoteImageLoader {
      *            whether to create a default {@link FilesCache<Bitmap>} used for caching
      */
     public RemoteImageLoader(Context context, boolean createCache) {
-        executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(DEFAULT_POOL_SIZE);
+        if ( Runtime.getRuntime() != null && Runtime.getRuntime().availableProcessors() <= 1) {
+            executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(1);
+        } else {
+            executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(DEFAULT_POOL_SIZE);
+        }
         if (createCache) {
             if (sImageCache == null) {
                 sImageCache = AkCacheManager.getImageFilesCache(context);

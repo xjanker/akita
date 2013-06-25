@@ -23,6 +23,7 @@ import android.graphics.BitmapFactory;
 import android.os.Build;
 import com.alibaba.akita.util.Log;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 
@@ -99,12 +100,12 @@ public class AkCacheManager {
             protected void output(String fileAbsoPath, String fileName, Bitmap v) {
                 // TODO: It would be nice to replace Buffered Output Stream
                 // and do some tests when I have time
-                FileOutputStream fos = null;
+                BufferedOutputStream fos = null;
                 try {
                     File dir = new File(fileAbsoPath);
                     dir.mkdirs();
                     File f = new File(dir, fileName);
-                    fos = new FileOutputStream(f);
+                    fos = new BufferedOutputStream(new FileOutputStream(f));
                     v.compress(Bitmap.CompressFormat.JPEG, 75, fos);
                 } catch (Exception e) {
                     e.printStackTrace();
