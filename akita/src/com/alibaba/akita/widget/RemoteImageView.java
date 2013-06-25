@@ -294,6 +294,12 @@ public class RemoteImageView extends ViewSwitcher {
         }
     }
 
+    public void setDummyImageDrawable(Drawable drawable) {
+        if (imageLoader != null) {
+            imageLoader.setDefaultDummyDrawable(drawable);
+        }
+    }
+
     /**
      * Use this method to trigger the remoteimageview download if you had previously set autoLoad to false.
      */
