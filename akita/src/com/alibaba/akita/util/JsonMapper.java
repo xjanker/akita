@@ -23,10 +23,13 @@ import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.JsonParser.Feature;
+import org.codehaus.jackson.annotate.JsonAutoDetect;
+import org.codehaus.jackson.annotate.JsonMethod;
 import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.SerializationConfig;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.codehaus.jackson.node.ArrayNode;
 import org.codehaus.jackson.node.ObjectNode;
 
@@ -46,9 +49,21 @@ public class JsonMapper {
     private static final ObjectMapper m  = new ObjectMapper(jf);
     static{
         SerializationConfig sf = m.getSerializationConfig();
-        m.setSerializationConfig(sf.with(SerializationConfig.Feature.USE_ANNOTATIONS).withDateFormat(new SimpleDateFormat(DATE_FORMAT)));
+        m.setSerializationConfig(sf
+                .with(SerializationConfig.Feature.USE_ANNOTATIONS)
+                .withDateFormat(new SimpleDateFormat(DATE_FORMAT))
+                .withSerializationInclusion(JsonSerialize.Inclusion.NON_NULL)
+                .without(SerializationConfig.Feature.FAIL_ON_EMPTY_BEANS)
+        );
+        m.setVisibilityChecker(m.getSerializationConfig().getDefaultVisibilityChecker().
+                withGetterVisibility(JsonAutoDetect.Visibility.NONE).
+                withSetterVisibility(JsonAutoDetect.Visibility.NONE));
         DeserializationConfig df =  m.getDeserializationConfig();
-        m.setDeserializationConfig(df.with(DeserializationConfig.Feature.USE_ANNOTATIONS).withDateFormat(new SimpleDateFormat(DATE_FORMAT)));
+        m.setDeserializationConfig(df
+                .with(DeserializationConfig.Feature.USE_ANNOTATIONS)
+                .withDateFormat(new SimpleDateFormat(DATE_FORMAT))
+                .without(org.codehaus.jackson.map.DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES)
+        );
     }
 
     public static <T> T json2pojo(String jsonAsString, Class<T> pojoClass)

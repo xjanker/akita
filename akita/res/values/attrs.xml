@@ -21,4 +21,9 @@
         <attr name="errorDrawable" format="reference" />
         <attr name="autoLoad" format="boolean" />
     </declare-styleable>-->
+
+    <declare-styleable name="RemoteImageView">
+        <attr name="roundCorner" format="dimension"/>
+        <attr name="noCache" format="boolean"/>
+    </declare-styleable>
 </resources>

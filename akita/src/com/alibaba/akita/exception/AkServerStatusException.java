@@ -16,13 +16,14 @@ import org.codehaus.jackson.JsonParseException;
 
 
 /**
- * server error such as error(500) or exception(401 403) & etc
+ * server error such as error(500) or exception(401 403) or (1001 TOP error) or etc
  * @author zhe.yangz 2012-1-17 下午06:57:53
  */
 public class AkServerStatusException extends AkException{
     private static final long serialVersionUID = 8831634121316777078L;
-
     private static final String TAG = "AkServerStatusException";
+
+    public static final int CODE_TOP_ERROR = 1001;
 
     /**
      * exception code

@@ -6,10 +6,8 @@ import com.alibaba.akita.util.HashUtil;
 import com.alibaba.akita.util.StringUtil;
 import org.apache.http.NameValuePair;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.net.URLDecoder;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -35,6 +33,18 @@ public class TopAPISignature implements InvokeSignature {
         }
         if (app_secret != null) {
             params.remove(app_secret);
+//            if (paramsMapOri.containsKey("method") && "taobao.juwliserver.schedule.add".equals(paramsMapOri.get("method"))
+//                    && paramsMapOri!=null && paramsMapOri.size() > 0) {  // Hack only for juhuasuan预下单add接口
+//                HashMap<String, String> paramsMapOriDecoded = new HashMap<String, String>();
+//                for (Map.Entry<String, String> entry : paramsMapOri.entrySet()) {
+//                    try {
+//                        paramsMapOriDecoded.put(entry.getKey(), URLDecoder.decode(entry.getValue(), "UTF-8"));
+//                    } catch (Exception e) {
+//                        paramsMapOriDecoded.put(entry.getKey(), entry.getValue());
+//                    }
+//                }
+//                paramsMapOri = paramsMapOriDecoded;
+//            }
             return generateSignature(data0, app_secret.getValue(), params, paramsMapOri);
         } else {
             return "no_app_secret_found";

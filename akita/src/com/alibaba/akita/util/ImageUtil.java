@@ -15,8 +15,7 @@
 package com.alibaba.akita.util;
 
 import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.graphics.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -30,9 +29,9 @@ public class ImageUtil {
     /**
      * recreate the bitmap, and make it be scaled to box (maxWeight, maxHeight)
      * note: the old bitmap has not being recycled, you must do it yourself.
-     * @param bitmap
-     * @param boxHeight
-     * @param boxWidth
+     * @param bitmap the bitmap
+     * @param boxHeight box height
+     * @param boxWidth box width
      * @return the new Bitmap
      */
     public static Bitmap xform(Bitmap bitmap, int boxWidth, int boxHeight) {
@@ -51,14 +50,42 @@ public class ImageUtil {
         return Bitmap.createScaledBitmap(bitmap, boxWidth, boxHeight, true);
     }
 
+    final static int ROUNDED_CORNER_COLOR = 0xff424242;
+    /**
+     * Get Rounded Corner Bitmap
+     * @param bitmap ori bitmap
+     * @param roundPx round size
+     * @return new bitmap
+     */
+    public static Bitmap getRoundedCornerBitmap(Bitmap bitmap,float roundPx){
+
+        Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap
+                .getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(output);
+
+        final Paint paint = new Paint();
+        final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+        final RectF rectF = new RectF(rect);
+
+        paint.setAntiAlias(true);
+        canvas.drawARGB(0, 0, 0, 0);
+        paint.setColor(ROUNDED_CORNER_COLOR);
+        canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
+
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        canvas.drawBitmap(bitmap, rect, rect, paint);
+
+        return output;
+    }
+
     /**
      * automatically compute the inSampleSize when decode byteArray
-     * @param data
-     * @param offset
-     * @param length
-     * @param reqWidth
-     * @param reqHeight
-     * @return
+     * @param data data
+     * @param offset offset
+     * @param length length
+     * @param reqWidth reqWidth
+     * @param reqHeight reqHeight
+     * @return bitmap
      */
     public static Bitmap decodeSampledBitmapFromByteArray(byte[] data, int offset, int length,
                                                           int reqWidth, int reqHeight) {
@@ -77,11 +104,11 @@ public class ImageUtil {
 
     /**
      * automatically compute the inSampleSize when decode from resource
-     * @param res
-     * @param resId
-     * @param reqWidth
-     * @param reqHeight
-     * @return
+     * @param res res
+     * @param resId resId
+     * @param reqWidth reqWidth
+     * @param reqHeight reqHeight
+     * @return bitmap
      */
     public static Bitmap decodeSampledBitmapFromResource(Resources res, int resId,
                                                          int reqWidth, int reqHeight) {
@@ -95,7 +122,8 @@ public class ImageUtil {
 
         // Decode bitmap with inSampleSize set
         options.inJustDecodeBounds = false;
-        return BitmapFactory.decodeResource(res, resId, options);}
+        return BitmapFactory.decodeResource(res, resId, options);
+    }
 
 
     private static int calculateInSampleSize(

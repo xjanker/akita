@@ -4,7 +4,13 @@ import com.alibaba.akita.Akita;
 import com.alibaba.akita.exception.AkInvokeException;
 import com.alibaba.akita.exception.AkServerStatusException;
 import com.alibaba.akita.util.DateUtil;
+import com.alibaba.akita.util.JsonMapper;
+import com.alibaba.akita.util.Log;
+import org.codehaus.jackson.JsonProcessingException;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -14,36 +20,171 @@ import java.util.Map;
  * Time: PM3:55
  */
 public class TaobaoAgent {
+    private static final String TAG = "TaobaoAgent";
 
-    private String app_key = null;
-    private String app_secret = null;
+    private static TaobaoAgent sCacheTaobaoAgent = null;
+
+    private RunMode runMode = RunMode.PRODUCTION;
+
+    private MTopAPI mTopAPI = null;
+    private TopAPI topAPI = null;
+
+    public String app_key = null;
+    public String app_secret = null;
+    private String ttid = null;
+    private String imei = null;
+    private String imsi = null;
+    private String appVersion = null;
     private String partner_id = null;
 
-    private TaobaoAgent() {
-
+    public RunMode getRunMode() {
+        return runMode;
     }
 
-    public static TaobaoAgent createAgent(String appKey, String appSecret) {
-        TaobaoAgent taobaoAgent = new TaobaoAgent();
-        taobaoAgent.app_key = appKey;
-        taobaoAgent.app_secret = appSecret;
-        taobaoAgent.partner_id = "top-apitools";
-        return taobaoAgent;
+    public void setRunMode(RunMode runMode) {
+        this.runMode = runMode;
     }
 
-    public String topAPI(String method, String session, Map<String,String> appLayerData)
+    private TaobaoAgent() {/* no public can call this */}
+
+    public static TaobaoAgent createAgent(String appKey, String appSecret, String ttid) {
+        return createAgent(appKey, appSecret, ttid, null, null, null);
+    }
+    public static TaobaoAgent createAgent(String appKey, String appSecret, String ttid,
+                                          String imei, String imsi, String appVersion) {
+        if (sCacheTaobaoAgent == null) {
+            sCacheTaobaoAgent = new TaobaoAgent();
+        }
+        sCacheTaobaoAgent.app_key = appKey;
+        sCacheTaobaoAgent.app_secret = appSecret;
+        sCacheTaobaoAgent.ttid = ttid;
+        sCacheTaobaoAgent.partner_id = null;
+        sCacheTaobaoAgent.imei = imei;
+        sCacheTaobaoAgent.imsi = imsi;
+        sCacheTaobaoAgent.appVersion = appVersion;
+        if (imei == null) {
+            sCacheTaobaoAgent.imei = "D1C91C6EA9E79D50F209D8DCB1359D81";
+        }
+        if (imsi == null) {
+            sCacheTaobaoAgent.imsi = "D1C91C6EA9E79D50F209D8DCB1359D81";
+        }
+        if (appVersion == null) {
+            sCacheTaobaoAgent.appVersion = "2.0.0";
+        }
+
+        return sCacheTaobaoAgent;
+    }
+
+    /* ========
+    TOP part
+    ======== */
+    public <T> T topAPI(TopRequest topRequest, Class<T> clazz)
             throws AkInvokeException, AkServerStatusException {
-        TopAPI topAPI = Akita.createAPI(TopAPI.class);
-        return topAPI.execute(DateUtil.getTimestampDatetime(System.currentTimeMillis()),"2.0", app_key, app_secret,
-                method, session, partner_id,"json", "hmac", appLayerData);
+        return topAPI(null, topRequest, clazz);
+    }
+    public <T> T topAPI(String session, TopRequest topRequest, Class<T> clazz)
+            throws AkInvokeException, AkServerStatusException {
+        if (topAPI == null) {
+            topAPI = Akita.createAPI(TopAPI.class);
+        }
+        Map<?,?> appLayerDataTemp = null;
+        Map<String, String> appLayerData = new HashMap<String, String>();
+        try {
+            appLayerDataTemp = JsonMapper.json2map(JsonMapper.pojo2json(topRequest));
+            Iterator<? extends Map.Entry<?,?>> iter =  appLayerDataTemp.entrySet().iterator();
+            while (iter.hasNext()) {
+                Map.Entry<?,?> entry = iter.next();
+                String key = String.valueOf( entry.getKey() );
+                String value = String.valueOf( entry.getValue() );
+                appLayerData.put(key, value);
+            }
+        } catch (IOException e) {
+            throw new AkInvokeException(AkInvokeException.CODE_FILE_NOT_FOUND,
+                    e.getMessage(), e);
+        }
+
+        String retStr =
+                topAPI.top_online(DateUtil.getTimestampDatetime(topRequest.getT()),
+                        topRequest.getV(),
+                        app_key, app_secret,
+                        topRequest.getMethod(), session, partner_id, "json", "hmac", appLayerData);
+
+        // TOP的底层出错信息处理
+        if (retStr != null && retStr.contains("{\"error_response\":{\"code\"")) {
+            throw new AkServerStatusException(AkServerStatusException.CODE_TOP_ERROR, retStr);
+        }
+
+        try {
+            if (String.class.equals(clazz)) {
+                return (T)retStr;
+            } else {
+                return JsonMapper.json2pojo(retStr, clazz);
+            }
+        } catch (JsonProcessingException e) {
+            Log.e(TAG, retStr, e);  // log can print the error return-string
+            throw new AkInvokeException(AkInvokeException.CODE_JSONPROCESS_EXCEPTION,
+                    e.getMessage(), e);
+        } catch (IOException e) {
+            throw new AkInvokeException(AkInvokeException.CODE_IO_EXCEPTION,
+                    e.getMessage(), e);
+        }
+
     }
 
-    public String mtopAPI()
+    /* ========
+    MTOP part
+    ======== */
+    public <T> MTopResult<T> mtopAPI(MTopRequest request, Class<T> clazz)
             throws AkInvokeException, AkServerStatusException {
-        MTopAPI mTopAPI = Akita.createAPI(MTopAPI.class);
-        return mTopAPI.execute(null, app_secret, app_key, "mtop.sys.createDeviceId", "1.0", "wujiu1.0.0@autotest",
-                "IMSI54534434534", "IMEI12342354324", System.currentTimeMillis()/1000,
-                "{\"c0\":\"BRAND1343121937095\"}",
-                null);
+        return mtopAPI(null, null, null, request, clazz);
+    }
+    public <T> MTopResult<T> mtopAPI(String ecode, String ext, String sid, MTopRequest request, Class<T> clazz)
+            throws AkInvokeException, AkServerStatusException {
+        if (mTopAPI == null) {
+            mTopAPI = Akita.createAPI(MTopAPI.class);
+        }
+        String dataStr = "{}";
+        try {
+            dataStr = JsonMapper.pojo2json(request);
+        } catch (IOException e) {
+            Log.e(TAG, e.toString(), e);
+        }
+        String retStr = "";
+        switch (runMode) {
+            case PRODUCTION:
+                retStr = mTopAPI.mtop_production(ecode, app_secret, app_key,
+                        appVersion, request.getApi(),
+                        request.getV(), ttid, imsi, imei,
+                        (request.getT()) / 1000,
+                        dataStr, ext, sid, "md5");
+                break;
+            case PREDEPLOY:
+                retStr = mTopAPI.mtop_predeploy(ecode, app_secret, app_key,
+                        appVersion, request.getApi(),
+                        request.getV(), ttid, imsi, imei,
+                        (request.getT()) / 1000,
+                        dataStr, ext, sid, "md5");
+                break;
+            case DALIY:
+                retStr = mTopAPI.mtop_daily(ecode, app_secret, app_key,
+                        appVersion, request.getApi(),
+                        request.getV(), ttid, imsi, imei,
+                        (request.getT()) / 1000,
+                        dataStr, ext, sid, "md5");
+                break;
+        }
+
+        try {
+            MTopResult mTopResult = JsonMapper.json2pojo(retStr, MTopResult.class);
+            mTopResult.getData(clazz);
+            return mTopResult;
+        } catch (JsonProcessingException e) {
+            Log.e(TAG, retStr, e);  //  log can print the error return-string
+            throw new AkInvokeException(AkInvokeException.CODE_JSONPROCESS_EXCEPTION,
+                    e.getMessage(), e);
+        } catch (IOException e) {
+            throw new AkInvokeException(AkInvokeException.CODE_IO_EXCEPTION,
+                    e.getMessage(), e);
+        }
     }
 }

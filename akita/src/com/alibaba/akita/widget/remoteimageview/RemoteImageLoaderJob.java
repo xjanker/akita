@@ -17,18 +17,14 @@ public class RemoteImageLoaderJob implements Runnable {
     private ProgressBar progressBar;
     private RemoteImageLoaderHandler handler;
     private FilesCache<Bitmap> imageCache;
-    private int numRetries, defaultBufferSize;
 
     public RemoteImageLoaderJob(String imageUrl, String httpReferer, ProgressBar progressBar,
-                                RemoteImageLoaderHandler handler, FilesCache<Bitmap> imageCache,
-                                int numRetries, int defaultBufferSize) {
+                                RemoteImageLoaderHandler handler, FilesCache<Bitmap> imageCache ) {
         this.imageUrl = imageUrl;
         this.httpReferer = httpReferer;
         this.progressBar = progressBar;
         this.handler = handler;
         this.imageCache = imageCache;
-        this.numRetries = numRetries;
-        this.defaultBufferSize = defaultBufferSize;
     }
 
     /**
@@ -40,7 +36,7 @@ public class RemoteImageLoaderJob implements Runnable {
         Bitmap bitmap = null;
 
         if (imageCache != null) {
-            // at this point we know the remoteimageview is not in memory, but it could be cached to SD card
+            // at this point we want to know if the remote image has been cached in SD card or in memory.
             bitmap = imageCache.get(imageUrl);
         }
 

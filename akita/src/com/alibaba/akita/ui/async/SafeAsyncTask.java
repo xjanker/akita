@@ -4,35 +4,28 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.widget.Toast;
-import com.alibaba.akita.exception.AkException;
 import com.alibaba.akita.util.Log;
 
 /**
- * Created with IntelliJ IDEA.
+ * 与SimpleAsyncTask的区别就是，任意Exception都能处理。
  * Date: 12-4-9
  * Time: 上午11:20
  *
  * @author zhe.yangz
  */
-public abstract class SimpleAsyncTask<T> extends AsyncTask<Integer, Integer, T> {
-    private static final String TAG = "SimpleAsyncTask<T>";
-    protected AkException mAkException = null;
+public abstract class SafeAsyncTask<T> extends AsyncTask<Integer, Integer, T> {
+    private static final String TAG = "SafeAsyncTask<T>";
+    protected Exception mException = null;
     private Context mContext = null;
-
-    /**
-     * guarantees the method be invoked on ui thread once time when task start.
-     */
-    protected void onUITaskStart() {};
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();    //defaults
 
-        onUITaskStart();
         try{
             onUIBefore();
-        } catch (AkException akException) {
-            mAkException = akException;
+        } catch (Exception akException) {
+            mException = akException;
         }
     }
 
@@ -61,37 +54,41 @@ public abstract class SimpleAsyncTask<T> extends AsyncTask<Integer, Integer, T> 
     @Override
     protected T doInBackground(Integer... integers) {
         try {
-            if (mAkException == null) {
+            if (mException == null) {
                 return onDoAsync();
             } else {
                 return null;
             }
-        } catch (AkException akException) {
-            mAkException = akException;
+        } catch (Exception akException) {
+            mException = akException;
             return null;
         }
     }
 
-    protected abstract void onUIBefore() throws AkException;
-    protected abstract T onDoAsync() throws AkException;
+    /**
+     * SimpleAsyncTask中的onUITaskStart()方法在此类中取消，一律用onUIBefore()。
+     * @throws Exception
+     */
+    protected abstract void onUIBefore() throws Exception;
+    protected abstract T onDoAsync() throws Exception;
     /**
      * it may not be executed if have exception before.
      * @param t
-     * @throws AkException
+     * @throws com.alibaba.akita.exception.AkException
      */
-    protected abstract void onUIAfter(T t) throws AkException;
+    protected abstract void onUIAfter(T t) throws Exception;
 
     @Override
     protected void onPostExecute(T t) {
         super.onPostExecute(t);    //defaults
 
-        if (mAkException != null) {
-            onHandleAkException(mAkException);
+        if (mException != null) {
+            onHandleAkException(mException);
         } else {
             try {
                 onUIAfter(t);
-            } catch (AkException akException) {
-                onHandleAkException(mAkException);
+            } catch (Exception akException) {
+                onHandleAkException(mException);
             }
         }
         try {
@@ -110,7 +107,7 @@ public abstract class SimpleAsyncTask<T> extends AsyncTask<Integer, Integer, T> 
         }
     }
 
-    protected void onHandleAkException(AkException mAkException) {
+    protected void onHandleAkException(Exception mAkException) {
         Log.w(TAG, mAkException.toString(), mAkException);
 
         if (mContext != null) {
@@ -121,6 +118,7 @@ public abstract class SimpleAsyncTask<T> extends AsyncTask<Integer, Integer, T> 
 
     /**
      * guarantees the method be invoked on ui thread once time when task quit.
+     * if this method meet the exception, then return and no error, the code after executed-part is not called.
      */
     protected void onUITaskEnd() {};
 

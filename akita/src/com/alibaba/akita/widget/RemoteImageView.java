@@ -17,6 +17,7 @@ import com.alibaba.akita.Akita;
 import com.alibaba.akita.R;
 import com.alibaba.akita.util.AndroidUtil;
 import com.alibaba.akita.util.Log;
+import com.alibaba.akita.widget.remoteimageview.ImageView_;
 import com.alibaba.akita.widget.remoteimageview.RemoteImageLoader;
 import com.alibaba.akita.widget.remoteimageview.RemoteImageLoaderHandler;
 
@@ -49,6 +50,8 @@ public class RemoteImageView extends ViewSwitcher {
     private static final String ATTR_ERROR_DRAWABLE = "errorDrawable";
     private static final String ATTR_IMGBOX_WIDTH = "imgBoxWidth";
     private static final String ATTR_IMGBOX_HEIGHT = "imgBoxHeight";
+    private static final String ATTR_ROUND_CORNER = "roundCorner";
+    private static final String ATTR_NO_CACHE = "noCache";
     private static final String ATTR_PINCH_ZOOM = "pinchZoom";
     private static final String ATTR_FADE_IN = "fadeIn";
     private static final String ATTR_SHOW_PROGRESS = "showProgress";
@@ -69,6 +72,16 @@ public class RemoteImageView extends ViewSwitcher {
      * wrap_content (<=0)
      */
     private int imgBoxHeight = 0;
+    /**
+     * 0: no round corner
+     * >0: round corner px size
+     */
+    private int roundCornerPx = 0;
+    /**
+     * 是否不使用图片cache，
+     * true的时候每次都会从网络下载，并且不Cache到本地
+     */
+    private boolean noCache = false;
 
     /**
      * if true, then use PinchZoomImageView instead.
@@ -86,9 +99,10 @@ public class RemoteImageView extends ViewSwitcher {
     private boolean autoLoad, isLoaded;
 
     private ProgressBar loadingSpinner;
-    private ImageView imageView;
+    private ImageView_ imageView;
 
-    private Drawable progressDrawable, errorDrawable;
+    private Drawable progressDrawable;
+    private int errorDrawable;
 
     private RemoteImageLoader imageLoader;
     private static RemoteImageLoader sharedImageLoader;
@@ -117,7 +131,7 @@ public class RemoteImageView extends ViewSwitcher {
     public RemoteImageView(Context context, String imageUrl, boolean autoLoad,
                            boolean fadeIn, boolean pinchZoom, boolean showProgress) {
         super(context);
-        initialize(context, imageUrl, null, null, autoLoad, fadeIn, pinchZoom, showProgress, null);
+        initialize(context, imageUrl, null, 0, autoLoad, fadeIn, pinchZoom, showProgress, null);
     }
 
     /**
@@ -135,7 +149,7 @@ public class RemoteImageView extends ViewSwitcher {
      *            false, use {@link #loadImage()} to manually trigger the remoteimageview download.
      */
     public RemoteImageView(Context context, String imageUrl, Drawable progressDrawable,
-                           Drawable errorDrawable, boolean autoLoad, boolean fadeIn,
+                           int errorDrawable, boolean autoLoad, boolean fadeIn,
                            boolean pinchZoom, boolean showProgress) {
         super(context);
         initialize(context, imageUrl, progressDrawable, errorDrawable, autoLoad, fadeIn, pinchZoom, showProgress,
@@ -153,9 +167,14 @@ public class RemoteImageView extends ViewSwitcher {
         int progressDrawableId = imageViewAttrs.getResourceId(ATTR_INDET_DRAWABLE, 0);
         imageViewAttrs.recycle();
 
+        TypedArray a = context.getTheme().obtainStyledAttributes(attributes, R.styleable.RemoteImageView, 0, 0);
+        roundCornerPx = (int)a.getDimension(R.styleable.RemoteImageView_roundCorner, 0.0f);
+        noCache = a.getBoolean(R.styleable.RemoteImageView_noCache, false);
+        a.recycle();
+
         int errorDrawableId = attributes.getAttributeResourceValue(Akita.XMLNS,
                 ATTR_ERROR_DRAWABLE, DEFAULT_ERROR_DRAWABLE_RES_ID);
-        Drawable errorDrawable = context.getResources().getDrawable(errorDrawableId);
+        int errorDrawable = errorDrawableId;
 
         Drawable progressDrawable = null;
         if (progressDrawableId > 0) {
@@ -178,11 +197,11 @@ public class RemoteImageView extends ViewSwitcher {
     }
 
     public void setDownloadFailedImageRes(int imgRes) {
-        this.errorDrawable = getContext().getResources().getDrawable(imgRes);
+        this.errorDrawable = imgRes;
     }
 
     private void initialize(Context context, String imageUrl, Drawable progressDrawable,
-            Drawable errorDrawable, boolean autoLoad, boolean fadeIn, boolean pinchZoom, boolean showProgress,
+            int errorDrawable, boolean autoLoad, boolean fadeIn, boolean pinchZoom, boolean showProgress,
             AttributeSet attributes) {
         this.imageUrl = imageUrl;
         this.autoLoad = autoLoad;
@@ -258,9 +277,9 @@ public class RemoteImageView extends ViewSwitcher {
         } else {
             if (attributes != null) {
                 // pass along any view attribtues inflated from XML to the remoteimageview view
-                imageView = new ImageView(context, attributes);
+                imageView = new ImageView_(context, attributes);
             } else {
-                imageView = new ImageView(context);
+                imageView = new ImageView_(context);
             }
         }
 
@@ -272,6 +291,12 @@ public class RemoteImageView extends ViewSwitcher {
     public void setScaleType(ImageView.ScaleType scaleType) {
         if (imageView != null) {
             imageView.setScaleType(scaleType);
+        }
+    }
+
+    public void setDummyImageDrawable(Drawable drawable) {
+        if (imageLoader != null) {
+            imageLoader.setDefaultDummyDrawable(drawable);
         }
     }
 
@@ -289,11 +314,11 @@ public class RemoteImageView extends ViewSwitcher {
 
         if (showProgress) {
             loadingSpinner.setProgress(0);
-            imageLoader.loadImage(imageUrl, httpReferer, loadingSpinner, imageView,
-                    new DefaultImageLoaderHandler(imgBoxWidth, imgBoxHeight));
+            imageLoader.loadImage(imageUrl, httpReferer, noCache, loadingSpinner, imageView,
+                    new DefaultImageLoaderHandler(imgBoxWidth, imgBoxHeight, roundCornerPx));
         } else {
-            imageLoader.loadImage(imageUrl, httpReferer, null, imageView,
-                    new DefaultImageLoaderHandler(imgBoxWidth, imgBoxHeight));
+            imageLoader.loadImage(imageUrl, httpReferer, noCache, null, imageView,
+                    new DefaultImageLoaderHandler(imgBoxWidth, imgBoxHeight, roundCornerPx));
         }
     }
 
@@ -323,6 +348,14 @@ public class RemoteImageView extends ViewSwitcher {
      */
     public void setHttpReferer(String httpReferer) {
         this.httpReferer = httpReferer;
+    }
+
+    /**
+     * Set noCache or not
+     * @param noCache If true, use no cache every loading
+     */
+    public void setNoCache(boolean noCache) {
+        this.noCache = noCache;
     }
 
     /**
@@ -378,6 +411,10 @@ public class RemoteImageView extends ViewSwitcher {
         this.setDisplayedChild(0);
     }
 
+    /**
+     * 对于setImageBoxSize后的riv，必须在页面onDestroy时调用。
+     * 对于返回的上一页面中有相同
+     */
     public void release() {
         Bitmap bitmap = (Bitmap) imageView.getTag(R.id.ll_griditem);
         if (bitmap != null && !bitmap.isRecycled()) bitmap.recycle();
@@ -385,12 +422,15 @@ public class RemoteImageView extends ViewSwitcher {
 
     private class DefaultImageLoaderHandler extends RemoteImageLoaderHandler {
 
-        public DefaultImageLoaderHandler(int imgMaxWidth, int imgMaxHeight) {
-            super(imageView, imageUrl, errorDrawable, imgMaxWidth, imgMaxHeight);
+        public DefaultImageLoaderHandler(int imgMaxWidth, int imgMaxHeight, int roundCornerPx) {
+            super(imageView, imageUrl, errorDrawable, imgMaxWidth, imgMaxHeight, roundCornerPx);
         }
 
         @Override
         protected boolean handleImageLoaded(Bitmap bitmap, Message msg) {
+            if(onImageLoadedListener != null ){
+                onImageLoadedListener.onImageLoaded(bitmap);
+            }
             boolean wasUpdated = super.handleImageLoaded(bitmap, msg);
             if (wasUpdated) {
                 isLoaded = true;
@@ -435,9 +475,9 @@ public class RemoteImageView extends ViewSwitcher {
      * attribute ignition:errorDrawable. If left blank, a stock alert icon from the Android platform
      * will be used.
      *
-     * @return the error drawable
+     * @return the error drawable res
      */
-    public Drawable getErrorDrawable() {
+    public int getErrorDrawableRes() {
         return errorDrawable;
     }
 
@@ -457,6 +497,17 @@ public class RemoteImageView extends ViewSwitcher {
      */
     public ProgressBar getProgressBar() {
         return loadingSpinner;
+    }
+
+    /**
+     * 图片加载完成时，可以监听到，从而拿到图片的信息，譬如大小宽高等。
+     */
+    private OnImageLoadedListener onImageLoadedListener;
+    public void setOnLoadOverListener(OnImageLoadedListener onImageLoadedListener) {
+        this.onImageLoadedListener = onImageLoadedListener;
+    }
+    public interface OnImageLoadedListener{
+        void onImageLoaded(Bitmap bitmap);
     }
 
 }

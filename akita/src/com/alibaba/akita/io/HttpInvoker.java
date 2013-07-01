@@ -191,6 +191,11 @@ public class HttpInvoker {
                     request.addHeader(header);
                 }
             }
+            if (params == null) {
+                Log.e(TAG, "Post Parameters Null Error");
+                throw new AkInvokeException(AkInvokeException.CODE_POST_PARAM_NULL_ERROR,
+                        "Post Parameters Null Error");
+            }
             UrlEncodedFormEntity entity = new UrlEncodedFormEntity(params, CHARSET);
             request.setEntity(entity);
             HttpResponse response = client.execute(request);
@@ -249,7 +254,7 @@ public class HttpInvoker {
 
         try {
             if (fileSize <= 0) {
-                android.util.Log.w(TAG,
+                Log.w(TAG,
                         "Server did not set a Content-Length header, will default to buffer size of "
                                 + DEFAULT_BUFFER_SIZE + " bytes");
                 ByteArrayOutputStream buf = new ByteArrayOutputStream(DEFAULT_BUFFER_SIZE);
@@ -408,7 +413,7 @@ public class HttpInvoker {
                         bitmap = BitmapFactory.decodeStream(new FlushedInputStream(
                                 inputStream), null, options);
                     } catch (Exception e) {
-                        e.printStackTrace();  //TODO Just for test
+                        e.printStackTrace();  //TODO no op
                         // no op
                     }
                     break;

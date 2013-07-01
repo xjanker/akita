@@ -21,6 +21,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
+import com.alibaba.akita.widget.remoteimageview.ImageView_;
 
 /**
  * Created with IntelliJ IDEA.
@@ -30,7 +31,7 @@ import android.widget.ImageView;
  * @author zhe.yangz
  */
 
-public class PinchZoomImageView extends ImageView
+public class PinchZoomImageView extends ImageView_
 {
     enum Mode {
         NONE,
