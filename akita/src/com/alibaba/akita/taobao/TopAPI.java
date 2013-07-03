@@ -1,9 +1,6 @@
 package com.alibaba.akita.taobao;
 
-import com.alibaba.akita.annotation.AkAPI;
-import com.alibaba.akita.annotation.AkGET;
-import com.alibaba.akita.annotation.AkParam;
-import com.alibaba.akita.annotation.AkSignature;
+import com.alibaba.akita.annotation.*;
 import com.alibaba.akita.exception.AkInvokeException;
 import com.alibaba.akita.exception.AkServerStatusException;
 
@@ -28,11 +25,29 @@ import java.util.Map;
  *
  */
 public interface TopAPI {
-    @AkGET
+
+//    @AkGET
+//    @AkSignature(using = TopAPISignature.class)
+//    @AkAPI(url="http://gw.api.taobao.com/router/rest")
+//    String top_online(
+//            @AkParam(value = "timestamp", encode = "utf8") String timestamp,
+//            @AkParam("v") String v,
+//            @AkParam("app_key") String app_key,
+//            @AkParam("app_secret") String app_secret,
+//            @AkParam("method") String method,
+//            @AkParam("session") String session,
+//            @AkParam("partner_id") String partner_id,
+//            @AkParam("format") String format,
+//            @AkParam("sign_method") String sign_method,
+//            @AkParam(value = "$paramMap", encode = "utf8") Map<String, String> appLayerData
+//    ) throws AkInvokeException, AkServerStatusException;
+
+
+    @AkPOST
     @AkSignature(using = TopAPISignature.class)
     @AkAPI(url="http://gw.api.taobao.com/router/rest")
     String top_online(
-            @AkParam(value = "timestamp", encode = "utf8") String timestamp,
+            @AkParam(value = "timestamp") String timestamp,
             @AkParam("v") String v,
             @AkParam("app_key") String app_key,
             @AkParam("app_secret") String app_secret,
@@ -41,6 +56,6 @@ public interface TopAPI {
             @AkParam("partner_id") String partner_id,
             @AkParam("format") String format,
             @AkParam("sign_method") String sign_method,
-            @AkParam(value = "$paramMap", encode = "utf8") Map<String, String> appLayerData
+            @AkParam(value = "$paramMap") Map<String, String> appLayerData
     ) throws AkInvokeException, AkServerStatusException;
 }
