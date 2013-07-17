@@ -61,7 +61,7 @@ public interface TopAPI {
 
     @AkPOST
     @AkSignature(using = TopAPISignature.class)
-    @AkAPI(url="http://gw.api.taobao.com/router/rest")
+    @AkAPI(url="http://110.75.14.63/top/router/rest")
     String top_predeploy(
             @AkParam(value = "timestamp") String timestamp,
             @AkParam("v") String v,
