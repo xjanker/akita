@@ -58,4 +58,37 @@ public interface TopAPI {
             @AkParam("sign_method") String sign_method,
             @AkParam(value = "$paramMap") Map<String, String> appLayerData
     ) throws AkInvokeException, AkServerStatusException;
+
+    @AkPOST
+    @AkSignature(using = TopAPISignature.class)
+    @AkAPI(url="http://gw.api.taobao.com/router/rest")
+    String top_predeploy(
+            @AkParam(value = "timestamp") String timestamp,
+            @AkParam("v") String v,
+            @AkParam("app_key") String app_key,
+            @AkParam("app_secret") String app_secret,
+            @AkParam("method") String method,
+            @AkParam("session") String session,
+            @AkParam("partner_id") String partner_id,
+            @AkParam("format") String format,
+            @AkParam("sign_method") String sign_method,
+            @AkParam(value = "$paramMap") Map<String, String> appLayerData
+    ) throws AkInvokeException, AkServerStatusException;
+
+    @AkPOST
+    @AkSignature(using = TopAPISignature.class)
+    @AkAPI(url="http://api.daily.taobao.net/router/rest")
+    String top_daily(
+            @AkParam(value = "timestamp") String timestamp,
+            @AkParam("v") String v,
+            @AkParam("app_key") String app_key,
+            @AkParam("app_secret") String app_secret,
+            @AkParam("method") String method,
+            @AkParam("session") String session,
+            @AkParam("partner_id") String partner_id,
+            @AkParam("format") String format,
+            @AkParam("sign_method") String sign_method,
+            @AkParam(value = "$paramMap") Map<String, String> appLayerData
+    ) throws AkInvokeException, AkServerStatusException;
+
 }
