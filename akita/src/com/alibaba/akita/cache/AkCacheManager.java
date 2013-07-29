@@ -21,6 +21,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
+import android.text.TextUtils;
 import com.alibaba.akita.util.Log;
 
 import java.io.BufferedOutputStream;
@@ -102,7 +103,7 @@ public class AkCacheManager {
             }
 
             @Override
-            protected void output(String fileAbsoPath, String fileName, Bitmap v) {
+            protected void output(String fileAbsoPath, String fileName, Bitmap v, String imgUrl) {
                 BufferedOutputStream fos = null;
                 try {
                     File dir = new File(fileAbsoPath);
@@ -145,16 +146,16 @@ public class AkCacheManager {
             }
 
             @Override
-            protected void output(String fileAbsoPath, String fileName, Bitmap v) {
+            protected void output(String fileAbsoPath, String fileName, Bitmap v, String imgUrl) {
                 BufferedOutputStream fos = null;
                 try {
                     File dir = new File(fileAbsoPath);
                     dir.mkdirs();
                     File f = new File(dir, fileName);
                     fos = new BufferedOutputStream(new FileOutputStream(f));
-                    if (".png".endsWith(fileName.toLowerCase())) {
+                    if (!TextUtils.isEmpty(imgUrl) && imgUrl.toLowerCase().endsWith(".png")) {
                         v.compress(Bitmap.CompressFormat.PNG, 100, fos);
-                    } else if (".webp".endsWith(fileName.toLowerCase())) {
+                    } else if (!TextUtils.isEmpty(imgUrl) && imgUrl.toLowerCase().endsWith(".webp")) {
                         v.compress(Bitmap.CompressFormat.WEBP, 90, fos);
                     } else {
                         v.compress(Bitmap.CompressFormat.JPEG, 90, fos);

@@ -76,7 +76,7 @@ public abstract class FilesCacheSDFoldersImpl<V> implements FilesCache<V> {
     }
 
     protected abstract V xform(String fileAbsoPathAndName);
-    protected abstract void output(String fileAbsoPath, String fileName, V v);
+    protected abstract void output(String fileAbsoPath, String fileName, V v, String key);
     
     private String mapRule(String key) {
         // because the chinese char in url will break the md5.
@@ -144,7 +144,7 @@ public abstract class FilesCacheSDFoldersImpl<V> implements FilesCache<V> {
     public V put(String key, V value) {
         if (value != null) {
             V oldV = remove(key);
-            doSave(mapRule(key), value);
+            doSave(mapRule(key), value, key);
             if (value instanceof Bitmap && Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {
                 Bitmap bitmap = (Bitmap) value;
                 if (bitmap.getByteCount() < MEM_BITMAP_BYTE) {
@@ -162,7 +162,7 @@ public abstract class FilesCacheSDFoldersImpl<V> implements FilesCache<V> {
      * @param hashedKey
      * @param value
      */
-    private void doSave(String hashedKey, V value) {
+    private void doSave(String hashedKey, V value, String key) {
         String state = Environment.getExternalStorageState();
         if (Environment.MEDIA_MOUNTED.equals(state)) { // We can read and write the media
 
@@ -176,7 +176,7 @@ public abstract class FilesCacheSDFoldersImpl<V> implements FilesCache<V> {
 
         // doSave V to the sd cache filesystem
         String path = getSpecifiedCacheFilePath(hashedKey);
-        output(path, getSpecifiedCacheFileName(hashedKey), value);
+        output(path, getSpecifiedCacheFileName(hashedKey), value, key);
     }
 
     @Override

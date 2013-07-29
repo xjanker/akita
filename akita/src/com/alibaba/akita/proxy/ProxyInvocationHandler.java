@@ -10,8 +10,13 @@ package com.alibaba.akita.proxy;
 import com.alibaba.akita.annotation.*;
 import com.alibaba.akita.exception.AkInvokeException;
 import com.alibaba.akita.io.HttpInvoker;
+import com.alibaba.akita.util.GsonUtil;
 import com.alibaba.akita.util.JsonMapper;
 import com.alibaba.akita.util.Log;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.codehaus.jackson.JsonProcessingException;
@@ -123,31 +128,34 @@ public class ProxyInvocationHandler implements InvocationHandler {
         }
 
         // invoked, then add to history
-        ApiStats.addApiInvocation(apiInvokeInfo);
+        //ApiStats.addApiInvocation(apiInvokeInfo);
         
         //Log.d(TAG, retString);
         
         // parse the return-string
-        Class<?> returnType = method.getReturnType();
+        final Class<?> returnType = method.getReturnType();
         try {
             if (String.class.equals(returnType)) { // the result return raw string
                 return retString;
             } else {                               // return object using json decode
-                return JsonMapper.json2pojo(retString, returnType);
+                AkJsonPaser akJsonPaser = method.getAnnotation(AkJsonPaser.class);
+                if (akJsonPaser != null && akJsonPaser.value() != null) {
+                    if ("jackson".equals(akJsonPaser.value())) {
+                        return JsonMapper.json2pojo(retString, returnType);
+                    } else if ("gson".equals(akJsonPaser.value())) {
+                        return GsonUtil.getGson().fromJson(retString, returnType);
+                    } else {
+                        return JsonMapper.json2pojo(retString, returnType);
+                    }
+                } else {
+                    return JsonMapper.json2pojo(retString, returnType);
+                }
             }
-        } catch (JsonProcessingException e) {
+        } catch (Exception e) {
             Log.e(TAG, retString, e);  // log can print the error return-string
             throw new AkInvokeException(AkInvokeException.CODE_JSONPROCESS_EXCEPTION,
                     e.getMessage(), e);
-        } catch (IOException e) {
-            throw new AkInvokeException(AkInvokeException.CODE_IO_EXCEPTION,
-                    e.getMessage(), e);
         }
-        /*
-         * also can use gson like this eg. 
-         *  Gson gson = new Gson();
-         *  return gson.fromJson(HttpInvoker.post(url, params), returnType);
-         */
     }
 
     /**
