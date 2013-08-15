@@ -7,6 +7,7 @@ import android.os.Message;
 import android.widget.ImageView;
 import com.alibaba.akita.R;
 import com.alibaba.akita.util.ImageUtil;
+import com.alibaba.akita.widget.ResImageView;
 
 public class ResImageLoaderHandler extends Handler {
 
@@ -62,7 +63,10 @@ public class ResImageLoaderHandler extends Handler {
         if (imageUrl.equals(forUrl)) {
             if (bitmap == null) {
                 imageView.setImageBitmap(null);
-                imageView.setBackgroundResource(errorDrawable);
+                if (errorDrawable != 0)
+                    imageView.setBackgroundResource(errorDrawable);
+                else
+                    imageView.setBackgroundResource(ResImageView.DEFAULT_ERROR_DRAWABLE_RES_ID);
             } else {
                 // add round corner
                 if (roundCornerPx > 0 && roundCornerPx <= 100) {

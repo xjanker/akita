@@ -4,33 +4,44 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.AnimationDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Message;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.animation.AlphaAnimation;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.ViewSwitcher;
-import com.alibaba.akita.Akita;
 import com.alibaba.akita.R;
-import com.alibaba.akita.util.AndroidUtil;
 import com.alibaba.akita.util.Log;
-import com.alibaba.akita.widget.remoteimageview.ImageView_;
-import com.alibaba.akita.widget.remoteimageview.RemoteImageLoader;
-import com.alibaba.akita.widget.remoteimageview.RemoteImageLoaderHandler;
+import com.alibaba.akita.widget.common.ImageView_;
 import com.alibaba.akita.widget.resimageview.ResImageLoader;
 import com.alibaba.akita.widget.resimageview.ResImageLoaderHandler;
 
 
 /**
  * A ResImageView is used in resource-type remote image retrieve and display.
+ * <p>
+ * use xmlns:akita-auto="http://schemas.android.com/apk/res-auto" <br/>
+ * to add layout params.
+ * </p>
+ * <p>
+ * eg.
+ * </p>
+ * <pre class="prettyprint">
+ * &lt;com.alibaba.akita.widget.ResImageView
+ *     android:id="@+id/resiv_main"
+ *     android:layout_width="100dp"
+ *     android:layout_height="100dp"
+ *     akita-auto:noCache="true"
+ *     akita-auto:errorBgRes="@drawable/ic_launcher"
+ *     akita-auto:defaultImgRes="@drawable/ic_launcher"
+ * /&gt;
+ * </pre>
  *
  * @author Justin Yang
  */
 public class ResImageView extends ViewSwitcher {
     private static final String TAG = "akita.ResImageView";
+
     public static final int DEFAULT_ERROR_DRAWABLE_RES_ID = R.drawable.ic_akita_image_alert;
 
     /**
@@ -45,12 +56,12 @@ public class ResImageView extends ViewSwitcher {
      * remoteimageview real Width in px
      * wrap_content (<=0)
      */
-    private int imgBoxWidth = 0;
+    private int imgBoxWidthPx = 0;
     /**
      * remoteimageview real Height in px
      * wrap_content (<=0)
      */
-    private int imgBoxHeight = 0;
+    private int imgBoxHeightPx = 0;
     /**
      * 0: no round corner
      * >0: round corner px size
@@ -74,6 +85,14 @@ public class ResImageView extends ViewSwitcher {
      */
     private boolean isLoaded = false;
 
+    private int defaultImgRes = 0;
+    private int defaultBgRes = 0;
+    /**
+     * 暂时没用到
+     */
+    private int errorImgRes = 0;
+    private int errorBgRes = 0;
+
     private ImageView_ imageView;
     private ResImageLoader imageLoader;
     private static ResImageLoader sharedImageLoader;
@@ -90,27 +109,21 @@ public class ResImageView extends ViewSwitcher {
         sharedImageLoader = imageLoader;
     }
 
-    /**
-     * @param context
-     *            the view's current context
-     * @param imageUrl
-     *            the URL of the remoteimageview to download and show
-     * @param autoLoad
-     *            Whether the download should start immediately after creating the view. If set to
-     *            false, use {@link #loadImage()} to manually trigger the remoteimageview download.
-     */
-    public ResImageView(Context context, String imageUrl, boolean autoLoad,
-                        boolean fadeIn) {
-        super(context);
-        initialize(context, imageUrl, autoLoad, fadeIn, null);
-    }
-
     public ResImageView(Context context, AttributeSet attributes) {
         super(context, attributes);
 
-        TypedArray a = context.getTheme().obtainStyledAttributes(attributes, R.styleable.RemoteImageView, 0, 0);
-        roundCornerPx = (int)a.getDimension(R.styleable.RemoteImageView_roundCorner, 0.0f);
-        noCache = a.getBoolean(R.styleable.RemoteImageView_noCache, false);
+        TypedArray a = context.getTheme().obtainStyledAttributes(attributes, R.styleable.ResImageView, 0, 0);
+        imageUrl = a.getString(R.styleable.ResImageView_imageUrl);
+        autoLoad = a.getBoolean(R.styleable.ResImageView_autoLoad, false);
+        fadeIn = a.getBoolean(R.styleable.ResImageView_fadeIn, false);
+        imgBoxHeightPx = (int)a.getDimension(R.styleable.ResImageView_imgBoxHeight, 0.0f);
+        imgBoxWidthPx = (int)a.getDimension(R.styleable.ResImageView_imgBoxWidth, 0.0f);
+        roundCornerPx = (int)a.getDimension(R.styleable.ResImageView_roundCorner, 0.0f);
+        noCache = a.getBoolean(R.styleable.ResImageView_noCache, false);
+        defaultImgRes = a.getResourceId(R.styleable.ResImageView_defaultImgRes, 0);
+        defaultBgRes = a.getResourceId(R.styleable.ResImageView_defaultBgRes, 0);
+        errorImgRes = a.getResourceId(R.styleable.ResImageView_errorImgRes, 0);
+        errorBgRes = a.getResourceId(R.styleable.ResImageView_errorBgRes, 0);
         a.recycle();
 
         initialize(context, imageUrl, autoLoad, fadeIn, attributes);
@@ -163,12 +176,6 @@ public class ResImageView extends ViewSwitcher {
         }
     }
 
-    public void setDummyImageDrawable(Drawable drawable) {
-        if (imageLoader != null) {
-            imageLoader.setDefaultDummyDrawable(drawable);
-        }
-    }
-
     /**
      * Use this method to trigger the resimageview download if you had previously set autoLoad to false.
      */
@@ -180,15 +187,14 @@ public class ResImageView extends ViewSwitcher {
             return;
         }
 
-        imageLoader.loadImage(imageUrl, httpReferer, noCache, null, imageView,
-                new DefaultImageLoaderHandler(imgBoxWidth, imgBoxHeight, roundCornerPx));
-    }
+        // set default img and bg
+        if (defaultImgRes != 0)
+            imageView.setImageResource(defaultImgRes);
+        if (defaultBgRes != 0)
+            imageView.setBackgroundResource(defaultBgRes);
 
-    /**
-     * reset dummy image
-     */
-    public void resetDummyImage() {
-        imageView.setImageResource(android.R.drawable.ic_menu_gallery);
+        imageLoader.loadImage(imageUrl, httpReferer, noCache, null, imageView,
+                new DefaultImageLoaderHandler(errorBgRes, imgBoxWidthPx, imgBoxHeightPx, roundCornerPx));
     }
 
     public boolean isLoaded() {
@@ -224,12 +230,57 @@ public class ResImageView extends ViewSwitcher {
      * Box size in px.
      * wrap_contant: <=0
      * Set it to scale the remoteimageview using this box
-     * @param imgMaxWidth
-     * @param imgMaxHeight
+     * @param imgMaxWidthPx
+     * @param imgMaxHeightPx
      */
-    public void setImageBoxSize(int imgMaxWidth, int imgMaxHeight) {
-        this.imgBoxWidth = imgMaxWidth;
-        this.imgBoxHeight = imgMaxHeight;
+    public void setImageBoxSize(int imgMaxWidthPx, int imgMaxHeightPx) {
+        this.imgBoxWidthPx = imgMaxWidthPx;
+        this.imgBoxHeightPx = imgMaxHeightPx;
+    }
+
+    /**
+     * fadein when loaded
+     * @param fadeIn
+     */
+    public void setFadeIn(boolean fadeIn) {
+        this.fadeIn = fadeIn;
+    }
+
+    /**
+     * round corner of the image in px
+     * @param roundCornerPx
+     */
+    public void setRoundCornerPx(int roundCornerPx) {
+        this.roundCornerPx = roundCornerPx;
+    }
+
+    /**
+     * default image resouce before loaded
+     * if not set, then no image set.
+     * set it in loadImage();
+     * @param defaultImgRes
+     */
+    public void setDefaultImageResouce(int defaultImgRes) {
+        this.defaultImgRes = defaultImgRes;
+    }
+
+    /**
+     * default background resouce before loaded
+     * if not set, then no image set.
+     * set it in loadImage();
+     * @param defaultBgRes
+     */
+    public void setDefaultBackgroundResource(int defaultBgRes) {
+        this.defaultBgRes = defaultBgRes;
+    }
+
+    /**
+     * background resouce when have error
+     * if not set, then default error image ic_akita_image_alert.png set.
+     * @param errorBgRes
+     */
+    public void setErrorBackgroundResource(int errorBgRes) {
+        this.errorBgRes = errorBgRes;
     }
 
     /**
@@ -250,7 +301,7 @@ public class ResImageView extends ViewSwitcher {
             Log.e(TAG, ooe.toString(), ooe);
         }
 
-        setDisplayedChild(1);
+        setDisplayedChild(0);
     }
 
     /**
@@ -264,13 +315,7 @@ public class ResImageView extends ViewSwitcher {
      */
     public void setLocalImage(Bitmap bitmap) {
         imageView.setImageBitmap(bitmap);
-        setDisplayedChild(1);
-    }
-
-    @Override
-    public void reset() {
-        super.reset();
-        this.setDisplayedChild(0);
+        setDisplayedChild(0);
     }
 
     /**
@@ -284,8 +329,8 @@ public class ResImageView extends ViewSwitcher {
 
     private class DefaultImageLoaderHandler extends ResImageLoaderHandler {
 
-        public DefaultImageLoaderHandler(int imgMaxWidth, int imgMaxHeight, int roundCornerPx) {
-            super(imageView, imageUrl, 0, imgMaxWidth, imgMaxHeight, roundCornerPx);
+        public DefaultImageLoaderHandler(int errorBgRes, int imgMaxWidth, int imgMaxHeight, int roundCornerPx) {
+            super(imageView, imageUrl, errorBgRes, imgMaxWidth, imgMaxHeight, roundCornerPx);
         }
 
         @Override
@@ -296,7 +341,7 @@ public class ResImageView extends ViewSwitcher {
             boolean wasUpdated = super.handleImageLoaded(bitmap, msg);
             if (wasUpdated) {
                 isLoaded = true;
-                setDisplayedChild(1);
+                setDisplayedChild(0);
             }
             return wasUpdated;
         }

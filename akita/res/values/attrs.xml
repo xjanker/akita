@@ -14,16 +14,26 @@
   -->
 
 <resources>
-    <!--<declare-styleable name="RemoteImageView">
-        <attr name="width" format="dimension"/>
-        <attr name="height" format="dimension" />
-        <attr name="defaultDrawable" format="reference" />
-        <attr name="errorDrawable" format="reference" />
-        <attr name="autoLoad" format="boolean" />
-    </declare-styleable>-->
+
+    <attr name="roundCorner" format="dimension"/>
+    <attr name="noCache" format="boolean"/>
 
     <declare-styleable name="RemoteImageView">
-        <attr name="roundCorner" format="dimension"/>
-        <attr name="noCache" format="boolean"/>
+        <attr name="roundCorner" />
+        <attr name="noCache" />
+    </declare-styleable>
+
+    <declare-styleable name="ResImageView">
+        <attr name="imageUrl" format="string"/>
+        <attr name="autoLoad" format="boolean"/>
+        <attr name="fadeIn" format="boolean"/>
+        <attr name="imgBoxWidth" format="dimension"/>
+        <attr name="imgBoxHeight" format="dimension"/>
+        <attr name="roundCorner" />
+        <attr name="noCache" />
+        <attr name="defaultImgRes" format="reference"/>
+        <attr name="defaultBgRes" format="reference"/>
+        <attr name="errorImgRes" format="reference"/>
+        <attr name="errorBgRes" format="reference"/>
     </declare-styleable>
 </resources>

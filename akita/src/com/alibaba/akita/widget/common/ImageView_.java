@@ -1,4 +1,4 @@
-package com.alibaba.akita.widget.resimageview;
+package com.alibaba.akita.widget.common;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -8,6 +8,10 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
+/**
+ * 较安全的ImageView
+ * 在onDraw阶段会判断bitmao是否被回收
+ */
 public class ImageView_ extends ImageView {
 
     public ImageView_(Context context) {

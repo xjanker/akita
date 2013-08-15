@@ -77,7 +77,7 @@ public class JsonMapper {
     public static <T> List<T> json2pojoList(String jsonAsString, Class<T> pojoClass)
             throws JsonMappingException, JsonParseException, IOException {
         List<T> list;
-        TypeFactory t = TypeFactory.defaultInstance();
+        TypeFactory t = m.getTypeFactory();
         list = m.readValue(jsonAsString, t.constructCollectionType(ArrayList.class, pojoClass));
         return list;
     }
