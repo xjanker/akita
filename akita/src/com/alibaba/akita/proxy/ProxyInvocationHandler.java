@@ -145,10 +145,10 @@ public class ProxyInvocationHandler implements InvocationHandler {
                     } else if ("gson".equals(akJsonPaser.value())) {
                         return GsonUtil.getGson().fromJson(retString, returnType);
                     } else {
-                        return GsonUtil.getGson().fromJson(retString, returnType);
+                        return JsonMapper.json2pojo(retString, returnType);
                     }
                 } else {
-                    return GsonUtil.getGson().fromJson(retString, returnType);
+                    return JsonMapper.json2pojo(retString, returnType);
                 }
             }
         } catch (Exception e) {
