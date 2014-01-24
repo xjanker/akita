@@ -25,6 +25,19 @@ import android.widget.Toast;
  * @author zhe.yangz
  */
 public class MessageUtil {
+
+    private static Toast mToast;
+
+    public static void showSingletonToast(Context context, String text) {
+        try {
+            if (mToast == null) {
+                mToast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
+            }
+            mToast.setText(text);
+            mToast.show();
+        } catch (Exception e) {};
+    }
+
     public static void showLongToast(Context context, int res) {
         try {
             Toast.makeText(context, res, Toast.LENGTH_LONG).show();
