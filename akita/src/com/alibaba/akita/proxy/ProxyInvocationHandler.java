@@ -10,19 +10,12 @@ package com.alibaba.akita.proxy;
 import com.alibaba.akita.annotation.*;
 import com.alibaba.akita.exception.AkInvokeException;
 import com.alibaba.akita.io.HttpInvoker;
-import com.alibaba.akita.util.GsonUtil;
 import com.alibaba.akita.util.JsonMapper;
 import com.alibaba.akita.util.Log;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonSyntaxException;
-import com.google.gson.reflect.TypeToken;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.codehaus.jackson.JsonProcessingException;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationHandler;
@@ -138,22 +131,12 @@ public class ProxyInvocationHandler implements InvocationHandler {
             if (String.class.equals(returnType)) { // the result return raw string
                 return retString;
             } else {                               // return object using json decode
-                AkJsonPaser akJsonPaser = method.getAnnotation(AkJsonPaser.class);
-                if (akJsonPaser != null && akJsonPaser.value() != null) {
-                    if ("jackson".equals(akJsonPaser.value())) {
-                        return JsonMapper.json2pojo(retString, returnType);
-                    } else if ("gson".equals(akJsonPaser.value())) {
-                        return GsonUtil.getGson().fromJson(retString, returnType);
-                    } else {
-                        return JsonMapper.json2pojo(retString, returnType);
-                    }
-                } else {
-                    return JsonMapper.json2pojo(retString, returnType);
-                }
+                return JsonMapper.json2pojo(retString, returnType);
             }
         } catch (Exception e) {
             Log.e(TAG, retString, e);  // log can print the error return-string
-            throw new AkInvokeException(AkInvokeException.CODE_JSONPROCESS_EXCEPTION,
+            throw new AkInvokeException(
+                    AkInvokeException.CODE_JSONPROCESS_EXCEPTION,
                     e.getMessage(), e);
         }
     }
