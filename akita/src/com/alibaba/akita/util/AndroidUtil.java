@@ -78,12 +78,6 @@ public class AndroidUtil {
         }
     }
 
-    public static String getAppName(Context context) {
-        String verName = context.getResources().getText(R.string.app_name)  // TODO NEED PROVE
-                .toString();
-        return verName;
-    }
-
     /**
      * 获取DeviceId
      *
@@ -257,9 +251,9 @@ public class AndroidUtil {
         try {
             AlertDialog.Builder b = new AlertDialog.Builder(context)
                     .setIcon(android.R.drawable.ic_dialog_alert)
-                    .setTitle(R.string.check_network_no_available_network_title)
-                    .setMessage(
-                            R.string.check_network_no_available_network_message);
+                    .setTitle("No available network")
+                    .setMessage("Please note that there\\'s some problem on your network status. " +
+                            "You must set your network properly first.");
             b.setPositiveButton(android.R.string.ok, null).show();
         } catch (Exception e) {
             e.printStackTrace();

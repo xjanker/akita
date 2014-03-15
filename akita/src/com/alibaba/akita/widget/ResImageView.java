@@ -42,7 +42,7 @@ import com.alibaba.akita.widget.resimageview.ResImageLoaderHandler;
 public class ResImageView extends ViewSwitcher {
     private static final String TAG = "akita.ResImageView";
 
-    public static final int DEFAULT_ERROR_DRAWABLE_RES_ID = R.drawable.ic_akita_image_alert;
+    public static final int DEFAULT_ERROR_DRAWABLE_RES_ID = R.drawable.ic_akita_alert;
 
     /**
      * image url
