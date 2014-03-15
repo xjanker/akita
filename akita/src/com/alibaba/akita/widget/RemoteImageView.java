@@ -17,7 +17,7 @@ import com.alibaba.akita.Akita;
 import com.alibaba.akita.R;
 import com.alibaba.akita.util.AndroidUtil;
 import com.alibaba.akita.util.Log;
-import com.alibaba.akita.widget.remoteimageview.ImageView_;
+import com.alibaba.akita.widget.common.ImageView_;
 import com.alibaba.akita.widget.remoteimageview.RemoteImageLoader;
 import com.alibaba.akita.widget.remoteimageview.RemoteImageLoaderHandler;
 

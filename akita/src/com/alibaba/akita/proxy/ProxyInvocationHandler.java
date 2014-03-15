@@ -14,10 +14,8 @@ import com.alibaba.akita.util.JsonMapper;
 import com.alibaba.akita.util.Log;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.codehaus.jackson.JsonProcessingException;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationHandler;
@@ -123,31 +121,24 @@ public class ProxyInvocationHandler implements InvocationHandler {
         }
 
         // invoked, then add to history
-        ApiStats.addApiInvocation(apiInvokeInfo);
+        //ApiStats.addApiInvocation(apiInvokeInfo);
         
         //Log.d(TAG, retString);
         
         // parse the return-string
-        Class<?> returnType = method.getReturnType();
+        final Class<?> returnType = method.getReturnType();
         try {
             if (String.class.equals(returnType)) { // the result return raw string
                 return retString;
             } else {                               // return object using json decode
                 return JsonMapper.json2pojo(retString, returnType);
             }
-        } catch (JsonProcessingException e) {
+        } catch (Exception e) {
             Log.e(TAG, retString, e);  // log can print the error return-string
-            throw new AkInvokeException(AkInvokeException.CODE_JSONPROCESS_EXCEPTION,
-                    e.getMessage(), e);
-        } catch (IOException e) {
-            throw new AkInvokeException(AkInvokeException.CODE_IO_EXCEPTION,
+            throw new AkInvokeException(
+                    AkInvokeException.CODE_JSONPROCESS_EXCEPTION,
                     e.getMessage(), e);
         }
-        /*
-         * also can use gson like this eg. 
-         *  Gson gson = new Gson();
-         *  return gson.fromJson(HttpInvoker.post(url, params), returnType);
-         */
     }
 
     /**

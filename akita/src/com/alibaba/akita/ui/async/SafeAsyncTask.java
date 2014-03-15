@@ -88,7 +88,7 @@ public abstract class SafeAsyncTask<T> extends AsyncTask<Integer, Integer, T> {
             try {
                 onUIAfter(t);
             } catch (Exception akException) {
-                onHandleAkException(mException);
+                onHandleAkException(akException);
             }
         }
         try {

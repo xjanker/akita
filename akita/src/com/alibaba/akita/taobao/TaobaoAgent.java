@@ -103,11 +103,30 @@ public class TaobaoAgent {
                     e.getMessage(), e);
         }
 
-        String retStr =
-                topAPI.top_online(DateUtil.getTimestampDatetime(topRequest.getT()),
+        String retStr = "";
+
+        switch (runMode) {
+            case PRODUCTION:
+                retStr = topAPI.top_online(DateUtil.getTimestampDatetime(topRequest.getT()),
                         topRequest.getV(),
                         app_key, app_secret,
                         topRequest.getMethod(), session, partner_id, "json", "hmac", appLayerData);
+
+                break;
+            case PREDEPLOY:
+                retStr = topAPI.top_predeploy(DateUtil.getTimestampDatetime(topRequest.getT()),
+                        topRequest.getV(),
+                        app_key, app_secret,
+                        topRequest.getMethod(), session, partner_id, "json", "hmac", appLayerData);
+
+                break;
+            case DALIY:
+                retStr = topAPI.top_daily(DateUtil.getTimestampDatetime(topRequest.getT()),
+                        topRequest.getV(),
+                        app_key, app_secret,
+                        topRequest.getMethod(), session, partner_id, "json", "hmac", appLayerData);
+                break;
+        }
 
         // TOP的底层出错信息处理
         if (retStr != null && retStr.contains("{\"error_response\":{\"code\"")) {

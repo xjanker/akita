@@ -20,8 +20,7 @@ import android.util.FloatMath;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.TranslateAnimation;
-import android.widget.ImageView;
-import com.alibaba.akita.widget.remoteimageview.ImageView_;
+import com.alibaba.akita.widget.common.ImageView_;
 
 /**
  * Created with IntelliJ IDEA.

@@ -13,6 +13,8 @@ import java.io.Reader;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.codehaus.jackson.JsonFactory;
@@ -30,6 +32,7 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.SerializationConfig;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
+import org.codehaus.jackson.map.type.TypeFactory;
 import org.codehaus.jackson.node.ArrayNode;
 import org.codehaus.jackson.node.ObjectNode;
 
@@ -69,6 +72,14 @@ public class JsonMapper {
     public static <T> T json2pojo(String jsonAsString, Class<T> pojoClass)
             throws JsonMappingException, JsonParseException, IOException {
         return m.readValue(jsonAsString, pojoClass);
+    }
+
+    public static <T> List<T> json2pojoList(String jsonAsString, Class<T> pojoClass)
+            throws JsonMappingException, JsonParseException, IOException {
+        List<T> list;
+        TypeFactory t = m.getTypeFactory();
+        list = m.readValue(jsonAsString, t.constructCollectionType(ArrayList.class, pojoClass));
+        return list;
     }
 
     public static Map<?, ?> json2map(String jsonAsString) throws JsonMappingException,

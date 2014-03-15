@@ -21,6 +21,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
+import android.text.TextUtils;
 import com.alibaba.akita.util.Log;
 
 import java.io.BufferedOutputStream;
@@ -81,7 +82,12 @@ public class AkCacheManager {
     public static SimpleCache getAppData(Context context, String tagName) {
         return new SimpleCacheSqliteImpl(context, "appdata.db", tagName, 1, 0);
     }
-    
+
+    /**
+     * 此FileCache会把所有Bitmap都转成70%的JPEG存储
+     * @param context
+     * @return
+     */
     public static FilesCache<Bitmap> getImageFilesCache(Context context) {
         return new FilesCacheSDFoldersImpl<Bitmap>(context, "image0") {
 
@@ -97,9 +103,7 @@ public class AkCacheManager {
             }
 
             @Override
-            protected void output(String fileAbsoPath, String fileName, Bitmap v) {
-                // TODO: It would be nice to replace Buffered Output Stream
-                // and do some tests when I have time
+            protected void output(String fileAbsoPath, String fileName, Bitmap v, String imgUrl) {
                 BufferedOutputStream fos = null;
                 try {
                     File dir = new File(fileAbsoPath);
@@ -107,6 +111,55 @@ public class AkCacheManager {
                     File f = new File(dir, fileName);
                     fos = new BufferedOutputStream(new FileOutputStream(f));
                     v.compress(Bitmap.CompressFormat.JPEG, 75, fos);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    if (fos != null) {
+                        try {
+                            fos.close();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        };
+    }
+
+    /**
+     * 此FileCache会使用此Bitmap原来的格式存储，PNG、WebP或JPEG
+     * @param context
+     * @return
+     */
+    public static FilesCache<Bitmap> getResImageFilesCache(Context context) {
+        return new FilesCacheSDFoldersImpl<Bitmap>(context, "image_res") {
+
+            @Override
+            protected Bitmap xform(String fileAbsoPath) {
+                try {
+                    return BitmapFactory.decodeFile(fileAbsoPath);
+                }
+                catch (OutOfMemoryError ooe) {
+                    Log.e(TAG, ooe.toString(), ooe);
+                }
+                return null;
+            }
+
+            @Override
+            protected void output(String fileAbsoPath, String fileName, Bitmap v, String imgUrl) {
+                BufferedOutputStream fos = null;
+                try {
+                    File dir = new File(fileAbsoPath);
+                    dir.mkdirs();
+                    File f = new File(dir, fileName);
+                    fos = new BufferedOutputStream(new FileOutputStream(f));
+                    if (!TextUtils.isEmpty(imgUrl) && imgUrl.toLowerCase().endsWith(".png")) {
+                        v.compress(Bitmap.CompressFormat.PNG, 100, fos);
+                    } else if (!TextUtils.isEmpty(imgUrl) && imgUrl.toLowerCase().endsWith(".webp")) {
+                        v.compress(Bitmap.CompressFormat.WEBP, 90, fos);
+                    } else {
+                        v.compress(Bitmap.CompressFormat.JPEG, 90, fos);
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
