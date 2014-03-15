@@ -43,7 +43,7 @@ import com.alibaba.akita.widget.remoteimageview.RemoteImageLoaderHandler;
 public class RemoteImageView extends ViewSwitcher {
     private static final String TAG = "akita.RemoteImageView";
 
-    public static final int DEFAULT_ERROR_DRAWABLE_RES_ID = R.drawable.ic_akita_image_alert;
+    public static final int DEFAULT_ERROR_DRAWABLE_RES_ID = R.drawable.ic_akita_alert;
 
     private static final String ATTR_AUTO_LOAD = "autoLoad";
     private static final String ATTR_IMAGE_URL = "imageUrl";
