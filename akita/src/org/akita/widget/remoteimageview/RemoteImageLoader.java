@@ -42,8 +42,8 @@ public class RemoteImageLoader {
     private ThreadPoolExecutor executor;
     private FilesCache<Bitmap> imageCache;
 
-    private Drawable defaultDummyDrawable;
-    private int errorDrawable;
+    private int defaultBgRes;
+    private int errorBgRes;
 
     public RemoteImageLoader(Context context) {
         this(context, true);
@@ -74,8 +74,8 @@ public class RemoteImageLoader {
             /*imageCache.enableDiskCache(context.getApplicationContext(),
                     ImageCache.DISK_CACHE_SDCARD);*/
         }
-        errorDrawable = RemoteImageView.DEFAULT_ERROR_DRAWABLE_RES_ID;
-        defaultDummyDrawable = context.getResources().getDrawable(android.R.drawable.ic_menu_gallery);
+        errorBgRes = RemoteImageView.DEFAULT_ERROR_DRAWABLE_RES_ID;
+        defaultBgRes = android.R.drawable.ic_menu_gallery;
     }
 
     /**
@@ -86,12 +86,12 @@ public class RemoteImageLoader {
         executor.setMaximumPoolSize(numThreads);
     }
 
-    public void setDefaultDummyDrawable(Drawable drawable) {
-        this.defaultDummyDrawable = drawable;
+    public void setDefaultBgRes(int defaultBgRes) {
+        this.defaultBgRes = defaultBgRes;
     }
 
-    public void setDownloadFailedDrawableRes(int drawable) {
-        this.errorDrawable = drawable;
+    public void setErrorBgRes(int errorBgRes) {
+        this.errorBgRes = errorBgRes;
     }
 
     public void setImageCache(FilesCache<Bitmap> imageCache) {
@@ -130,8 +130,8 @@ public class RemoteImageLoader {
      */
     public void loadImage(String imageUrl, String httpReferer, boolean noCache, ProgressBar progressBar,
                           ImageView imageView) {
-        loadImage(imageUrl, httpReferer, noCache, progressBar, imageView, defaultDummyDrawable, new RemoteImageLoaderHandler(
-                imageView, imageUrl, errorDrawable, 0, 0, 0));
+        loadImage(imageUrl, httpReferer, noCache, progressBar, imageView, defaultBgRes, new RemoteImageLoaderHandler(
+                imageView, imageUrl, errorBgRes, 0, 0, 0));
     }
 
     /**
@@ -144,13 +144,13 @@ public class RemoteImageLoader {
      *            the URL of the remoteimageview to download
      * @param imageView
      *            the ImageView which should be updated with the new remoteimageview
-     * @param dummyDrawable
-     *            the Drawable to be shown while the remoteimageview is being downloaded.
+     * @param defaultBgRes
+     *            the bg image res to be shown while the remoteimageview is being downloaded.
      */
     public void loadImage(String imageUrl, String httpReferer, boolean noCache, ProgressBar progressBar,
-                          ImageView imageView, Drawable dummyDrawable) {
-        loadImage(imageUrl, httpReferer, noCache, progressBar, imageView, dummyDrawable, new RemoteImageLoaderHandler(
-                imageView, imageUrl, errorDrawable, 0, 0, 0));
+                          ImageView imageView, int defaultBgRes) {
+        loadImage(imageUrl, httpReferer, noCache, progressBar, imageView, defaultBgRes, new RemoteImageLoaderHandler(
+                imageView, imageUrl, errorBgRes, 0, 0, 0));
     }
 
     /**
@@ -167,7 +167,7 @@ public class RemoteImageLoader {
      */
     public void loadImage(String imageUrl, String httpReferer, boolean noCache, ProgressBar progressBar,
                           ImageView imageView, RemoteImageLoaderHandler handler) {
-        loadImage(imageUrl, httpReferer, noCache, progressBar, imageView, defaultDummyDrawable, handler);
+        loadImage(imageUrl, httpReferer, noCache, progressBar, imageView, defaultBgRes, handler);
     }
 
     /**
@@ -180,20 +180,22 @@ public class RemoteImageLoader {
      *            the URL of the remoteimageview to download
      * @param imageView
      *            the ImageView which should be updated with the new remoteimageview
-     * @param dummyDrawable
-     *            the Drawable to be shown while the remoteimageview is being downloaded.
+     * @param defaultBgRes
+     *            the bg image res to be shown while the remoteimageview is being downloaded.
      * @param handler
      *            the handler that will process the bitmap after completion
      */
     public void loadImage(String imageUrl, String httpReferer, boolean noCache, ProgressBar progressBar, ImageView imageView,
-                          Drawable dummyDrawable, RemoteImageLoaderHandler handler) {
+                          int defaultBgRes, RemoteImageLoaderHandler handler) {
         if (imageView != null) {
             if (imageUrl == null) {
                 // In a ListView views are reused, so we must be sure to remove the tag that could
                 // have been set to the ImageView to prevent that the wrong remoteimageview is set.
                 imageView.setTag(null);
-                if (dummyDrawable != null) {
-                    imageView.setImageDrawable(dummyDrawable);
+                if (defaultBgRes > 0) {
+                    imageView.setBackgroundResource(defaultBgRes);
+                } else if (this.defaultBgRes > 0) {
+                    imageView.setBackgroundResource(this.defaultBgRes);
                 }
                 return;
             }
@@ -202,10 +204,12 @@ public class RemoteImageLoader {
                 // nothing to do
                 return;
             } else {
-                if (dummyDrawable != null) {
+                if (defaultBgRes > 0) {
                     // Set the dummy remoteimageview while waiting for
                     // the actual remoteimageview to be downloaded.
-                    imageView.setImageDrawable(dummyDrawable);
+                    imageView.setBackgroundResource(defaultBgRes);
+                } else if (this.defaultBgRes > 0) {
+                    imageView.setBackgroundResource(this.defaultBgRes);
                 }
                 imageView.setTag(imageUrl);
             }

@@ -14,15 +14,11 @@ import android.view.animation.AlphaAnimation;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.ViewSwitcher;
-import org.akita.Akita;
-import org.akita.R;
 import org.akita.util.AndroidUtil;
 import org.akita.util.Log;
 import org.akita.widget.common.ImageView_;
 import org.akita.widget.remoteimageview.RemoteImageLoader;
 import org.akita.widget.remoteimageview.RemoteImageLoaderHandler;
-
-import java.lang.reflect.Field;
 
 
 /**
@@ -91,7 +87,7 @@ public class RemoteImageView extends ViewSwitcher {
      */
     private int defaultImgRes = 0;
     /**
-     * NOT USED YET
+     * USED
      */
     private int defaultBgRes = 0;
     /**
@@ -280,9 +276,9 @@ public class RemoteImageView extends ViewSwitcher {
         }
     }
 
-    public void setDummyImageDrawable(Drawable drawable) {
+    public void setDefaultBgRes(int defaultBgRes) {
         if (imageLoader != null) {
-            imageLoader.setDefaultDummyDrawable(drawable);
+            imageLoader.setDefaultBgRes(defaultBgRes);
         }
     }
 
@@ -296,15 +292,19 @@ public class RemoteImageView extends ViewSwitcher {
             Log.e(TAG, e.toString(), e);
             return;
         }
-        setDisplayedChild(0);
+
 
         if (showProgress) {
             loadingSpinner.setProgress(0);
             imageLoader.loadImage(imageUrl, httpReferer, noCache, loadingSpinner, imageView,
+                    defaultBgRes,
                     new DefaultImageLoaderHandler(imgBoxWidth, imgBoxHeight, roundCornerPx));
+            setDisplayedChild(0);
         } else {
             imageLoader.loadImage(imageUrl, httpReferer, noCache, null, imageView,
+                    defaultBgRes,
                     new DefaultImageLoaderHandler(imgBoxWidth, imgBoxHeight, roundCornerPx));
+            setDisplayedChild(1);
         }
     }
 
