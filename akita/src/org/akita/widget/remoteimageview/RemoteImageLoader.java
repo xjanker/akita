@@ -75,7 +75,7 @@ public class RemoteImageLoader {
                     ImageCache.DISK_CACHE_SDCARD);*/
         }
         errorBgRes = RemoteImageView.DEFAULT_ERROR_DRAWABLE_RES_ID;
-        //defaultBgRes = android.R.drawable.ic_menu_gallery;
+        defaultBgRes = android.R.drawable.ic_menu_gallery;
     }
 
     /**
@@ -192,6 +192,7 @@ public class RemoteImageLoader {
                 // In a ListView views are reused, so we must be sure to remove the tag that could
                 // have been set to the ImageView to prevent that the wrong remoteimageview is set.
                 imageView.setTag(null);
+                imageView.setImageBitmap(null);
                 if (defaultBgRes > 0) {
                     imageView.setBackgroundResource(defaultBgRes);
                 } else if (this.defaultBgRes > 0) {
@@ -204,6 +205,7 @@ public class RemoteImageLoader {
                 // nothing to do
                 return;
             } else {
+                imageView.setImageBitmap(null);
                 if (defaultBgRes > 0) {
                     // Set the dummy remoteimageview while waiting for
                     // the actual remoteimageview to be downloaded.
