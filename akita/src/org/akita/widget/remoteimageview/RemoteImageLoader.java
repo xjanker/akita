@@ -75,7 +75,7 @@ public class RemoteImageLoader {
                     ImageCache.DISK_CACHE_SDCARD);*/
         }
         errorBgRes = RemoteImageView.DEFAULT_ERROR_DRAWABLE_RES_ID;
-        defaultBgRes = android.R.drawable.ic_menu_gallery;
+        //defaultBgRes = android.R.drawable.ic_menu_gallery;
     }
 
     /**

@@ -10,6 +10,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Message;
 import android.util.AttributeSet;
 import android.view.Gravity;
+import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -226,7 +227,7 @@ public class RemoteImageView extends ViewSwitcher {
 
         if (showProgress) {
             loadingSpinner = new ProgressBar(context, null, android.R.attr.progressBarStyleHorizontal);
-            lp = new LayoutParams(AndroidUtil.dp2px(context, 36), AndroidUtil.dp2px(context, 36));
+            lp = new LayoutParams(AndroidUtil.dp2px(context, 36), ViewGroup.LayoutParams.WRAP_CONTENT);
             lp.gravity = Gravity.CENTER;
         } else {
             loadingSpinner = new ProgressBar(context);

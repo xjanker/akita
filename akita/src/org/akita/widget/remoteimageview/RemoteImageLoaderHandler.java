@@ -79,6 +79,7 @@ public class RemoteImageLoaderHandler extends Handler {
                     Bitmap scaledBitmap = ImageUtil.xform(bitmap, imgMaxWidth, imgMaxHeight);
                     imageView.setImageBitmap(scaledBitmap);
                 }
+                imageView.setBackgroundDrawable(null);
             }
 
             // remove the remoteimageview URL from the view's tag
