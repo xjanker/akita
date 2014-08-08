@@ -477,6 +477,15 @@ public class HttpInvoker {
             String actionUrl, ArrayList<NameValuePair> params, Map<String, File> files)
             throws AkInvokeException {
         try {
+            Log.v(TAG, "post:" + actionUrl);
+            if (params != null) {
+                Log.v(TAG, "params:=====================");
+                for (NameValuePair nvp : params) {
+                    Log.v(TAG, nvp.getName() + "=" + nvp.getValue());
+                }
+                Log.v(TAG, "params end:=====================");
+            }
+
             String BOUNDARY = java.util.UUID.randomUUID().toString();
             String PREFIX = "--", LINEND = "\r\n";
             String MULTIPART_FROM_DATA = "multipart/form-data";
@@ -529,7 +538,7 @@ public class HttpInvoker {
                     sb1.append(PREFIX);
                     sb1.append(BOUNDARY);
                     sb1.append(LINEND);
-                    sb1.append("Content-Disposition: form-data; name=\"file"+num+"\"; filename=\""
+                    sb1.append("Content-Disposition: form-data; name=\""+file.getKey()+"\"; filename=\""
                             + file.getKey() + "\"" + LINEND);
                     sb1.append("Content-Type: application/octet-stream; charset="
                             + CHARSET + LINEND);
@@ -568,6 +577,7 @@ public class HttpInvoker {
             }
             outStream.close();
             conn.disconnect();
+            Log.v(TAG, "response:" + sb2.toString());
             return sb2.toString();
         } catch (IOException ioe) {
             throw new AkInvokeException(AkInvokeException.CODE_IO_EXCEPTION, "IO Exception", ioe);
