@@ -17,12 +17,22 @@ import java.util.Map;
  * Caution: use this impl on support_v4
  * @author zhe.yangz 2012-3-30 下午03:23:19
  */
-public class MemCacheLruImpl<K, V> implements MemCache<K, V> {
+public class MemCacheLruBitmapImpl<K, V> implements MemCache<K, V> {
 
     private LruCache<K, V> mCache = null;
 
-    protected MemCacheLruImpl(int maxSize){
-        mCache = new LruCache<K, V>(maxSize);
+    protected MemCacheLruBitmapImpl(int maxMByteSize){
+        mCache = new LruCache<K, V>(maxMByteSize) {
+            @Override
+            protected int sizeOf(K key, V value) {
+                return super.sizeOf(key, value);
+            }
+
+            @Override
+            protected void entryRemoved(boolean evicted, K key, V oldValue, V newValue) {
+                super.entryRemoved(evicted, key, oldValue, newValue);
+            }
+        };
 
     }
     
