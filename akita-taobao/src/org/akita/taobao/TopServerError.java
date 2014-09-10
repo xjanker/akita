@@ -11,29 +11,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.akita.cache;
-
-
-import java.util.Map;
+package org.akita.taobao;
 
 /**
- * Mem level Cache
- * @author zhe.yangz 2012-3-30 下午03:23:19
+ * Created with IntelliJ IDEA.
+ * User: justinyang
+ * Date: 13-5-7
+ * Time: AM9:47
  */
-public interface MemCache<K, V> {
-
-    public V get(K key);
-    public V put(K key, V value);
-    public V remove(K key);
-
-    /**
-     * Clear all kvs of this MemCache
-     */
-    public void clear();
-
-    /**
-     * Get a snapshot of cache
-     */
-    public Map<K, V> snapshot();
-    
+public class TopServerError {
+    public ResponseError error_response;
+    public static class ResponseError {
+        public int code;
+        public String msg;
+    }
 }
