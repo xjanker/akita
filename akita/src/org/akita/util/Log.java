@@ -19,7 +19,7 @@ package org.akita.util;
  * @author zhe.yangz 2011-11-25 下午04:06:57
  */
 public class Log {
-    static final boolean SHOW_LOG = true;
+    static boolean SHOW_LOG = true;
 
     public static void i(String tag, String string) {
         if (SHOW_LOG) android.util.Log.i(tag, string);
