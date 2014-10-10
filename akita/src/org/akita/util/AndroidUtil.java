@@ -107,8 +107,8 @@ public class AndroidUtil {
                         .hideSoftInputFromWindow(context.getCurrentFocus()
                                 .getWindowToken(),
                                 InputMethodManager.HIDE_NOT_ALWAYS);
-            } catch (NullPointerException npe) {
-                npe.printStackTrace();
+            } catch (Throwable tr) {
+                Log.i(TAG, tr.toString()+"");
             }
         } else { // show IME
             try {
@@ -116,8 +116,8 @@ public class AndroidUtil {
                         .getSystemService(Activity.INPUT_METHOD_SERVICE))
                         .showSoftInput(context.getCurrentFocus(),
                                 InputMethodManager.SHOW_IMPLICIT);
-            } catch (NullPointerException npe) {
-                npe.printStackTrace();
+            } catch (Throwable tr) {
+                Log.i(TAG, tr.toString()+"");
             }
         }
     }
