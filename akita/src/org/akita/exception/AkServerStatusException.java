@@ -74,7 +74,9 @@ public class AkServerStatusException extends AkException{
         
         this.code = code;
     }
-    
 
-
+    @Override
+    public String toString() {
+        return code + " " + super.toString();
+    }
 }
