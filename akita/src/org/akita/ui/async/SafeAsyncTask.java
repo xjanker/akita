@@ -29,7 +29,7 @@ import org.akita.util.Log;
 public abstract class SafeAsyncTask<T> extends AsyncTask<Integer, Integer, T> {
     private static final String TAG = "SafeAsyncTask<T>";
     protected Exception mException = null;
-    private Context mContext = null;
+    protected Context mContext = null;
 
     @Override
     protected void onPreExecute() {

@@ -16,6 +16,7 @@ package org.akita.io;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.SystemClock;
+import android.text.TextUtils;
 import android.widget.ProgressBar;
 import org.akita.exception.AkInvokeException;
 import org.akita.exception.AkServerStatusException;
@@ -474,7 +475,7 @@ public class HttpInvoker {
      */
     public static String postWithFilesUsingURLConnection(
             String actionUrl, ArrayList<NameValuePair> params, Map<String, File> files)
-            throws AkInvokeException {
+            throws AkInvokeException, AkServerStatusException {
         try {
             Log.v(TAG, "post:" + actionUrl);
             if (params != null) {
@@ -538,7 +539,7 @@ public class HttpInvoker {
                     sb1.append(BOUNDARY);
                     sb1.append(LINEND);
                     sb1.append("Content-Disposition: form-data; name=\""+file.getKey()+"\"; filename=\""
-                            + file.getKey() + "\"" + LINEND);
+                            + tryGetFileNameAndExt(file) + "\"" + LINEND);
                     sb1.append("Content-Type: application/octet-stream; charset="
                             + CHARSET + LINEND);
                     sb1.append(LINEND);
@@ -562,9 +563,9 @@ public class HttpInvoker {
             outStream.flush();
             // get response code
             int res = conn.getResponseCode();
-            InputStream in = conn.getInputStream();
-            StringBuilder sb2 = new StringBuilder();
+            StringBuilder sb2 = new StringBuilder("");
             if (res == 200) {
+                InputStream in = conn.getInputStream();
                 BufferedReader reader = new BufferedReader(
                         new InputStreamReader(in, "utf-8"),
                         8192);
@@ -573,6 +574,9 @@ public class HttpInvoker {
                     sb2.append(line + "\n");
                 }
                 reader.close();
+            } else {
+                Log.w(TAG, "response status:" + res);
+                throw new AkServerStatusException(res, "");
             }
             outStream.close();
             conn.disconnect();
@@ -582,5 +586,24 @@ public class HttpInvoker {
             throw new AkInvokeException(AkInvokeException.CODE_IO_EXCEPTION, "IO Exception", ioe);
         }
     }
-    
+
+    /**
+     * 获取文件名，获取不到则使用key
+     * @param file fileMap
+     * @return str
+     */
+    private static String tryGetFileNameAndExt(Map.Entry<String, File> file) {
+        String name = null;
+        try {
+            File realfile = file.getValue();
+            name = realfile.getName();
+        } catch (Exception e) {/*NO-OP*/}
+
+        if (!TextUtils.isEmpty(name)) {
+            return name;
+        } else {
+            return file.getKey();
+        }
+    }
+
 }
