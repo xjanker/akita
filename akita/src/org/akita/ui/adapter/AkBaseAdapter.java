@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -50,6 +51,15 @@ public abstract class AkBaseAdapter<T> extends BaseAdapter {
     public void addItem(int idx, final T item) {
         mData.add(idx, item);
         notifyDataSetChanged();
+    }
+
+    public void addItemList(final List<T> itemList) {
+        if (itemList != null && itemList.size() > 0) {
+            for (T t : itemList) {
+                mData.add(t);
+            }
+            notifyDataSetChanged();
+        }
     }
 
     public T removeItem(int idx) {

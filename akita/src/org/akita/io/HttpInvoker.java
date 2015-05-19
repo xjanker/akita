@@ -464,6 +464,12 @@ public class HttpInvoker {
         }
     }
 
+    public interface UploadProgressListener {
+        void onUpdateProgress(long totalByte, long curByte);
+    }
+
+    public static UploadProgressListener uploadProgressListener = null;
+    public static HttpURLConnection lastHttpURLConnection = null;
 
     /**
      * post with files using URLConnection Impl
@@ -494,6 +500,7 @@ public class HttpInvoker {
             URL uri = new URL(actionUrl);
             HttpURLConnection conn = (HttpURLConnection) uri.openConnection();
 
+            conn.setChunkedStreamingMode(1024);
             conn.setReadTimeout(60 * 1000);
             conn.setDoInput(true); // permit input
             conn.setDoOutput(true); // permit output
@@ -519,8 +526,8 @@ public class HttpInvoker {
                 sb.append(LINEND);
             }
 
-            DataOutputStream outStream = new DataOutputStream(
-                    conn.getOutputStream());
+            DataOutputStream outStream = new DataOutputStream(conn.getOutputStream());
+            lastHttpURLConnection = conn;
             outStream.write(sb.toString().getBytes());
             // send files secondly
             if (files != null) {
@@ -548,8 +555,17 @@ public class HttpInvoker {
                     InputStream is = new FileInputStream(file.getValue());
                     byte[] buffer = new byte[1024];
                     int len = 0;
+                    long curBytes = 0;
+                    long totalBytes = file.getValue().length();
+                    if (uploadProgressListener != null) {
+                        uploadProgressListener.onUpdateProgress(totalBytes, curBytes);
+                    }
                     while ((len = is.read(buffer)) != -1) {
+                        curBytes += len;
                         outStream.write(buffer, 0, len);
+                        if (uploadProgressListener != null) {
+                            uploadProgressListener.onUpdateProgress(totalBytes, curBytes);
+                        }
                     }
 
                     is.close();
