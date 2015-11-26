@@ -13,9 +13,11 @@
  */
 package org.akita.proxy;
 
+import org.akita.Akita;
 import org.akita.annotation.*;
 import org.akita.exception.AkInvokeException;
 import org.akita.io.HttpInvoker;
+import org.akita.io.HttpInvoker2;
 import org.akita.util.JsonMapper;
 import org.akita.util.Log;
 import org.apache.http.NameValuePair;
@@ -28,7 +30,10 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.net.URLEncoder;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -114,16 +119,28 @@ public class ProxyInvocationHandler implements InvocationHandler {
                 sbUrl.append(nvp.getValue());
                 sbUrl.append("&");
             } // now default using UTF-8, maybe improved later
-            retString = HttpInvoker.get(sbUrl.toString());
+            if (Akita.USE_HTTP_LIB == Akita.UseHttpLib.HTTP_CLIENT) {
+                retString = HttpInvoker.get(sbUrl.toString());
+            } else {
+                retString = HttpInvoker2.get(sbUrl.toString());
+            }
         } else if (akPost != null) {
             if (filesToSend.isEmpty()) {
-                retString = HttpInvoker.post(invokeUrl, params);
+                if (Akita.USE_HTTP_LIB == Akita.UseHttpLib.HTTP_CLIENT) {
+                    retString = HttpInvoker.post(invokeUrl, params);
+                } else {
+                    retString = HttpInvoker2.post(invokeUrl, params);
+                }
             } else {
                 retString = HttpInvoker.postWithFilesUsingURLConnection(
                         invokeUrl, params, filesToSend);
             }
         } else { // use POST for default
-            retString = HttpInvoker.post(invokeUrl, params);
+            if (Akita.USE_HTTP_LIB == Akita.UseHttpLib.HTTP_CLIENT) {
+                retString = HttpInvoker.post(invokeUrl, params);
+            } else {
+                retString = HttpInvoker2.post(invokeUrl, params);
+            }
         }
 
         // invoked, then add to history

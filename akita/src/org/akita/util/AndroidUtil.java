@@ -228,6 +228,11 @@ public class AndroidUtil {
         manager.enqueue(request);
     }
 
+    /**
+     * 判断是否有网络
+     * @param context context
+     * @return true or false
+     */
     public static boolean networkStatusOK(final Context context) {
         boolean netStatus = false;
 
@@ -243,6 +248,35 @@ public class AndroidUtil {
         } catch (Exception e) {e.printStackTrace();}
 
         return netStatus;
+    }
+
+    public static final int NETWORK_TYPE_NONE = -0x1;  // 断网情况
+    public static final int NETWORK_TYPE_WIFI = 0x1;   // WiFi模式
+    public static final int NETWOKR_TYPE_MOBILE = 0x2; // 2g 3g 4g...模式
+
+    /**
+     * 获取当前网络状态的类型
+     * @param context
+     * @return 返回网络类型
+     */
+    public static int getCurrentNetworkType(Context context){
+        try {
+            ConnectivityManager connManager = (ConnectivityManager)
+                    context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo wifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI); // wifi
+            NetworkInfo mobile = connManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE); // mobile
+            if (wifi != null && wifi.getState() == NetworkInfo.State.CONNECTED) {
+                Log.d(TAG, "Current net type:  WIFI.");
+                return NETWORK_TYPE_WIFI;
+            } else if (mobile != null && mobile.getState() == NetworkInfo.State.CONNECTED){
+                Log.d(TAG, "Current net type:  MOBILE.");
+                return NETWOKR_TYPE_MOBILE;
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Current net type:  NONE.");
+        }
+
+        return NETWORK_TYPE_NONE;
     }
 
     public static void showNetworkFailureDlg(final Activity context) {

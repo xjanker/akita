@@ -26,6 +26,15 @@ public class Akita {
     public static final String XMLNS = "http://schemas.akita.org/apk/res/android";
     public static final String UTF_8 = "UTF-8";
 
+    public enum UseHttpLib {
+        HTTP_CLIENT,
+        HTTP_URL_CONNECTION
+    }
+    /**
+     * HttpClient or
+     * HttpUrlConnection
+     */
+    public static UseHttpLib USE_HTTP_LIB = UseHttpLib.HTTP_CLIENT;
 
     public static <T> T createAPI(Class<T> clazz) {
         return ProxyFactory.getProxy(clazz);
