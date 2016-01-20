@@ -30,10 +30,7 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -70,7 +67,7 @@ public class ProxyInvocationHandler implements InvocationHandler {
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 
         // AkApiParams to hashmap, filter out of null-value
-        HashMap<String, File> filesToSend = new HashMap<String, File>();
+        IdentityHashMap<String, File> filesToSend = new IdentityHashMap<String, File>();
         HashMap<String, String> paramsMapOri = new HashMap<String, String>();
         HashMap<String, String> paramsMap =
                 getRawApiParams2HashMap(annosArr, args, filesToSend, paramsMapOri);
@@ -203,7 +200,7 @@ public class ProxyInvocationHandler implements InvocationHandler {
      */
     private HashMap<String, String> getRawApiParams2HashMap(Annotation[][] annosArr,
                                                             Object[] args,
-                                                            HashMap<String, File> filesToSend,
+                                                            IdentityHashMap<String, File> filesToSend,
                                                             HashMap<String, String> paramsMapOri) {
         HashMap<String, String> paramsMap = new HashMap<String, String>();
         for (int idx = 0; idx < args.length; idx++) {
