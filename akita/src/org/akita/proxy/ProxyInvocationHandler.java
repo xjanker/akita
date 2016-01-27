@@ -68,9 +68,10 @@ public class ProxyInvocationHandler implements InvocationHandler {
 
         // AkApiParams to hashmap, filter out of null-value
         IdentityHashMap<String, File> filesToSend = new IdentityHashMap<String, File>();
+        List<Entry<String, File>> fileListToSend = new ArrayList<Entry<String, File>>();
         HashMap<String, String> paramsMapOri = new HashMap<String, String>();
         HashMap<String, String> paramsMap =
-                getRawApiParams2HashMap(annosArr, args, filesToSend, paramsMapOri);
+                getRawApiParams2HashMap(annosArr, args, filesToSend, fileListToSend, paramsMapOri);
         // Record this invocation
         ApiInvokeInfo apiInvokeInfo = new ApiInvokeInfo();
         apiInvokeInfo.apiName = method.getName();
@@ -122,7 +123,7 @@ public class ProxyInvocationHandler implements InvocationHandler {
                 retString = HttpInvoker2.get(sbUrl.toString());
             }
         } else if (akPost != null) {
-            if (filesToSend.isEmpty()) {
+            if (filesToSend.isEmpty() && fileListToSend.isEmpty()) {
                 if (Akita.USE_HTTP_LIB == Akita.UseHttpLib.HTTP_CLIENT) {
                     retString = HttpInvoker.post(invokeUrl, params);
                 } else {
@@ -130,7 +131,7 @@ public class ProxyInvocationHandler implements InvocationHandler {
                 }
             } else {
                 retString = HttpInvoker.postWithFilesUsingURLConnection(
-                        invokeUrl, params, filesToSend);
+                        invokeUrl, params, filesToSend, fileListToSend);
             }
         } else { // use POST for default
             if (Akita.USE_HTTP_LIB == Akita.UseHttpLib.HTTP_CLIENT) {
@@ -201,6 +202,7 @@ public class ProxyInvocationHandler implements InvocationHandler {
     private HashMap<String, String> getRawApiParams2HashMap(Annotation[][] annosArr,
                                                             Object[] args,
                                                             IdentityHashMap<String, File> filesToSend,
+                                                            List<Entry<String, File>> fileListToSend,
                                                             HashMap<String, String> paramsMapOri) {
         HashMap<String, String> paramsMap = new HashMap<String, String>();
         for (int idx = 0; idx < args.length; idx++) {
@@ -236,8 +238,11 @@ public class ProxyInvocationHandler implements InvocationHandler {
                         }
                     } else if ("$filesToSend".equals(paramName)) {
                         if (arg instanceof Map) {
-                            Map<String, File> files = (Map<String, File>)arg;
+                            Map<String, File> files = (Map<String, File>) arg;
                             filesToSend.putAll(files);
+                        } else if (arg instanceof List) {
+                            List<Entry<String, File>> files = (List<Entry<String, File>>) arg;
+                            fileListToSend.addAll(files);
                         }
                     } else if (encode != null && !"none".equals(encode)) {
                         try {

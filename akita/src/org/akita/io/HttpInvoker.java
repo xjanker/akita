@@ -45,6 +45,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -473,14 +474,16 @@ public class HttpInvoker {
 
     /**
      * post with files using URLConnection Impl
+     * 优先使用Map传文件,如果Map空则使用List
      * @param actionUrl URL to post
      * @param params params to post
      * @param files files to post, support multi-files
+     * @param fileList map为空时的list存储files
      * @return response in String format
      * @throws IOException
      */
     public static String postWithFilesUsingURLConnection(
-            String actionUrl, ArrayList<NameValuePair> params, Map<String, File> files)
+            String actionUrl, ArrayList<NameValuePair> params, Map<String, File> files, List<Map.Entry<String, File>> fileList)
             throws AkInvokeException, AkServerStatusException {
         try {
             Log.v(TAG, "post:" + actionUrl);
@@ -529,47 +532,19 @@ public class HttpInvoker {
             DataOutputStream outStream = new DataOutputStream(conn.getOutputStream());
             lastHttpURLConnection = conn;
             outStream.write(sb.toString().getBytes());
+
             // send files secondly
-            if (files != null) {
+            if (files != null && files.size() > 0) {
                 int num = 0;
                 for (Map.Entry<String, File> file : files.entrySet()) {
                     num++;
-                    if (file.getKey() == null || file.getValue() == null) continue;
-                    else {
-                        if (!file.getValue().exists()) {
-                            throw new AkInvokeException(AkInvokeException.CODE_FILE_NOT_FOUND,
-                                    "The file to upload is not found.");
-                        }
-                    }
-                    StringBuilder sb1 = new StringBuilder();
-                    sb1.append(PREFIX);
-                    sb1.append(BOUNDARY);
-                    sb1.append(LINEND);
-                    sb1.append("Content-Disposition: form-data; name=\""+file.getKey()+"\"; filename=\""
-                            + tryGetFileNameAndExt(file) + "\"" + LINEND);
-                    sb1.append("Content-Type: application/octet-stream; charset="
-                            + CHARSET + LINEND);
-                    sb1.append(LINEND);
-                    outStream.write(sb1.toString().getBytes());
-
-                    InputStream is = new FileInputStream(file.getValue());
-                    byte[] buffer = new byte[1024];
-                    int len = 0;
-                    long curBytes = 0;
-                    long totalBytes = file.getValue().length();
-                    if (uploadProgressListener != null) {
-                        uploadProgressListener.onUpdateProgress(totalBytes, curBytes);
-                    }
-                    while ((len = is.read(buffer)) != -1) {
-                        curBytes += len;
-                        outStream.write(buffer, 0, len);
-                        if (uploadProgressListener != null) {
-                            uploadProgressListener.onUpdateProgress(totalBytes, curBytes);
-                        }
-                    }
-
-                    is.close();
-                    outStream.write(LINEND.getBytes());
+                    uploadOneFile(BOUNDARY, PREFIX, LINEND, CHARSET, outStream, file);
+                }
+            } else if (fileList != null && fileList.size() > 0) {
+                int num = 0;
+                for (Map.Entry<String, File> file : fileList) {
+                    num++;
+                    uploadOneFile(BOUNDARY, PREFIX, LINEND, CHARSET, outStream, file);
                 }
             }
 
@@ -601,6 +576,46 @@ public class HttpInvoker {
         } catch (IOException ioe) {
             throw new AkInvokeException(AkInvokeException.CODE_IO_EXCEPTION, "IO Exception", ioe);
         }
+    }
+
+    private static void uploadOneFile(String BOUNDARY, String PREFIX, String LINEND, String CHARSET,
+                                      DataOutputStream outStream, Map.Entry<String, File> file) throws AkInvokeException, IOException {
+        if (file.getKey() == null || file.getValue() == null) return;
+        else {
+            if (!file.getValue().exists()) {
+                throw new AkInvokeException(AkInvokeException.CODE_FILE_NOT_FOUND,
+                        "The file to upload is not found.");
+            }
+        }
+        StringBuilder sb1 = new StringBuilder();
+        sb1.append(PREFIX);
+        sb1.append(BOUNDARY);
+        sb1.append(LINEND);
+        sb1.append("Content-Disposition: form-data; name=\""+file.getKey()+"\"; filename=\""
+                + tryGetFileNameAndExt(file) + "\"" + LINEND);
+        sb1.append("Content-Type: application/octet-stream; charset="
+                + CHARSET + LINEND);
+        sb1.append(LINEND);
+        outStream.write(sb1.toString().getBytes());
+
+        InputStream is = new FileInputStream(file.getValue());
+        byte[] buffer = new byte[1024];
+        int len = 0;
+        long curBytes = 0;
+        long totalBytes = file.getValue().length();
+        if (uploadProgressListener != null) {
+            uploadProgressListener.onUpdateProgress(totalBytes, curBytes);
+        }
+        while ((len = is.read(buffer)) != -1) {
+            curBytes += len;
+            outStream.write(buffer, 0, len);
+            if (uploadProgressListener != null) {
+                uploadProgressListener.onUpdateProgress(totalBytes, curBytes);
+            }
+        }
+
+        is.close();
+        outStream.write(LINEND.getBytes());
     }
 
     /**
